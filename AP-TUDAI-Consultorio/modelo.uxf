@@ -1,0 +1,135 @@
+<diagram program="umletino" version="15.1"><zoom_level>12</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>684</x><y>108</y><w>252</w><h>288</h></coordinates><panel_attributes>Persona
+--
+ATRIBUTOS PRIVADOS
+-id: String
+-nombre: String
+-apellido: String
+-direccion: String
+--
+METODOS  PUBLICOS
++getNombre():String
++getApellido():String
++getId():String
+
++setNombre(String nombre):void
++setApellido(String apellido):void
++setId(String Id):void
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>468</x><y>504</y><w>312</w><h>396</h></coordinates><panel_attributes>Paciente
+--
+ATRIBUTOS PRIVADOS
+-obraSocial: String
+-sesionesTotales:int
+-historiaClinica: String[ ] 
+-sesiones: Turno[ ]
+-cronico: boolean
+--
+METODOS  PUBLICOS
++getObraSocial():String
++getSesionesTotales():int
++getSesionesRemanentes():int
++getHistoriaClinica():String
++isCronico(): boolean
+
++setCronico(boolean cc): void
++setObraSocial(String obraSocial):void
++setApellido(String apellido):void
++setId(String Id):void
++asistioTurno(boolean asistencia):void
++setHistoriaClinica(String comentario): void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>852</x><y>504</y><w>336</w><h>276</h></coordinates><panel_attributes>Profesional
+--
+ATRIBUTOS PRIVADOS
+-matricula: int
+-sueldo: double
+-turnosAtencion: Turno[ ]
+--
+METODOS  PUBLICOS
++getMatricula(): int
++getSueldo(): double
++getEspecialidad: String
++getTurnosAtendidos(): int
+
++setMatricula(int matricula): void
++setSueldo(double sueldo): void
+
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>792</x><y>384</y><w>228</w><h>144</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50;170;50;170;100</additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>384</y><w>228</w><h>144</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>170;10;170;50;10;50;10;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1260</x><y>204</y><w>300</w><h>516</h></coordinates><panel_attributes>Turno
+--
+ATRIBUTOS PRIVADOS
+
++final int PUESTOS_TOTALES
+-puestoAsignado: Puesto
+-pacientes: Paciente [ ]
+-profesionales: Profesional [ ]
+-fecha: LocalDate
+-horario: Enum Horario(String)
+--
+METODOS PUBLICOS
++getFecha():LocalDate
++getHorario():Horario
++getPaciente(int index):Paciente
++gePuestoAsignado(): Puesto
++getProfesional(int index): Profesional
+
++setFecha(LocalDate fecha): void
++setPaciente(Paciente paciente): void
++setHorario(Enum Horario horario): void
++setPuestoAsignado(Puesto puesto): void
+--
++addPaciente(Paciente pp):boolean
++isFull():boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1176</x><y>264</y><w>108</w><h>420</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>70;10;30;10;30;330;10;330</additional_attributes></element><element><id>Relation</id><coordinates><x>768</x><y>240</y><w>516</w><h>360</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>410;10;270;10;270;200;40;200;40;280;10;280</additional_attributes></element><element><id>UMLClass</id><coordinates><x>852</x><y>840</y><w>336</w><h>276</h></coordinates><panel_attributes>Especialista
+--
+ATRIBUTOS PRIVADOS
+-especialidad: Enum String
+--
+METODOS  PUBLICOS
++getSueldo():double
++getEspecialidad():(String)
+
++setEspecialidad(String especialidad):void
++setSueldo(double sueldo): void
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1356</x><y>852</y><w>120</w><h>36</h></coordinates><panel_attributes>RPG</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1356</x><y>900</y><w>120</w><h>36</h></coordinates><panel_attributes>ATM</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1356</x><y>948</y><w>120</w><h>36</h></coordinates><panel_attributes>Drenaje Linfatico</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1176</x><y>864</y><w>204</w><h>36</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1176</x><y>912</y><w>204</w><h>36</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1176</x><y>948</y><w>204</w><h>36</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>996</x><y>768</y><w>36</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>204</y><w>252</w><h>432</h></coordinates><panel_attributes>Institucion
+--
+-nombre:String
+-profesionales:Profesional [ ]
+-pacientes: Paciente [ ]
+-turnos: Turno [ ]
+-puestosLaborales: Puesto [ ] 
+-costoFijo: double
+/*Sueldos calculado a partir de 
+los sueldos de los profesionales*/
+-sueldos: double 
+-calendario:Calendario
+--
++getNombre(): String
++getProfesional(int index): Profesional
++getPaciente(int index): Paciente
++getTurno(int index): Turno
++getCostoFijo: double
++getSueldos: double
++getPuestosLibres:int
+
+
++setNombre(String): void
++addProfesional(Profesional prof): void
++addPaciente(Paciente pac): void
++addTurno(Turno tt): void
++setCostoFijo(double): void
++setCalendario(Calendario):void
+ 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>276</y><w>636</w><h>696</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;40;10;40;560;470;560;470;320;510;320</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>252</y><w>252</w><h>348</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;60;10;60;270;190;270</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>0</y><w>1164</w><h>240</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;180;60;180;60;10;950;10;950;170</additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>108</y><w>252</w><h>228</h></coordinates><panel_attributes>Puesto
+--
++static nroPuesto: int
+-ocupado: boolean
+--
++getNroPuesto(): int
++isOcupado(): boolean
+
++setOcupado(boolean): void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>60</y><w>684</w><h>192</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>550;140;480;140;480;10;40;10;40;100;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>228</y><w>144</w><h>36</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;100;10</additional_attributes></element></diagram>
