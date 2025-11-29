@@ -51,7 +51,17 @@ public class Horario {
         JOptionPane.showMessageDialog(null, "ERROR: Horario lleno.");
         return false;
     }
+
+    //CONTAR TURNOS LIBRES
+    public int getLugaresLibres() {
+        int libres = 0;
+        for (int i = 0; i < turnos.length; i++) {
+            if (turnos[i] == null) {
+                libres++;
+            }
+        }
+        return libres;
+    }
     
-
-
+    
 }
