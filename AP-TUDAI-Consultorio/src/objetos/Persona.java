@@ -14,10 +14,11 @@ public class Persona {
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
+        this.telefono = telefono;
 
     }
     //Getters & Setters
-    
+
     //ID
     /**
      * Trae la ID de la persona

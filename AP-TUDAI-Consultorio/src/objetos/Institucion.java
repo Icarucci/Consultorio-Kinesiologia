@@ -166,25 +166,52 @@ public class Institucion {
     }
 
     //METODOS
-    //AGREGAR PACIENTE
-    public void agregarPaciente(Paciente pte){
-        for (int index = 0; index < pacientes.length; index++) {
-            if(pacientes[i] == null){
-                pacientes[i] = pte;
+    // AGREGAR PACIENTE
+    public boolean agregarPaciente(Paciente pte){
+        if (pte == null) return false; 
+        //Valida que NO haya otro paciente con el mismo DNI
+        for (int i = 0; i < pacientes.length; i++) {
+            if (pacientes[i] != null &&
+                pacientes[i].getId().equals(pte.getId())) {
+                return false;
             }
         }
-        JOptionPane.showMessageDialog(null, "El paciente fue agregado con exito.");
-    } 
+        //Busca un lugar vacío para agregarlo
+        for (int i = 0; i < pacientes.length; i++) {
+            if (pacientes[i] == null) {
+                pacientes[i] = pte;
+                return true;
+            }
+        }
+        //Si no hay posiciones null, la lista está llena
+        return false;
+    }
 
     //AGREGAR PROFESIONAL
-    public void agregarProfesional(Profesional prof){
-        for (int index = 0; index < profesionales.length; index++) {
-            if(profesionales[i] == null){
-                profesionales[i] = pte;
+    public boolean agregarProfesional(Profesional prof){
+        if (prof == null) return false; 
+        //Validamos si hay otro prof con mismo DNI o Matricula
+        for (int i = 0; i < profesionales.length; i++) {
+            if (profesionales[i] != null) {
+                //DNI duplicado?
+                if (profesionales[i].getId().equals(prof.getId())) {
+                    return false;
+                }
+                //Matricula duplicada?
+                if (profesionales[i].getMatricula() == prof.getMatricula()) {
+                    return false;
+                }
             }
         }
-        JOptionPane.showMessageDialog(null, "El profesional fue agregado con exito.");
-    } 
+        //Recorremos el arreglo y agregamos el profesional en el lugar vacio
+        for (int i = 0; i < profesionales.length; i++) {
+            if (profesionales[i] == null) {
+                profesionales[i] = prof;
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 
