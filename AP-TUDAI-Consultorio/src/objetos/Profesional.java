@@ -1,5 +1,6 @@
 package objetos;
 
+//CLASE PROFESIONAL QUE ES HIJA DE CLASE PERSONA
 public class Profesional extends Persona {
     //ATRIBUTOS PRIVADOS
     private int matricula;
