@@ -7,6 +7,7 @@ public class Paciente extends Persona {
     private int sesionesTotales;
     private String[] historiaClinica;
     private Turno[] sesiones;
+    private int sesionesRemanentes;
     private boolean cronico;
 
     //CONSTRUCTOR
@@ -20,26 +21,19 @@ public class Paciente extends Persona {
         this.historiaClinica = new String[0];
         this.sesiones = new Turno[0];
         this.cronico = cronico;
+        sesionesRemanentes = sesionesTotales;
     }
 
     //Metodos
-    //Mostrar paciente
-    @Override
-    public String toString() {
-    return  "PACIENTE\n" +
-            "-----------------------\n" +
-            "DNI: " + getId() + "\n" +
-            "Apellido: " + getApellido() + "\n" +
-            "Nombre: " + getNombre() + "\n" +
-            "Dirección: " + getDireccion() + "\n" +
-            "Teléfono: " + getTelefono() + "\n" +
-            "Obra Social: " + obraSocial + "\n" +
-            "Sesiones Totales: " + sesionesTotales + "\n" +
-            "Crónico: " + cronico;
-    }
 
     //Getters & Setters
+    public int getSesionesRemanentes() {
+        return sesionesRemanentes;
+    }
 
+    public void setSesionesRemanentes(int sesionesRemanentes) {
+        this.sesionesRemanentes = sesionesRemanentes;
+    }
     //OBRA SOCIAL
     /**
      * Trae la Obra Social del paciente
@@ -103,7 +97,6 @@ public class Paciente extends Persona {
     public void setSesiones(Turno[] sesiones) {
         this.sesiones = sesiones;
     }
-
     //CRONICO
     /**
      * Devuelve si es cronico o no
@@ -119,11 +112,19 @@ public class Paciente extends Persona {
     public void setCronico(boolean cronico) {
         this.cronico = cronico;
     }
-
-    
-
-
-
-
+    //Mostrar paciente
+    @Override
+    public String toString() {
+    return  "PACIENTE\n" +
+            "-----------------------\n" +
+            "DNI: " + getId() + "\n" +
+            "Apellido: " + getApellido() + "\n" +
+            "Nombre: " + getNombre() + "\n" +
+            "Dirección: " + getDireccion() + "\n" +
+            "Teléfono: " + getTelefono() + "\n" +
+            "Obra Social: " + obraSocial + "\n" +
+            "Sesiones Totales: " + sesionesTotales + "\n" +
+            "Crónico: " + cronico;
+    }
 
 }
