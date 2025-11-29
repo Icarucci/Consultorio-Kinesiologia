@@ -41,7 +41,7 @@ public class Horario {
             return false;
         }
         //Recorremos el arreglo turnos[] hasta encontrar un lugar vacio, si
-        for (int i = 0; i < turnos.length; i++) {
+        for (int i=0; i < turnos.length; i++) {
             if(turnos[i] == null){
                 turnos[i] = nuevoTurno;
                 JOptionPane.showMessageDialog(null, "Turno agregado correctamente.");

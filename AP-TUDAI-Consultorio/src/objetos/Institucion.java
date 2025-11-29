@@ -1,35 +1,27 @@
 package objetos;
 
-import javax.swing.JOptionPane;
-
 import utils.Arreglo;
 
 public class Institucion {
     //Declaracion de variables
     private String nombre;
 
-    private Profesional[] profesionales;
-    private Paciente[] pacientes;
-    private Turno[] turnos;
-    private Puesto[] puestosLaborales;
+    private Profesional[] profesionales = new Profesional[0];
+    private Paciente[] pacientes = new Paciente[0];
+    private Turno[] turnos = new Turno[200];
+    private Puesto[] puestosLaborales = new Puesto[5];
 
     private double costoFijo;
     private double sueldos;
 
     private Calendario calendario;
 
-    public Institucion(String nombre, Profesional[] profesionales, Paciente[] pacientes, Turno[] turnos, Puesto[] puestosLaborales, double costoFijo, double sueldos, Calendario calendario){
+    public Institucion(String nombre, double costoFijo, double sueldos, Calendario calendario){
         this.nombre = nombre;
-        this.profesionales = profesionales;
-        this.pacientes = pacientes;
-        this.turnos = turnos;
-        this.puestosLaborales = puestosLaborales;
         this.costoFijo = costoFijo;
         this.sueldos = sueldos;
         this.calendario = calendario;
-
     }
-
 
     //Getters & Setters
     //NOMBRE
@@ -49,13 +41,6 @@ public class Institucion {
     }
 
     //PROFESIONAL
-    /***
-     * Trae el arreglo de profesionales
-     * @return
-     */
-    public Profesional[] getProfesionales() {
-        return profesionales;
-    }
     /**
      * Modifica el arreglo de profesionales
      * @param profesionales
@@ -63,16 +48,7 @@ public class Institucion {
     public void setProfesionales(Profesional[] profesionales) {
         this.profesionales = profesionales;
     }
-
-    //PACIENTES
-    /**
-     * Muestra el arreglo de pacientes
-     * @return
-     */
-    public Paciente[] getPacientes() {
-        return pacientes;
-    }
-
+    //PACIENTE
     /**
      * Modifica el arreglo de pacientes
      * @param pacientes
@@ -81,31 +57,12 @@ public class Institucion {
         this.pacientes = pacientes;
     }
 
-
-    //TURNOS
-    /**
-     * Muestra los turnos
-     * @return
-     */
-    public Turno[] getTurnos() {
-        return turnos;
-    }
-
     /**
      * Modifica los turnos
      * @param turnos
      */
     public void setTurnos(Turno[] turnos) {
         this.turnos = turnos;
-    }
-
-    //PUESTOS LABORALES
-    /**
-     * Muestra los puestos laborales
-     * @return
-     */
-    public Puesto[] getPuestosLaborales() {
-        return puestosLaborales;
     }
 
     /**
@@ -169,7 +126,7 @@ public class Institucion {
 
     //METODOS
     // AGREGAR PACIENTE
-    public boolean agregarPaciente(Paciente pte) {
+    public boolean  agregarPaciente(Paciente pte) {
         //Si recibe un paciente null, error
         if (pte == null){
             return false;
@@ -208,7 +165,30 @@ public class Institucion {
         return true;
     }
 
+    public Paciente buscarPacientePorDni(String dni) {
+        Persona[]ordenado = Arreglo.ordenaPersonasID(pacientes);
+        //3. Aplicamos búsqueda binaria
+        Persona encontrado = Arreglo.buscaPersonaId(ordenado, dni);
+        return (Paciente)encontrado;
+    }
 
+    public Paciente buscarPacientePorApellido(String apellido){
+        Persona encontrado = Arreglo.buscarPersonaApellido(pacientes, apellido);
+        return (Paciente)encontrado;
+    }
 
-
+    public String mostrarPacientes(){
+        String retorno = "";
+        for (int index = 0; index < pacientes.length; index++){
+            retorno += pacientes[index].getApellido()+", "+pacientes[index].getNombre()+" - "+pacientes[index].getId()+" Sesiones: "+pacientes[index].getSesionesRemanentes()+"/"+pacientes[index].getSesionesTotales()+"\n";
+        }
+        return retorno;
+    }
+    public String mostrarProfesionales(){
+        String retorno = "";
+        for (int index = 0; index < profesionales.length; index++){
+            retorno += profesionales[index].getApellido()+", "+profesionales[index].getNombre()+" - "+profesionales[index].getId()+" - Matricula: "+profesionales[index].getMatricula()+"\n";
+        }
+        return retorno;
+    }
 }

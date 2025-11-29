@@ -3,15 +3,9 @@ package view;
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
-
-import objetos.Hora;
-import objetos.Horario;
 import objetos.Institucion;
 import objetos.Paciente;
-import objetos.Persona;
 import objetos.Profesional;
-import objetos.Turno;
-import utils.Arreglo;
 import utils.IO;
 
 public class Visualizacion {  
@@ -52,7 +46,7 @@ public class Visualizacion {
     public void opcionMenuPacientes(){
         boolean atras = false;
         do {
-            opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Buscar paciente\n0. Atras", 5);
+            opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Buscar paciente\n3.Listar Pacientes\n4.Editar Paciente\n0. Atras", 5);
             switch (opcionMenuPacientes) {
                 case 0:
                     atras = true;
@@ -86,15 +80,48 @@ public class Visualizacion {
                                 atras2 = true;
                                 break;
                             case 1:
-                                buscarPacientePorDni();
+                                String dni = IO.inputString("Busqueda Paciente", "Ingrese el dni del paciente:");
+                                Paciente respuesta = inst.buscarPacientePorDni(dni);
+                                if(respuesta != null){
+                                    /*Mostrar encontrado */
+                                    JOptionPane.showMessageDialog(null, respuesta.toString());
+                                }else{
+                                    /*No se encontro paciente*/
+                                    JOptionPane.showMessageDialog(null, "Paciente no encontrado","Error",0);
+                                }
                                 break;
                             case 2:
-                                buscarPacientePorApellido();
+                                String apellidoBuscado = IO.inputString("Busqueda Paciente", "Ingrese el apellido del paciente");
+                                Paciente res = inst.buscarPacientePorApellido(apellidoBuscado);
+                                 if(res != null){
+                                    /*Mostrar encontrado */
+                                    JOptionPane.showMessageDialog(null, res.toString());
+                                }else{
+                                    /*No se encontro paciente*/
+                                    JOptionPane.showMessageDialog(null, "Paciente no encontrado","Error",0);
+                                }
                                 break;
                             default:
                                 break;
                         }
                     } while (!atras2);
+                    break;
+                case 3: 
+                    /*Listar pacientes. - Se lista la informacion escencial. Apellido, Nombre - Dni , Sesiones realizadas/Sesiones totales. */
+                    String res = inst.mostrarPacientes();
+                    JOptionPane.showMessageDialog(null,res,"Listado Pacientes",1);
+                    break;
+                case 4:
+                    /*Edicion de un paciente */
+                    String dni = IO.inputString("Busqueda Paciente", "Ingrese el dni del paciente:");
+                    Paciente respuesta = inst.buscarPacientePorDni(dni);
+                    if(respuesta != null){
+                        /*Mostrar encontrado */
+                        JOptionPane.showMessageDialog(null, respuesta.toString());
+                    }else{
+                        /*No se encontro paciente*/
+                        JOptionPane.showMessageDialog(null, "Paciente no encontrado","Error",0);
+                    }
                     break;
                 default:
                     break;
@@ -105,7 +132,7 @@ public class Visualizacion {
     public void opcionMenuProfesionales(){
         boolean atras = false;
         do {
-            opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1.Agregar NUEVO Profesional\n0. Atras", 5);
+            opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1.Agregar nuevo Profesional\n2.Listar Profesionales\n0. Atras", 5);
             switch (opcionMenuProfesionales) {
                 case 0:
                     atras = true;
@@ -117,17 +144,21 @@ public class Visualizacion {
                     String direccion = IO.inputString("Profesional", "Ingrese direccion");
                     int telefono = IO.inputIntegerPositive("Profesional", "Ingrese el telefono");
                     int matricula = IO.inputIntegerPositive("Profesional", "Ingrese la matricula");
-                    Profesional prof = new Profesional(id, nombre, apellido, direccion, telefono, matricula, 0, null);
+                    Profesional prof = new Profesional(id, nombre, apellido, direccion, telefono, matricula, 0);
                     //Lo agrega al arreglo
                     boolean agregado = inst.agregarProfesional(prof);
                     //Checkeo si se pudo agregar
                     if (agregado) {
-                        JOptionPane.showMessageDialog(null, "Profesional registrado correctamente.\n\n"+prof.toString());
-                        
+                        JOptionPane.showMessageDialog(null, "Profesional registrado correctamente.\n\n"+prof.toString());   
                     } else {
                         JOptionPane.showMessageDialog(null, "No se pudo registrar el profesional.\n"+
                         "Lista llena o datos duplicados (DNI / Matrícula).","Error",JOptionPane.WARNING_MESSAGE);
                     }
+                    break;
+                case 2:
+                    /*Listar profesionales */
+                    String res = inst.mostrarProfesionales();
+                    JOptionPane.showMessageDialog(null,res,"Listado Profesionales",1);
                     break;
                 default:
                     break;

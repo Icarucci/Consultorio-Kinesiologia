@@ -8,13 +8,12 @@ public class Profesional extends Persona {
     private Turno[] turnosAtencion;
 
     //CONSTRUCTOR
-    public Profesional(String id, String nombre, String apellido, String direccion, int telefono, int matricula, double sueldo, Turno[] turnosAtencion) {
+    public Profesional(String id, String nombre, String apellido, String direccion, int telefono, int matricula, double sueldo) {
         //ID, NOMBRE, APELLIDO, DIRECCION, TELEFONO se heredan del padre PERSONA
         super(id, nombre, apellido, direccion, telefono);
         //Son particulares de Profesional
         this.matricula = matricula;
         this.sueldo = sueldo;
-        this.turnosAtencion = turnosAtencion;
     }
 
     //Metodo Mostrar Profesional
