@@ -1,6 +1,8 @@
 package utils;
 
+import objetos.Paciente;
 import objetos.Persona;
+import objetos.Profesional;
 import objetos.Puesto;
 import objetos.Turno;
 
@@ -13,14 +15,49 @@ public class Arreglo {
      * @param arreglo
      * @return arreglo de Persona con una posicion mas
      */
-    public static Persona[] agregarPersona(Persona[]arreglo,Persona persona){
+    /*public static Persona[] agregarPersona(Persona[]arreglo,Persona persona){
         Persona [] nuevo = new Persona[arreglo.length+1];
         for(int i=0;i<arreglo.length;i++){
             nuevo[i]=arreglo[i];
         }
         nuevo[nuevo.length-1] = persona;
         return nuevo;
+    }*/
+
+    //AGREGAR PACIENTE
+    /**
+     * METODO QUE RECIBE UN ARREGLO DE PERSONAS Y LE AGREGA UNA PERSONA EN UNA NUEVA POSICION.
+     * SIRVE PARA PACIENTE
+     * @param arreglo
+     * @param pte
+     * @return
+     */
+    public static Paciente[] agregarPaciente(Paciente[] arreglo, Paciente pte){
+        Paciente [] nuevo = new Paciente[arreglo.length+1];
+        for(int i=0;i<arreglo.length;i++){
+            nuevo[i]=arreglo[i];
+        }
+        nuevo[nuevo.length-1] = pte;
+        return nuevo;
     }
+
+    //AGREGAR PROFESIONAL
+    /**
+     * METODO QUE RECIBE UN ARREGLO DE PERSONAS Y LE AGREGA UNA PERSONA EN UNA NUEVA POSICION.
+     * SIRVE PARA PACIENTE
+     * @param arreglo
+     * @param pte
+     * @return
+     */
+    public static Profesional[] agregarProfesional(Profesional[] arreglo, Profesional prof){
+        Profesional [] nuevo = new Profesional[arreglo.length+1];
+        for(int i=0;i<arreglo.length;i++){
+            nuevo[i]=arreglo[i];
+        }
+        nuevo[nuevo.length-1] = prof;
+        return nuevo;
+    }
+
     /**
      * METODO QUE RECIBE UN ARREGLO DE TURNOS Y LE AGREGA UN TURNO EN UNA NUEVA POSICION.
      * @param arreglo
@@ -88,16 +125,6 @@ public class Arreglo {
     public static Persona[] ordenaPersonasID(Persona[] arreglo){
         for(int i=0; i < arreglo.length - 1; i++){
             for(int j=0; j < arreglo.length - 1; j++){
-                //Si arreglo[j] es null lo saltea y sigue
-                if (arreglo[j] == null) continue;
-                //Si el siguiente es null, intercambiar para empujarlo al final
-                if (arreglo[j+1] == null) {
-                    Persona aux = arreglo[j];
-                    arreglo[j] = arreglo[j+1];
-                    arreglo[j+1] = aux;
-                    continue;
-                }
-                //Comparación normal cuando ambos NO son null
                 if (arreglo[j].getId().compareTo(arreglo[j+1].getId()) > 0) {
                     Persona aux = arreglo[j];
                     arreglo[j] = arreglo[j+1];
@@ -120,11 +147,6 @@ public class Arreglo {
         int fin = arreglo.length-1;
         while(inicio<=fin){
             int medio = inicio+(fin-inicio)/2;
-        //Si el elemento central es null, mover la búsqueda hacia la izquierda ya que los null luego de ordenarse van al final
-        if (arreglo[medio] == null) {
-            fin = medio - 1;
-            continue;
-        }
             if(arreglo[medio].getId().compareTo(id)==0){
                 return arreglo[medio];
             }
@@ -136,8 +158,9 @@ public class Arreglo {
         }
         return null;
     }
+
     /**
-     * METODO DE BUSQUEDA POR APELLIDO
+     * METODO DE BUSQUEDA POR APELLIDO (LINEAL)
      * @param arreglo
      * @param apellido
      * @return objeto Persona o Null
