@@ -12,8 +12,8 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // Crear arreglos vacíos
-        Profesional[] profesionales = new Profesional[3];
-        Paciente[] pacientes = new Paciente[1];
+        Profesional[] profesionales = new Profesional[0];
+        Paciente[] pacientes = new Paciente[0];
         Turno[] turnos = new Turno[200];
         Puesto[] puestos = new Puesto[5];
 

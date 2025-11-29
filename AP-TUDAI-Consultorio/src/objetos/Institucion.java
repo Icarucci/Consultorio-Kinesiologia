@@ -2,6 +2,8 @@ package objetos;
 
 import javax.swing.JOptionPane;
 
+import utils.Arreglo;
+
 public class Institucion {
     //Declaracion de variables
     private String nombre;
@@ -167,29 +169,27 @@ public class Institucion {
 
     //METODOS
     // AGREGAR PACIENTE
-    public boolean agregarPaciente(Paciente pte){
-        if (pte == null) return false; 
-        //Valida que NO haya otro paciente con el mismo DNI
+    public boolean agregarPaciente(Paciente pte) {
+        //Si recibe un paciente null, error
+        if (pte == null){
+            return false;
+        } 
+        //Valida si hay otro usuario con mismo por DNI
         for (int i = 0; i < pacientes.length; i++) {
-            if (pacientes[i] != null &&
-                pacientes[i].getId().equals(pte.getId())) {
+            if (pacientes[i].getId().equals(pte.getId())) {
                 return false;
             }
         }
-        //Busca un lugar vacío para agregarlo
-        for (int i = 0; i < pacientes.length; i++) {
-            if (pacientes[i] == null) {
-                pacientes[i] = pte;
-                return true;
-            }
-        }
-        //Si no hay posiciones null, la lista está llena
-        return false;
+        //Si no hay otro paciente con mismo dni, agrega al paciente
+        pacientes = Arreglo.agregarPaciente(pacientes, pte);
+        return true;
     }
 
     //AGREGAR PROFESIONAL
     public boolean agregarProfesional(Profesional prof){
-        if (prof == null) return false; 
+        if (prof == null){
+            return false; 
+        }
         //Validamos si hay otro prof con mismo DNI o Matricula
         for (int i = 0; i < profesionales.length; i++) {
             if (profesionales[i] != null) {
@@ -203,14 +203,9 @@ public class Institucion {
                 }
             }
         }
-        //Recorremos el arreglo y agregamos el profesional en el lugar vacio
-        for (int i = 0; i < profesionales.length; i++) {
-            if (profesionales[i] == null) {
-                profesionales[i] = prof;
-                return true;
-            }
-        }
-        return false;
+        //Si no hay otro profesional con mismo dni o matricula, lo agrega
+        profesionales = Arreglo.agregarProfesional(profesionales, prof);
+        return true;
     }
 
 

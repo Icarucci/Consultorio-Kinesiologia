@@ -83,7 +83,7 @@ public class Visualizacion {
                                 buscarPacientePorDni();
                                 break;
                             case 2:
-                                //buscarPacientePorApellido();
+                                buscarPacientePorApellido();
                                 break;
                             default:
                                 break;
@@ -144,15 +144,28 @@ public class Visualizacion {
     }
 
     private void buscarPacientePorDni() {
+        //1. Ingresamos el DNI del paciente a buscar
         String dni = IO.inputString("Buscar DNI", "Ingrese el DNI del paciente");
-        //1. Ordenamos ANTES de búsqueda binaria
+        //2. Ordenamos ANTES de búsqueda binaria
         Arreglo.ordenaPersonasID(inst.getPacientes());
-        //2. Aplicamos búsqueda binaria
+        //3. Aplicamos búsqueda binaria
         Persona encontrado = Arreglo.buscaPersonaId(inst.getPacientes(), dni);
-        //3. Mostramos el resultado
+        //4. Mostramos el resultado
         if (encontrado != null) {JOptionPane.showMessageDialog(null,encontrado.toString(),"Paciente encontrado",JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null,"No se encontró un paciente con DNI: " + dni,"Sin resultados",JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void buscarPacientePorApellido(){
+        //1. Ingresamos el apellido del paciente a buscar
+        String apellido = IO.inputString("Buscar apellido", "Ingrese el apellido del paciente");
+        //2. Busqueda lineal
+        Persona encontrado = Arreglo.buscarPersonaApellido(inst.getPacientes(), apellido);
+        //3. Mostramos el paciente encontrado
+        if (encontrado != null) {JOptionPane.showMessageDialog(null,encontrado.toString(),"Paciente encontrado",JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null,"No se encontró un paciente con DNI: " + apellido,"Sin resultados",JOptionPane.WARNING_MESSAGE);
         }
     }
    
