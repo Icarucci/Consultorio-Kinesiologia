@@ -22,6 +22,22 @@ public class Paciente extends Persona {
         this.cronico = cronico;
     }
 
+    //Metodos
+    //Mostrar paciente
+    @Override
+    public String toString() {
+    return  "PACIENTE\n" +
+            "-----------------------\n" +
+            "DNI: " + getId() + "\n" +
+            "Apellido: " + getApellido() + "\n" +
+            "Nombre: " + getNombre() + "\n" +
+            "Dirección: " + getDireccion() + "\n" +
+            "Teléfono: " + getTelefono() + "\n" +
+            "Obra Social: " + obraSocial + "\n" +
+            "Sesiones Totales: " + sesionesTotales + "\n" +
+            "Crónico: " + cronico;
+    }
+
     //Getters & Setters
 
     //OBRA SOCIAL
