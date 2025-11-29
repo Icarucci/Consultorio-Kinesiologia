@@ -11,14 +11,14 @@ public class Paciente extends Persona {
 
     //CONSTRUCTOR
     public Paciente(String id, String nombre, String apellido, String direccion, int telefono, String obraSocial,
-            int sesionesTotales, String[] historiaClinica, Turno[] sesiones, boolean cronico) {
+            int sesionesTotales, boolean cronico) {
         //ID, NOMBRE, APELLIDO, DIRECCION, TELEFONO se heredan del padre PERSONA
         super(id, nombre, apellido, direccion, telefono);
         //Son caracteristicos de Paciente
         this.obraSocial = obraSocial;
         this.sesionesTotales = sesionesTotales;
-        this.historiaClinica = historiaClinica;
-        this.sesiones = sesiones;
+        this.historiaClinica = new String[0];
+        this.sesiones = new Turno[0];
         this.cronico = cronico;
     }
 
