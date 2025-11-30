@@ -19,8 +19,6 @@ public class Turno {
         this.fecha = fecha;
         this.hora = hora;
     }
-
-
     //Getters & Setters
 
     //PUESTO
@@ -74,5 +72,8 @@ public class Turno {
         this.hora = hora;
     }
 
-    
+    @Override
+    public String toString(){
+        return "Turno: "+fecha.toString()+"\nPaciente:"+paciente.getApellido()+" Profesional: "+profesional.getApellido()+"Puesto: "+puestoAsignado.getNombre();
+    }
 }

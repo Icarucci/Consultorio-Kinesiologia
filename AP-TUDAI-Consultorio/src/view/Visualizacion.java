@@ -15,8 +15,6 @@ public class Visualizacion {
     private int opcionMenuPrincipal;
     private int opcionMenuPacientes;
     private int opcionMenuProfesionales;
-    private int opcionTurnosLibres;
-
 
     public Visualizacion(Institucion inst){
         this.inst = inst;
@@ -171,7 +169,7 @@ public class Visualizacion {
     public void opcionMenuTurnos(){
         boolean atras = false;
         do {
-            opcionMenuPacientes = IO.opcionSelect("Turnos", "1. Agendar turno\n0. Atras", 5);
+            opcionMenuPacientes = IO.opcionSelect("Turnos", "1. Agendar turno\n2. Visualizar Turnos\n0. Atras", 5);
             switch (opcionMenuPacientes) {
                 case 0:
                     atras = true;
@@ -179,7 +177,7 @@ public class Visualizacion {
                 case 1:
                     String pacBuscado = IO.inputString("Seleccion Paciente", "Listado:\n"+inst.mostrarPacientes()+"\nIngrese el dni:");
                     Paciente paciente = inst.buscarPacientePorDni(pacBuscado);
-                    String profBuscado = IO.inputString("Seleccion Profesional", "Listado"+inst.mostrarProfesionales()+"\nIngrese el dni:");
+                    String profBuscado = IO.inputString("Seleccion Profesional", "Listado\n"+inst.mostrarProfesionales()+"\nIngrese el dni:");
                     Profesional profesional = inst.buscarProfesionalPorDni(profBuscado);
                     LocalDate fecha = IO.inputLocaldate("Fecha", "Seleccione fecha");
                     Hora hora = IO.inputHora("Horario", "Ingrese horario del turno");
@@ -210,10 +208,61 @@ public class Visualizacion {
                         }
                     }
                     break;
+                case 2:
+                    boolean back = false;
+                    do {
+                        int seleccion = IO.opcionSelect("Visualizacion de Turnos","Que turnos desea visualizar:\n1.Por paciente\n2.Por profesional\n3.Por puesto\n4.Todos\n0.Atras",4);
+                        switch (seleccion) {
+                            case 0:
+                                back = true;
+                                break;
+                            case 1:
+                                viewTurnosPaciente();
+                                break;
+                            case 2:
+                                viewTurnosProfesional(); 
+                                break;
+                            case 3:
+                                viewTurnosPuesto();
+                                break;
+                            case 4:
+                                viewTurnosAll();
+                                break;
+                            default:
+                                break;
+                        }
+                    } while (!back);
+                    break;
                 default:
                     break;
             }
         } while (!atras);
     }
-   
+    public void viewTurnosPaciente(){
+        String pac = IO.inputString("Seleccion Paciente", "Listado:\n"+inst.mostrarPacientes()+"\nIngrese el dni:");
+        Paciente paciente = inst.buscarPacientePorDni(pac);
+         if(paciente==null){
+            JOptionPane.showMessageDialog(null, "No existe paciente con dni: "+pac,"Error",0);
+        }else{
+        JOptionPane.showMessageDialog(null, paciente.showTurnos(),"Turnos de "+paciente.getApellido()+", "+paciente.getNombre(),1);
+        }
+    }
+    public void viewTurnosProfesional(){
+        String profBuscado = IO.inputString("Seleccion Profesional", "Listado\n"+inst.mostrarProfesionales()+"\nIngrese el dni:");
+        Profesional profesional = inst.buscarProfesionalPorDni(profBuscado);
+         if(profesional==null){
+            JOptionPane.showMessageDialog(null, "No existe profesional con dni: "+profBuscado,"Error",0);
+        }else{
+        JOptionPane.showMessageDialog(null, profesional.showTurnos(),"Turnos de "+profesional.getApellido()+", "+profesional.getNombre(),1);
+        }
+    }
+    public void viewTurnosPuesto(){
+        int index = IO.opcionSelect("Seleccion del Puesto", "1.Camilla 1\n2.Camilla 2\n3. Bicicleta\n4.Gimnasio 1\n5.Gimnasio 2", 5);
+        Puesto puesto = inst.getPuesto(index-1);
+        JOptionPane.showMessageDialog(null, puesto.showTurnos(),"Turnos de "+puesto.getNombre(),1);
+    }
+    public void viewTurnosAll(){
+        JOptionPane.showMessageDialog(null, inst.showTurnos(),"Turnos de "+inst.getNombre(),1);
+    }
+
 }
