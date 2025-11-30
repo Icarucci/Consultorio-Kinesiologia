@@ -177,9 +177,9 @@ public class Visualizacion {
                     atras = true;
                     break;
                 case 1:
-                    String pacBuscado = IO.inputString("Selccion Paciente", "Ingrese el dni:");
+                    String pacBuscado = IO.inputString("Seleccion Paciente", "Listado:\n"+inst.mostrarPacientes()+"\nIngrese el dni:");
                     Paciente paciente = inst.buscarPacientePorDni(pacBuscado);
-                    String profBuscado = IO.inputString("Seleccion Profesional", "Ingrese el dni:");
+                    String profBuscado = IO.inputString("Seleccion Profesional", "Listado"+inst.mostrarProfesionales()+"\nIngrese el dni:");
                     Profesional profesional = inst.buscarProfesionalPorDni(profBuscado);
                     LocalDate fecha = IO.inputLocaldate("Fecha", "Seleccione fecha");
                     Hora hora = IO.inputHora("Horario", "Ingrese horario del turno");

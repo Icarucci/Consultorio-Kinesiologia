@@ -83,9 +83,12 @@ public class Paciente extends Persona {
         this.cronico = cronico;
     }
     public boolean validacion(LocalDate fecha){
+        if(turnos.length == 0){
+            return true;
+        }
         for(int i=0;i<turnos.length;i++){
             LocalDate comparada = turnos[i].getFecha();
-            if(comparada != fecha){
+            if(!comparada.equals(fecha)){
                 return true;
             }
         }

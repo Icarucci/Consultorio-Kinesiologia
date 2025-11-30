@@ -13,6 +13,7 @@ public class Puesto {
     //CONSTRUCTOR
     public Puesto(String nombre) {
         this.nombre = nombre;
+        turnos = new Turno[0];
         puestoNumero = contador;
         contador++;
     }
@@ -34,6 +35,9 @@ public class Puesto {
     }
 
     public boolean validacion(LocalDate fecha, Hora hora){
+        if(turnos.length == 0){
+            return true;
+        }
         for(int i=0;i<turnos.length;i++){
             if(turnos[i].getFecha().equals(fecha) && turnos[i].getHora()== hora){
                 return false;
