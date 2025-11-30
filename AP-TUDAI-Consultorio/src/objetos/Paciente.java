@@ -1,12 +1,14 @@
 package objetos;
 
 //CLASE PACIENTE QUE ES HIJA DE CLASE PERSONA
+
+import java.time.LocalDate;
+
 public class Paciente extends Persona {
     //ATRIBUTOS PRIVADOS
     private String obraSocial;
     private int sesionesTotales;
     private String[] historiaClinica;
-    private Turno[] sesiones;
     private int sesionesRemanentes;
     private boolean cronico;
 
@@ -19,7 +21,6 @@ public class Paciente extends Persona {
         this.obraSocial = obraSocial;
         this.sesionesTotales = sesionesTotales;
         this.historiaClinica = new String[0];
-        this.sesiones = new Turno[0];
         this.cronico = cronico;
         sesionesRemanentes = sesionesTotales;
     }
@@ -66,37 +67,6 @@ public class Paciente extends Persona {
         this.sesionesTotales = sesionesTotales;
     }
 
-    //HISTORIA CLINICA
-    /**
-     * Trae la Historia Clinica del paciente
-     * @return
-     */
-    public String[] getHistoriaClinica() {
-        return historiaClinica;
-    }
-    /**
-     * Modifica la Historia Clinica del paciente
-     * @param historiaClinica
-     */
-    public void setHistoriaClinica(String[] historiaClinica) {
-        this.historiaClinica = historiaClinica;
-    }
-
-    //ARREGLO SESIONES
-    /**
-     * Trae el arreglo de las Sesiones del paciente
-     * @return
-     */
-    public Turno[] getSesiones() {
-        return sesiones;
-    }
-    /**
-     * Modifica el arreglo de las sesiones del paciente
-     * @param sesiones
-     */
-    public void setSesiones(Turno[] sesiones) {
-        this.sesiones = sesiones;
-    }
     //CRONICO
     /**
      * Devuelve si es cronico o no
@@ -111,6 +81,15 @@ public class Paciente extends Persona {
      */
     public void setCronico(boolean cronico) {
         this.cronico = cronico;
+    }
+    public boolean validacion(LocalDate fecha){
+        for(int i=0;i<turnos.length;i++){
+            LocalDate comparada = turnos[i].getFecha();
+            if(comparada != fecha){
+                return true;
+            }
+        }
+        return false;        
     }
     //Mostrar paciente
     @Override

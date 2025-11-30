@@ -1,11 +1,13 @@
 package objetos;
 
 //CLASE PROFESIONAL QUE ES HIJA DE CLASE PERSONA
+
+import java.time.LocalDate;
+
 public class Profesional extends Persona {
     //ATRIBUTOS PRIVADOS
     private int matricula;
     private double sueldo;
-    private Turno[] turnosAtencion;
 
     //CONSTRUCTOR
     public Profesional(String id, String nombre, String apellido, String direccion, int telefono, int matricula, double sueldo) {
@@ -16,20 +18,7 @@ public class Profesional extends Persona {
         this.sueldo = sueldo;
     }
 
-    //Metodo Mostrar Profesional
-    @Override
-    public String toString() {
-        return  "PROFESIONAL\n" +
-                "-----------------------\n" +
-                "DNI: " + getId() + "\n" +
-                "Apellido: " + getApellido() + "\n" +
-                "Nombre: " + getNombre() + "\n" +
-                "Dirección: " + getDireccion() + "\n" +
-                "Teléfono: " + getTelefono() + "\n" +
-                "Matrícula: " + matricula + "\n" +
-                "Sueldo: $" + sueldo;
-    }
-
+   
     //Getters & Setters
 
     //MATRICULA
@@ -63,24 +52,24 @@ public class Profesional extends Persona {
     public void setSueldo(double sueldo) {
         this.sueldo = sueldo;
     }
-
-    /**
-     * Trae el arreglo de los Turnos del Profesional
-     * @return
-     */
-    public Turno[] getTurnosAtencion() {
-        return turnosAtencion;
+    public boolean validacion(LocalDate fecha, Hora hora){
+        /*   TODO   */
+        return true;
     }
-
-    /**
-     * Modifica el arreglo de los Turnos del Profesional
-     * @param turnosAtencion
-     */
-    public void setTurnosAtencion(Turno[] turnosAtencion) {
-        this.turnosAtencion = turnosAtencion;
-    }
-
     
+    //Metodo Mostrar Profesional
+    @Override
+    public String toString() {
+        return  "PROFESIONAL\n" +
+                "-----------------------\n" +
+                "DNI: " + getId() + "\n" +
+                "Apellido: " + getApellido() + "\n" +
+                "Nombre: " + getNombre() + "\n" +
+                "Dirección: " + getDireccion() + "\n" +
+                "Teléfono: " + getTelefono() + "\n" +
+                "Matrícula: " + matricula + "\n" +
+                "Sueldo: $" + sueldo;
+    }
 
 
 

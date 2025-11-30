@@ -1,5 +1,7 @@
 package objetos;
 
+import utils.Arreglo;
+
 public class Persona {
     //ATRIBUTOS PRIVADOS
     private String id;
@@ -7,6 +9,7 @@ public class Persona {
     private String apellido;
     private String direccion;
     private int telefono;
+    protected Turno[] turnos;
 
     //CONSTRUCTOR PERSONA (PADRE)
     public Persona(String id, String nombre, String apellido, String direccion, int telefono) {
@@ -15,10 +18,9 @@ public class Persona {
         this.apellido = apellido;
         this.direccion = direccion;
         this.telefono = telefono;
-
+        turnos = new Turno[0];
     }
     //Getters & Setters
-
     //ID
     /**
      * Trae la ID de la persona
@@ -34,7 +36,6 @@ public class Persona {
     public void setId(String id) {
         this.id = id;
     }
-
     //NOMBRE
     /**
      * Trae el nombre de la persona
@@ -50,7 +51,6 @@ public class Persona {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     //APELLIDO
     /**
      * Trae el apellido de la persona
@@ -66,7 +66,6 @@ public class Persona {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-    
     //DIRECCION
     /**
      * Trae la direccion de la persona
@@ -82,7 +81,6 @@ public class Persona {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
     //TELEFONO
     /**
      * Muestra el telefono de la persona
@@ -97,10 +95,9 @@ public class Persona {
      */
     public void setTelefono(int telefono) {
         this.telefono = telefono;
+    }    
+    //AGENDAR NUEVO TURNO
+    public void agendarNuevoTurno(Turno tt){
+        turnos = Arreglo.agregarTurno(turnos, tt);
     }
-
-
-    
-
-    
 }
