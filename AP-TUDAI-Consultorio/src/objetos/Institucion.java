@@ -1,6 +1,5 @@
 package objetos;
 
-import java.time.LocalDate;
 import utils.Arreglo;
 
 public class Institucion {
@@ -10,18 +9,14 @@ public class Institucion {
     private Profesional[] profesionales = new Profesional[0];
     private Paciente[] pacientes = new Paciente[0];
     private Turno[] turnos = new Turno[200];
-    private Puesto[] puestosLaborales = new Puesto[5];
-
+    private Puesto[] puestos = new Puesto[5];
     private double costoFijo;
     private double sueldos;
 
-    private Calendario calendario;
-
-    public Institucion(String nombre, double costoFijo, double sueldos, Calendario calendario){
+    public Institucion(String nombre, double costoFijo, double sueldos){
         this.nombre = nombre;
         this.costoFijo = costoFijo;
         this.sueldos = sueldos;
-        this.calendario = calendario;
     }
 
     //Getters & Setters
@@ -41,37 +36,17 @@ public class Institucion {
         this.nombre = nombre;
     }
 
-    //PROFESIONAL
-    /**
-     * Modifica el arreglo de profesionales
-     * @param profesionales
-     */
-    public void setProfesionales(Profesional[] profesionales) {
-        this.profesionales = profesionales;
+    public boolean addPuesto(Puesto pp){
+        for(int i=0; i<puestos.length;i++){
+            if(puestos[i]==null){
+                puestos[i] =pp;
+                return true;
+            }
+        }
+        return false;
     }
-    //PACIENTE
-    /**
-     * Modifica el arreglo de pacientes
-     * @param pacientes
-     */
-    public void setPacientes(Paciente[] pacientes) {
-        this.pacientes = pacientes;
-    }
-
-    /**
-     * Modifica los turnos
-     * @param turnos
-     */
-    public void setTurnos(Turno[] turnos) {
-        this.turnos = turnos;
-    }
-
-    /**
-     * Modifica los puestos laborales
-     * @param puestosLaborales
-     */
-    public void setPuestosLaborales(Puesto[] puestosLaborales) {
-        this.puestosLaborales = puestosLaborales;
+    public Puesto getPuesto(int index){
+        return puestos[index];
     }
 
     //COSTO FIJO
@@ -107,24 +82,6 @@ public class Institucion {
     public void setSueldos(double sueldos) {
         this.sueldos = sueldos;
     }
-
-    //CALENDARIO
-    /**
-     * Muestra el calendario
-     * @return
-     */
-    public Calendario getCalendario() {
-        return calendario;
-    }
-
-    /**
-     * Modifica el calendario
-     * @param calendario
-     */
-    public void setCalendario(Calendario calendario) {
-        this.calendario = calendario;
-    }
-
     //METODOS
     // AGREGAR PACIENTE
     public boolean  agregarPaciente(Paciente pte) {
@@ -205,8 +162,7 @@ public class Institucion {
         return retorno;
     }
     //AGENDAR NUEVO TURNO
-    public void agendarNuevoTurno(Paciente pc, Profesional pf,Horario horario){
-        LocalDate fecha = getCalendario().getFecha();
-        
+    public void agendarNuevoTurno(Turno tt){
+        turnos = Arreglo.agregarTurno(turnos, tt);
     }
 }

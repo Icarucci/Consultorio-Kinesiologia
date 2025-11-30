@@ -9,15 +9,15 @@ public class Turno {
     private Paciente paciente;
     private Profesional profesional;
     private LocalDate fecha;
-    private Horario horario;
+    private Hora hora;
 
     //CONSTRUCTOR
-    public Turno(Puesto puestoAsignado, Paciente paciente, Profesional profesional, LocalDate fecha, Horario horario) {
+    public Turno(Puesto puestoAsignado, Paciente paciente, Profesional profesional, LocalDate fecha,Hora hora) {
         this.puestoAsignado = puestoAsignado;
         this.paciente = paciente;
         this.profesional = profesional;
         this.fecha = fecha;
-        this.horario = horario;
+        this.hora = hora;
     }
 
 
@@ -66,15 +66,13 @@ public class Turno {
         return fecha;
     }
 
-    //HORARIO
-    /**
-     * Muestra el horario del turno
-     * @return
-     */
-    public Horario getHorario() {
-        return horario;
+    public Hora getHora() {
+        return hora;
     }
 
+    public void setHora(Hora hora) {
+        this.hora = hora;
+    }
 
-
+    
 }

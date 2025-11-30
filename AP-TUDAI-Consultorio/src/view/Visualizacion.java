@@ -1,10 +1,13 @@
 package view;
 
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
-import objetos.Horario;
+import objetos.Hora;
 import objetos.Institucion;
 import objetos.Paciente;
 import objetos.Profesional;
+import objetos.Puesto;
+import objetos.Turno;
 import utils.IO;
 
 public class Visualizacion {  
@@ -175,61 +178,42 @@ public class Visualizacion {
                     break;
                 case 1:
                     String pacBuscado = IO.inputString("Selccion Paciente", "Ingrese el dni:");
-                    Paciente pac = inst.buscarPacientePorDni(pacBuscado);
+                    Paciente paciente = inst.buscarPacientePorDni(pacBuscado);
                     String profBuscado = IO.inputString("Seleccion Profesional", "Ingrese el dni:");
-                    Profesional prof = inst.buscarProfesionalPorDni(profBuscado);
-                    if(pac==null || prof==null){
+                    Profesional profesional = inst.buscarProfesionalPorDni(profBuscado);
+                    LocalDate fecha = IO.inputLocaldate("Fecha", "Seleccione fecha");
+                    Hora hora = IO.inputHora("Horario", "Ingrese horario del turno");
+                    int index = IO.opcionSelect("Seleccion del Puesto", "1.Camilla 1\n2.Camilla 2\n3. Bicicleta\n4.Gimnasio 1\n5.Gimnasio 2", 5);
+                    Puesto puesto = inst.getPuesto(index-1);
+                    if(paciente==null || profesional==null){
                         JOptionPane.showMessageDialog(null, "Error en la busqueda de paciente o profesional","Error",0);
                     }else{
-                        /*Seleccion de horario */
-                        //Horario seleccionado = inst.seleccionHorario();
-                        //inst.agendarNuevoTurno(pac, prof,seleccionado);
-                        if (true) {
-                            JOptionPane.showMessageDialog(null,
-                                "Turno cargado correctamente\n\n" +
-                                "Paciente: " +
-                                "Profesional: "+
-                                "Fecha: " +"\n"+
-                                "Hora: "
-                        );
-                        //SI NO HAY MAS LUGAR, ERROR
-                        } else {
-                            JOptionPane.showMessageDialog(null,"No hay más lugares para turnos","Error",JOptionPane.WARNING_MESSAGE);
-                        }   
+                        /*Validaciones*/
+                        /*El paciente debe validar que no tiene turno ese dia */
+                        boolean validacionPaciente = paciente.validacion(fecha);
+                        /*El profesional debe validar que no tiene otro turno ese dia a esa hora */
+                        boolean validacionProfesional = profesional.validacion(fecha,hora);
+                        /*El puesto debe validar que ese dia a esa hora esta libre */
+                        boolean validacionPuesto = puesto.validacion(fecha,hora);
+                        if(!validacionPaciente){
+                            JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el paciente: "+paciente.getApellido()+", "+paciente.getNombre()+" ya posee un turno este dia: "+fecha.toString(),"Error",0);
+                        }else if (!validacionProfesional) {
+                            JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el profesional: "+profesional.getApellido()+", "+profesional.getNombre()+"tiene ese turno ocupado","Error",0);
+                        }else if (!validacionPuesto){
+                            JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el puesto: "+puesto.getPuestoNumero()+"."+puesto.getNombre()+" Se encuentra ocupado.","Error",0);
+                        }else{
+                            Turno nuevoTurno = new Turno(puesto,paciente,profesional,fecha,hora);
+                            inst.agendarNuevoTurno(nuevoTurno);
+                            paciente.agendarNuevoTurno(nuevoTurno);
+                            profesional.agendarNuevoTurno(nuevoTurno);
+                            puesto.agendarNuevoTurno(nuevoTurno);
+                        }
                     }
                     break;
                 default:
                     break;
             }
         } while (!atras);
-    }
-
-    //CONSULTA HORARIOS DISPONIBLES
-    public Horario consultaHorarios() {
-        Horario[] horarios = inst.getCalendario().getHorarios();
-        boolean atras = false;
-        do {
-            String mensaje = "Horarios disponibles:\n\n";
-            for (int i = 0; i < horarios.length; i++) {
-                //Agregamos al mensaje, el horario y los turnos que quedan libres
-                mensaje += (i + 1) + ". " + horarios[i].getHora() + " - Lugares libres:"+ horarios[i].getLugaresLibres()+"\n";
-            }
-            mensaje += "\n0. Atras";
-
-            int opcion = IO.opcionSelect("Horarios", mensaje, horarios.length);
-            if (opcion == 0) {
-                return null;
-            }
-            //Validamos que esté en rango
-            if (opcion >= 1 && opcion <= horarios.length) {
-                //Devolvemos el Horario elegido
-                return horarios[opcion - 1];
-            }
-            //Si la opcion es invalida, ERROR
-            JOptionPane.showMessageDialog(null, "Opción inválida.", "Error", JOptionPane.WARNING_MESSAGE);
-
-        } while (!atras);
-        return null;
     }
    
 }
