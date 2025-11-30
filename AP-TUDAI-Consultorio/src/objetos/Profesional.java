@@ -53,7 +53,15 @@ public class Profesional extends Persona {
         this.sueldo = sueldo;
     }
     public boolean validacion(LocalDate fecha, Hora hora){
-        /*   TODO   */
+        if(turnos.length == 0){
+            return true;
+        }
+        for(int i=0; i<turnos.length;i++){
+            Turno tt = turnos[i];
+            if(tt.getFecha().equals(fecha) && tt.getHora() == hora){
+                return false;
+            }
+        }
         return true;
     }
     
