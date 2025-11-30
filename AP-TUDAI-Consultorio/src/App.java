@@ -18,7 +18,7 @@ public class App {
         delta.agregarPaciente(pac1);
         delta.agregarPaciente(pac2);
         /*Profesionales */
-        Profesional prof1 = new Profesional("31625325", "Malena", "Griffiths", "Colon 30",58744291 ,10058,5500);
+        Profesional prof1 = new Profesional("31625325", "Malena", "Griffiths", "Colon 30",58744291 ,10363,5500);
         delta.agregarProfesional(prof1);
         /*Puestos laborales*/
         Puesto p1 = new Puesto("Camilla 1");

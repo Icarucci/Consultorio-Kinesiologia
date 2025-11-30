@@ -94,6 +94,7 @@ public class Paciente extends Persona {
         }
         return false;        
     }
+    
     //Mostrar paciente
     @Override
     public String toString() {

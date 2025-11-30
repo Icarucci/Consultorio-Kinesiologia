@@ -100,4 +100,15 @@ public class Persona {
     public void agendarNuevoTurno(Turno tt){
         turnos = Arreglo.agregarTurno(turnos, tt);
     }
+    public String showTurnos(){
+        String res ="";
+        if(turnos.length==0){
+            res+="Sin turnos al momento";
+            return res;
+        }
+        for(int i=0;i<turnos.length;i++){
+            res += turnos[i]+"\n";
+        }
+        return res;
+    }
 }
