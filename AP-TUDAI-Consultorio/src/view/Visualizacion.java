@@ -1,8 +1,7 @@
 package view;
 
-import java.time.LocalDate;
-
 import javax.swing.JOptionPane;
+import objetos.Horario;
 import objetos.Institucion;
 import objetos.Paciente;
 import objetos.Profesional;
@@ -92,7 +91,7 @@ public class Visualizacion {
                                 break;
                             case 2:
                                 String apellidoBuscado = IO.inputString("Busqueda Paciente", "Ingrese el apellido del paciente");
-                                Paciente res = inst.buscarPacientePorApellido(apellidoBuscado);
+                                Paciente res = inst.buscarPacienteApellido(apellidoBuscado);
                                  if(res != null){
                                     /*Mostrar encontrado */
                                     JOptionPane.showMessageDialog(null, res.toString());
@@ -175,7 +174,29 @@ public class Visualizacion {
                     atras = true;
                     break;
                 case 1:
-                    agendarNuevoTurno();
+                    String pacBuscado = IO.inputString("Selccion Paciente", "Ingrese el dni:");
+                    Paciente pac = inst.buscarPacientePorDni(pacBuscado);
+                    String profBuscado = IO.inputString("Seleccion Profesional", "Ingrese el dni:");
+                    Profesional prof = inst.buscarProfesionalPorDni(profBuscado);
+                    if(pac==null || prof==null){
+                        JOptionPane.showMessageDialog(null, "Error en la busqueda de paciente o profesional","Error",0);
+                    }else{
+                        /*Seleccion de horario */
+                        //Horario seleccionado = inst.seleccionHorario();
+                        //inst.agendarNuevoTurno(pac, prof,seleccionado);
+                        if (true) {
+                            JOptionPane.showMessageDialog(null,
+                                "Turno cargado correctamente\n\n" +
+                                "Paciente: " +
+                                "Profesional: "+
+                                "Fecha: " +"\n"+
+                                "Hora: "
+                        );
+                        //SI NO HAY MAS LUGAR, ERROR
+                        } else {
+                            JOptionPane.showMessageDialog(null,"No hay más lugares para turnos","Error",JOptionPane.WARNING_MESSAGE);
+                        }   
+                    }
                     break;
                 default:
                     break;
@@ -183,79 +204,9 @@ public class Visualizacion {
         } while (!atras);
     }
 
-    private Paciente buscarPacientePorDni() {
-        //1. Ingresamos el DNI del paciente a buscar
-        String dni = IO.inputString("Buscar DNI", "Ingrese el DNI del paciente");
-        //2. Ordenamos ANTES de búsqueda binaria
-        Arreglo.ordenaPersonasID(inst.getPacientes());
-        //3. Aplicamos búsqueda binaria
-        Persona encontrado = Arreglo.buscaPersonaId(inst.getPacientes(), dni);
-        //4. Mostramos el resultado
-        if (encontrado != null) {JOptionPane.showMessageDialog(null,encontrado.toString(),"Paciente encontrado",JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null,"No se encontró un paciente con DNI: " + dni,"Sin resultados",JOptionPane.WARNING_MESSAGE);
-        }
-        //Casteamos para retornar paciente en vez de persona
-        return (Paciente) encontrado;
-    }
-
-    private void buscarPacientePorApellido(){
-        //1. Ingresamos el apellido del paciente a buscar
-        String apellido = IO.inputString("Buscar apellido", "Ingrese el apellido del paciente");
-        //2. Busqueda lineal
-        Persona encontrado = Arreglo.buscarPersonaApellido(inst.getPacientes(), apellido);
-        //3. Mostramos el paciente encontrado
-        if (encontrado != null) {JOptionPane.showMessageDialog(null,encontrado.toString(),"Paciente encontrado",JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null,"No se encontró un paciente con DNI: " + apellido,"Sin resultados",JOptionPane.WARNING_MESSAGE);
-        }
-    }
-
-    //AGENDAR NUEVO TURNO
-    public void agendarNuevoTurno(){
-        //Recibimos el paciente que buscamos por DNI
-        Paciente pteEncontrado = buscarPacientePorDni();
-        if(pteEncontrado != null){
-        
-            String profesional = IO.inputString("Seleccion profesional", "Ingrese el Apellido del profesional con el que desea sacar turno");
-            //ACA DEBEMOS BUSCAR EL PROFESIONAL SI EXISTE FALTA EL METODO BUSQUEDA PROFESIONAL
-
-            //FORZAMOS EL PROFESIONAL EN LA POSICION 0 PARA HACER LA PRUEBA DEL TURNO
-            Profesional prof = inst.getProfesionales()[0];
-            //HORARIO
-            Horario horarioElegido = consultaHorarios();
-            if (horarioElegido == null) {
-                JOptionPane.showMessageDialog(null, "No se seleccionó horario.");
-                return;
-            }
-            //FECHA
-            LocalDate fecha = inst.getCalendario().getFecha();
-            //CREAMOS EL TURNO
-            Turno turno = new Turno(null, pteEncontrado, prof, fecha, horarioElegido);
-            //GUARDAMOS EL TURNO EN ISNTITUCION
-            boolean agregado = horarioElegido.agregarTurno(turno);
-            //MANEJ ODE ERRORES
-            //SI SE PUDO GUARDAR, LO MOSTRAMOS
-            if (agregado) {
-                JOptionPane.showMessageDialog(null,
-                    "Turno cargado correctamente\n\n" +
-                    "Paciente: " + pteEncontrado.getApellido() +" "+pteEncontrado.getNombre()+"\n"+
-                    "Profesional: " + prof.getApellido() +" "+prof.getNombre() +"\n"+
-                    "Fecha: " + fecha +"\n"+
-                    "Hora: " + horarioElegido.getHora() 
-            );
-            //SI NO HAY MAS LUGAR, ERROR
-            } else {
-                JOptionPane.showMessageDialog(null,"No hay más lugares para turnos","Error",JOptionPane.WARNING_MESSAGE);
-            }
-            
-        }
-
-    }
     //CONSULTA HORARIOS DISPONIBLES
     public Horario consultaHorarios() {
         Horario[] horarios = inst.getCalendario().getHorarios();
-
         boolean atras = false;
         do {
             String mensaje = "Horarios disponibles:\n\n";
@@ -278,7 +229,6 @@ public class Visualizacion {
             JOptionPane.showMessageDialog(null, "Opción inválida.", "Error", JOptionPane.WARNING_MESSAGE);
 
         } while (!atras);
-
         return null;
     }
    
