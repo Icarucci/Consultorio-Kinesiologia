@@ -1,5 +1,6 @@
 package objetos;
 
+import java.time.LocalDate;
 import utils.Arreglo;
 
 public class Institucion {
@@ -172,9 +173,21 @@ public class Institucion {
         return (Paciente)encontrado;
     }
 
-    public Paciente buscarPacientePorApellido(String apellido){
+    public Paciente buscarPacienteApellido(String apellido){
         Persona encontrado = Arreglo.buscarPersonaApellido(pacientes, apellido);
         return (Paciente)encontrado;
+    }
+
+    public Profesional buscarProfesionalPorDni(String dni) {
+        Persona[]ordenado = Arreglo.ordenaPersonasID(profesionales);
+        //3. Aplicamos búsqueda binaria
+        Persona encontrado = Arreglo.buscaPersonaId(ordenado, dni);
+        return (Profesional)encontrado;
+    }
+
+    public Profesional buscarProfesionalApellido(String apellido){
+        Persona encontrado = Arreglo.buscarPersonaApellido(profesionales, apellido);
+        return (Profesional)encontrado;
     }
 
     public String mostrarPacientes(){
@@ -190,5 +203,10 @@ public class Institucion {
             retorno += profesionales[index].getApellido()+", "+profesionales[index].getNombre()+" - "+profesionales[index].getId()+" - Matricula: "+profesionales[index].getMatricula()+"\n";
         }
         return retorno;
+    }
+    //AGENDAR NUEVO TURNO
+    public void agendarNuevoTurno(Paciente pc, Profesional pf,Horario horario){
+        LocalDate fecha = getCalendario().getFecha();
+        
     }
 }
