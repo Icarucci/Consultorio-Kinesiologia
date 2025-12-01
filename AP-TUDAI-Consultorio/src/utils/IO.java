@@ -108,7 +108,7 @@ public class IO {
      /**
      * METODO PARA GESTIONAR DESDE LA CLASE UTILITARIA EL INGRESO DE LOCALDATES
      * @param titulo
-     * @param mensaje
+     * @param mensajes  
      * @return LocalDate input
      */
     public static LocalDate inputLocaldate(String titulo, String mensaje){

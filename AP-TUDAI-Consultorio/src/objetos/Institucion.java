@@ -8,7 +8,7 @@ public class Institucion {
 
     private Profesional[] profesionales = new Profesional[0];
     private Paciente[] pacientes = new Paciente[0];
-    private Turno[] turnos = new Turno[200];
+    private Turno[] turnos = new Turno[0];
     private Puesto[] puestos = new Puesto[5];
     private double costoFijo;
     private double sueldos;
@@ -165,6 +165,7 @@ public class Institucion {
     public void agendarNuevoTurno(Turno tt){
         turnos = Arreglo.agregarTurno(turnos, tt);
     }
+    
     public String showTurnos(){
         String res ="";
         if(turnos.length==0){
@@ -172,8 +173,18 @@ public class Institucion {
             return res;
         }
         for(int i=0;i<turnos.length;i++){
-            res += turnos[i]+"\n";
+            if(!turnos[i].isAsistencia()){
+                res += turnos[i].getTurnoId()+" - "+turnos[i]+"\n";
+            }
         }
         return res;
+    }
+
+    public Turno getTurno(int index){
+        return turnos[index];
+    }
+
+    public int cantidadTurnos(){
+        return turnos.length;
     }
 }
