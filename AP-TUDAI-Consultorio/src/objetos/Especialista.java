@@ -25,6 +25,12 @@ public class Especialista extends Profesional{
         this.especialidad = especialidad;
     }
     @Override
+    public double sueldoTotal(double valor){
+        //Redefine - Cobra un 25% mas. por se especialista
+        return super.sueldoTotal(valor)*1.25;
+    }
+
+    @Override
     public String toString(){
         return super.toString()+ "\nEspecialidad: "+especialidad;
     }
