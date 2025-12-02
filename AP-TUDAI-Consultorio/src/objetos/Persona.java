@@ -111,4 +111,12 @@ public class Persona {
         }
         return res;
     }
+
+    public String toString(){
+        return  "DNI: " + getId() +
+                "\nApellido: " + getApellido()+
+                "\nNombre: " + getNombre()+
+                "\nDirección: " + getDireccion()+
+                "\nTeléfono: " + getTelefono();
+    }
 }

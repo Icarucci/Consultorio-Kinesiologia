@@ -11,15 +11,18 @@ import objetos.Turno;
 import utils.IO;
 
 public class Visualizacion {  
+    /*Atributos privados */
     private Institucion inst;
     private int opcionMenuPrincipal;
     private int opcionMenuPacientes;
     private int opcionMenuProfesionales;
-
+    /*Constructor */
     public Visualizacion(Institucion inst){
         this.inst = inst;
     }
-   
+    /**
+     * EJECUCION DEL MENU PRINCIPAL
+     */
     public void menuPrincipal(){
         boolean finalizar = false;
         do {
@@ -42,7 +45,9 @@ public class Visualizacion {
             }
         } while (!finalizar);
     }
-
+    /**
+     * EJECUCION DEL MENU DE PACIENTES
+     */
     public void opcionMenuPacientes(){
         boolean atras = false;
         do {
@@ -128,7 +133,9 @@ public class Visualizacion {
             }
         } while (!atras);
     }
-
+    /**
+     * EJECUCION DEL MENU DE PROFESIONALES
+     */
     public void opcionMenuProfesionales(){
         boolean atras = false;
         do {
@@ -165,11 +172,13 @@ public class Visualizacion {
             }
         } while (!atras);
     }
-
+    /**
+     * EJECUCION DEL MENU DE TURNOS
+     */
     public void opcionMenuTurnos(){
         boolean atras = false;
         do {
-            opcionMenuPacientes = IO.opcionSelect("Turnos", "1. Agendar turno\n2. Visualizar Turnos\n3.Seleccionar Turno\n0. Atras", 3);
+            opcionMenuPacientes = IO.opcionSelect("Turnos", "1. Agendar turno\n2. Visualizar Turnos\n3. Seleccionar Turno\n0. Atras", 3);
             switch (opcionMenuPacientes) {
                 case 0:
                     atras = true;
@@ -224,6 +233,7 @@ public class Visualizacion {
                     }
                     break;
                 case 2:
+                    /*visualizar turnos */
                     boolean back = false;
                     do {
                         int seleccion = IO.opcionSelect("Visualizacion de Turnos","Que turnos desea visualizar:\n1.Por paciente\n2.Por profesional\n3.Por puesto\n4.Todos\n0.Atras",4);
@@ -264,6 +274,7 @@ public class Visualizacion {
                                 if(confirmacion == 1){
                                     turnoSeleccionado.setAsistencia(true);
                                     turnoSeleccionado.pacienteAsistio();
+                                    turnoSeleccionado.profesionalCobra();
                                 }
                             }
                         } while (!back2);
@@ -274,7 +285,9 @@ public class Visualizacion {
             }
         } while (!atras);
     }
-    
+    /**
+     * VISUALIZACION DE LOS TURNOS POR PACIENTE
+     */
     public void viewTurnosPaciente(){
         String pac = IO.inputString("Seleccion Paciente", "Listado:\n"+inst.mostrarPacientes()+"\nIngrese el dni:");
         Paciente paciente = inst.buscarPacientePorDni(pac);
@@ -284,7 +297,9 @@ public class Visualizacion {
             JOptionPane.showMessageDialog(null, paciente.showTurnos(),"Turnos de "+paciente.getApellido()+", "+paciente.getNombre(),1);
         }
     }
-
+    /**
+     * VISUALIZACION DE LOS TURNOS POR PROFESIONAL
+     */
     public void viewTurnosProfesional(){
         String profBuscado = IO.inputString("Seleccion Profesional", "Listado\n"+inst.mostrarProfesionales()+"\nIngrese el dni:");
         Profesional profesional = inst.buscarProfesionalPorDni(profBuscado);
@@ -294,13 +309,17 @@ public class Visualizacion {
         JOptionPane.showMessageDialog(null, profesional.showTurnos(),"Turnos de "+profesional.getApellido()+", "+profesional.getNombre(),1);
         }
     }
-
+    /**
+     * VISUALIZACION DE LOS TURNOS POR PUESTO
+     */
     public void viewTurnosPuesto(){
         int index = IO.opcionSelect("Seleccion del Puesto", "1.Camilla 1\n2.Camilla 2\n3. Bicicleta\n4.Gimnasio 1\n5.Gimnasio 2", 5);
         Puesto puesto = inst.getPuesto(index-1);
         JOptionPane.showMessageDialog(null, puesto.showTurnos(),"Turnos de "+puesto.getNombre(),1);
     }
-
+    /**
+     * VISUALIZACION DE LOS TURNOS TOTALES
+     */
     public void viewTurnosAll(){
         JOptionPane.showMessageDialog(null, inst.showTurnos(),"Turnos de "+inst.getNombre(),1);
     }

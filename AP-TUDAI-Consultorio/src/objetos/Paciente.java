@@ -5,14 +5,14 @@ package objetos;
 import java.time.LocalDate;
 
 public class Paciente extends Persona {
-    //ATRIBUTOS PRIVADOS
+    /*Atributos Privados */
     private String obraSocial;
     private int sesionesTotales;
     private String[] historiaClinica;
     private int sesionesRemanentes;
     private boolean cronico;
 
-    //CONSTRUCTOR
+    /*Constructor */
     public Paciente(String id, String nombre, String apellido, String direccion, int telefono, String obraSocial,
             int sesionesTotales, boolean cronico) {
         //ID, NOMBRE, APELLIDO, DIRECCION, TELEFONO se heredan del padre PERSONA
@@ -24,21 +24,25 @@ public class Paciente extends Persona {
         this.cronico = cronico;
         sesionesRemanentes = sesionesTotales;
     }
-
-    //Metodos
-
     //Getters & Setters
+    /**
+     * Retorna la cantidad de sesiones remanentes
+     * @return entero
+     */
     public int getSesionesRemanentes() {
         return sesionesRemanentes;
     }
-
+    /**
+     * Setea la cantidad de sesiones remanentes
+     * @param sesionesRemanentes
+     */
     public void setSesionesRemanentes(int sesionesRemanentes) {
         this.sesionesRemanentes = sesionesRemanentes;
     }
     //OBRA SOCIAL
     /**
-     * Trae la Obra Social del paciente
-     * @return
+     * Retorno la Obra Social del paciente
+     * @return String
      */
     public String getObraSocial() {
         return obraSocial;
@@ -82,6 +86,12 @@ public class Paciente extends Persona {
     public void setCronico(boolean cronico) {
         this.cronico = cronico;
     }
+
+    /**
+     * Controla si el paciente ya posee un turno en la fecha pasada por parametro.
+     * @param fecha
+     * @return boolean
+     */
     public boolean validacion(LocalDate fecha){
         if(turnos.length == 0){
             return true;
@@ -98,16 +108,9 @@ public class Paciente extends Persona {
     //Mostrar paciente
     @Override
     public String toString() {
-    return  "PACIENTE\n" +
-            "-----------------------\n" +
-            "DNI: " + getId() + "\n" +
-            "Apellido: " + getApellido() + "\n" +
-            "Nombre: " + getNombre() + "\n" +
-            "Dirección: " + getDireccion() + "\n" +
-            "Teléfono: " + getTelefono() + "\n" +
-            "Obra Social: " + obraSocial + "\n" +
-            "Sesiones Totales: " + sesionesTotales + "\n" +
-            "Crónico: " + cronico;
+    return  "PACIENTE\n"+super.toString()+
+            "\nObra Social: "+obraSocial+
+            "\nSesiones Totales: "+sesionesTotales+
+            "\nCrónico: "+cronico;
     }
-
 }

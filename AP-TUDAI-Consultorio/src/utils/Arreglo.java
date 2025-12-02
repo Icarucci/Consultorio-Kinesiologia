@@ -9,21 +9,6 @@ import objetos.Turno;
 /*CLASE UTILITARIA PARA GESTIONAR LOS ARREGLOS.*/
 public class Arreglo {
     /*INSERCIONES*/
-    /**
-     * METODO QUE RECIBE UN ARREGLO DE PERSONAS Y LE AGREGA UNA PERSONA EN UNA NUEVA POSICION.
-     * mediante polimorfismo, sirve para paciente y profesional
-     * @param arreglo
-     * @return arreglo de Persona con una posicion mas
-     */
-    /*public static Persona[] agregarPersona(Persona[]arreglo,Persona persona){
-        Persona [] nuevo = new Persona[arreglo.length+1];
-        for(int i=0;i<arreglo.length;i++){
-            nuevo[i]=arreglo[i];
-        }
-        nuevo[nuevo.length-1] = persona;
-        return nuevo;
-    }*/
-
     //AGREGAR PACIENTE
     /**
      * METODO QUE RECIBE UN ARREGLO DE PERSONAS Y LE AGREGA UNA PERSONA EN UNA NUEVA POSICION.

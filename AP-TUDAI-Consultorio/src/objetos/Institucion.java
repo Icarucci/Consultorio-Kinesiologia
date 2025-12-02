@@ -3,26 +3,24 @@ package objetos;
 import utils.Arreglo;
 
 public class Institucion {
-    //Declaracion de variables
+    /*Atributos privados */
     private String nombre;
-
     private Profesional[] profesionales = new Profesional[0];
     private Paciente[] pacientes = new Paciente[0];
     private Turno[] turnos = new Turno[0];
     private Puesto[] puestos = new Puesto[5];
     private double costoFijo;
-    private double sueldos;
+    private double valorTurno;
 
-    public Institucion(String nombre, double costoFijo, double sueldos){
+    /*Constructor */
+    public Institucion(String nombre, double costoFijo){
         this.nombre = nombre;
         this.costoFijo = costoFijo;
-        this.sueldos = sueldos;
+        valorTurno = 25000;
     }
-
     //Getters & Setters
-    //NOMBRE
     /**
-     * Trae el nombre de la Institucion
+     * Nombre de la Institucion
      * @return
      */
     public String getNombre() {
@@ -35,7 +33,25 @@ public class Institucion {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    /**
+     * Retorna el valor individual del turno
+     * @return valor del turno
+     */
+    public double getValorTurno() {
+        return valorTurno;
+    }
+    /**
+     * Setea el valor individual del turno
+     * @param valorTurno
+     */
+    public void setValorTurno(double valorTurno) {
+        this.valorTurno = valorTurno;
+    }
+    /**
+     * Agrega un puesto de trabajo al Arreglo de puestos
+     * @param pp
+     * @return true/false en la carga
+     */
     public boolean addPuesto(Puesto pp){
         for(int i=0; i<puestos.length;i++){
             if(puestos[i]==null){
@@ -45,19 +61,22 @@ public class Institucion {
         }
         return false;
     }
+    /**
+     * Retorna un puesto a partir de su index
+     * @param index
+     * @return puesto de indice index
+     */
     public Puesto getPuesto(int index){
         return puestos[index];
     }
-
     //COSTO FIJO
     /**
      * Muestra el costo fijo
-     * @return
+     * @return valor de costo fijo
      */
     public double getCostoFijo() {
         return costoFijo;
     }
-
     /**
      * Modifica el costo fijo
      * @param costoFijo
@@ -65,25 +84,11 @@ public class Institucion {
     public void setCostoFijo(double costoFijo) {
         this.costoFijo = costoFijo;
     }
-
-    //SUELDOS
     /**
-     * Muestra los sueldos
-     * @return
+     * Agrega un paciente al arreglo de pacientes
+     * @param paciente
+     * @return boolean
      */
-    public double getSueldos() {
-        return sueldos;
-    }
-
-    /**
-     * Modifica los sueldos
-     * @param sueldos
-     */
-    public void setSueldos(double sueldos) {
-        this.sueldos = sueldos;
-    }
-    //METODOS
-    // AGREGAR PACIENTE
     public boolean  agregarPaciente(Paciente pte) {
         //Si recibe un paciente null, error
         if (pte == null){
@@ -99,8 +104,11 @@ public class Institucion {
         pacientes = Arreglo.agregarPaciente(pacientes, pte);
         return true;
     }
-
-    //AGREGAR PROFESIONAL
+    /**
+     * Agrega un profesional al arreglo de profesionales
+     * @param profesional
+     * @return boolean
+     */
     public boolean agregarProfesional(Profesional prof){
         if (prof == null){
             return false; 
@@ -122,31 +130,50 @@ public class Institucion {
         profesionales = Arreglo.agregarProfesional(profesionales, prof);
         return true;
     }
-
+    /**
+     * Busca paciente por dni
+     * @param dni
+     * @return paciente
+     */
     public Paciente buscarPacientePorDni(String dni) {
         Persona[]ordenado = Arreglo.ordenaPersonasID(pacientes);
         //3. Aplicamos búsqueda binaria
         Persona encontrado = Arreglo.buscaPersonaId(ordenado, dni);
         return (Paciente)encontrado;
     }
-
+    /**
+     * Busca paciente por apellido
+     * @param apellido
+     * @return Paciente
+     */
     public Paciente buscarPacienteApellido(String apellido){
         Persona encontrado = Arreglo.buscarPersonaApellido(pacientes, apellido);
         return (Paciente)encontrado;
     }
-
+    /**
+     * Busca profesional por dni
+     * @param dni
+     * @return Profesional
+     */
     public Profesional buscarProfesionalPorDni(String dni) {
         Persona[]ordenado = Arreglo.ordenaPersonasID(profesionales);
         //3. Aplicamos búsqueda binaria
         Persona encontrado = Arreglo.buscaPersonaId(ordenado, dni);
         return (Profesional)encontrado;
     }
-
+    /**
+     * Busca profesional por apellido
+     * @param apellido
+     * @return Profesional
+     */
     public Profesional buscarProfesionalApellido(String apellido){
         Persona encontrado = Arreglo.buscarPersonaApellido(profesionales, apellido);
         return (Profesional)encontrado;
     }
-
+    /**
+     * Retorna String con informacion de los pacientes
+     * @return String
+     */
     public String mostrarPacientes(){
         String retorno = "";
         for (int index = 0; index < pacientes.length; index++){
@@ -154,6 +181,10 @@ public class Institucion {
         }
         return retorno;
     }
+    /**
+     * Retorna String con informacion de los profesionales
+     * @return String
+     */
     public String mostrarProfesionales(){
         String retorno = "";
         for (int index = 0; index < profesionales.length; index++){
@@ -162,10 +193,17 @@ public class Institucion {
         return retorno;
     }
     //AGENDAR NUEVO TURNO
+    /**
+     * Agrega nuevo Turno al arreglo de turnos
+     * @param Turno
+     */
     public void agendarNuevoTurno(Turno tt){
         turnos = Arreglo.agregarTurno(turnos, tt);
     }
-    
+    /**
+     * Muestra los turnos registrados
+     * @return String
+     */
     public String showTurnos(){
         String res ="";
         if(turnos.length==0){
@@ -179,12 +217,31 @@ public class Institucion {
         }
         return res;
     }
-
+    /**
+     * Retorna un turno a partir de su index
+     * @param index
+     * @return Turno
+     */
     public Turno getTurno(int index){
         return turnos[index];
     }
-
+    /**
+     * Retorna un entero representando la cantidad total de turnos
+     * @return integer
+     */
     public int cantidadTurnos(){
         return turnos.length;
     }
+    /**
+     * Retorna el total de los sueldos de los profesionales.
+     * @return double
+     */
+    public double pagarSueldos(){
+        double total = 0.0;
+        for(int i=0;i<profesionales.length;i++){
+            total += profesionales[i].sueldoTotal(valorTurno);
+        }
+        return total;
+    }
+
 }

@@ -56,7 +56,12 @@ public class IO {
         return retorno;
     }
 
-
+    /**
+     * Input de un boolean
+     * @param titulo
+     * @param mensaje
+     * @return el booleano ingresado
+     */
     public static boolean inputBoolean(String titulo,String mensaje){
         boolean condicion = false;
         boolean retorno = false;
@@ -127,6 +132,13 @@ public class IO {
         } while (!condicion);
         return fecha;
     }
+
+    /**
+     * Metodo de ingreso de una hora
+     * @param titulo
+     * @param mensaje
+     * @return Hora
+     */
     public static Hora inputHora(String titulo, String mensaje){
         boolean condicion = false;
         Hora hora = Hora.H9;
