@@ -69,34 +69,60 @@ public class Turno {
     public LocalDate getFecha() {
         return fecha;
     }
-
+    /**
+     * Retorna una hora 
+     * @return Hora
+     */
     public Hora getHora() {
         return hora;
     }
-
+    /**
+     * Setea una nueva hora
+     * @param hora
+     */
     public void setHora(Hora hora) {
         this.hora = hora;
     }
-    
-
+    /**
+     * Retorna el id de turno representado con un entero
+     * @return entero
+     */
     public int getTurnoId() {
         return turnoId;
     }
-
+    /**
+     * Setea el numero de id de turno
+     * @param turnoId
+     */
     public void setTurnoId(int turnoId) {
         this.turnoId = turnoId;
     }
-    
+    /**
+     * Retorna un boolean con la asistencia
+     * @return boolean
+     */
     public boolean isAsistencia() {
         return asistencia;
     }
-
+    /**
+     * Setea la asistencia
+     * @param asistencia
+     */
     public void setAsistencia(boolean asistencia) {
         this.asistencia = asistencia;
     }
-
+    /**
+     * Ejecuta un metodo que si el paciente asistio a un turno, resta de las sesiones remanentes
+     */
     public void pacienteAsistio(){
         paciente.setSesionesRemanentes(paciente.getSesionesRemanentes()-1);
+    }
+
+    /**
+     * Al ejecutarse el turno, el profesional cobra por este.
+     */
+    public void profesionalCobra(){
+        profesional.cobrarTurno();
     }
 
     @Override

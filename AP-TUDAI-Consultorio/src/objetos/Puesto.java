@@ -19,21 +19,40 @@ public class Puesto {
     }
 
     //Getters & Setters
+    /**
+     * Retorna el nombre del puesto
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
+    /**
+     * Setea el nombre del puesto
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+    /**
+     * Retorna el numero unico de puesto
+     * @return
+     */
     public int getPuestoNumero() {
         return puestoNumero;
     }
-
+    /**
+     * Setea el numero del puesto.
+     * @param puestoNumero
+     */
     public void setPuestoNumero(int puestoNumero) {
         this.puestoNumero = puestoNumero;
     }
-
+    /**
+     * Valida que no este ocupado en la fecha y hora solicitadas
+     * @param fecha
+     * @param hora
+     * @return boolean
+     */
     public boolean validacion(LocalDate fecha, Hora hora){
         if(turnos.length == 0){
             return true;
@@ -46,9 +65,18 @@ public class Puesto {
         return true;
     }
     //AGENDAR NUEVO TURNO
+    /**
+     * Agrega un nuevo turno al arreglo de turnos
+     * @param Turno
+     */
     public void agendarNuevoTurno(Turno tt){
         turnos = Arreglo.agregarTurno(turnos, tt);
     }
+
+    /**
+     * Retorna un String con la informacion de los turnos
+     * @return String
+     */
     public String showTurnos(){
         String res ="";
         if(turnos.length==0){
