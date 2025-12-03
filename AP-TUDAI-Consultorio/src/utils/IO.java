@@ -2,6 +2,7 @@ package utils;
 
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import objetos.Hora;
 
 /*CLASE UTILITARIA PARA GESTIONAR LOS INPUTS Y OUTPUS */
@@ -237,5 +238,29 @@ public class IO {
             }
         } while (!condicion);
         return hora;
+    }
+
+    public static String editarCampoString(String texto,String valor){
+        JTextField campo = new JTextField("");
+        Placeholder.setPlaceholder(campo, texto);
+        Object[] contenido = {"Ingrese el nuevo "+valor,campo};
+        int resName = JOptionPane.showConfirmDialog(null, contenido,"Entrada",1,1);
+        String nuevo = texto;
+        if(resName == JOptionPane.OK_OPTION){
+            nuevo= campo.getText();
+        }
+        return nuevo;
+    }
+     public static int editarCampoInteger(int numero,String valor){
+        JTextField campo = new JTextField("");
+        String texto = String.valueOf(numero);
+        Placeholder.setPlaceholder(campo, texto);
+        Object[] contenido = {"Ingrese el nuevo "+valor,campo};
+        int resName = JOptionPane.showConfirmDialog(null, contenido,"Entrada",1,1);
+        int nuevo = 0;
+        if(resName == JOptionPane.OK_OPTION){
+            nuevo= Integer.parseInt(campo.getText());
+        }
+        return nuevo;
     }
 }
