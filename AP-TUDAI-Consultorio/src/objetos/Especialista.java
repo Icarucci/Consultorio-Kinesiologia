@@ -4,8 +4,8 @@ public class Especialista extends Profesional{
     /*Atributos */
     private Especialidad especialidad;
     /*Constructor */
-    public Especialista(String id, String nombre, String apellido, String direccion, int telefono, int matricula,
-            double sueldo, Especialidad especialidad) {
+    public Especialista(String id, String nombre, String apellido, String direccion, int telefono, int matricula,double sueldo, Especialidad especialidad) {
+        //ID NOMBRE APELLIDO DIRECCION TELEFONO MATRICULA Y SUELDO vienen del padre Profesional
         super(id, nombre, apellido, direccion, telefono, matricula, sueldo);
         this.especialidad = especialidad;
     }
