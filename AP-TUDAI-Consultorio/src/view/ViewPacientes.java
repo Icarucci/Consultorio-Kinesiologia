@@ -3,6 +3,7 @@ package view;
 import javax.swing.JOptionPane;
 import objetos.Institucion;
 import objetos.Paciente;
+import utils.Arreglo;
 import utils.IO;
 
 public class ViewPacientes {
@@ -58,10 +59,10 @@ public class ViewPacientes {
                                     break;
                                 case 2:
                                     String apellidoBuscado = IO.inputString("Busqueda Paciente", "Ingrese el apellido del paciente");
-                                    Paciente res = inst.buscarPacienteApellido(apellidoBuscado);
+                                    Paciente[] res = inst.buscarPacienteApellido(apellidoBuscado);
                                     if(res != null){
                                         /*Mostrar encontrado */
-                                        JOptionPane.showMessageDialog(null, res.toString());
+                                        JOptionPane.showMessageDialog(null, Arreglo.showArregloPersona(res));
                                     }else{
                                         /*No se encontro paciente*/
                                         JOptionPane.showMessageDialog(null, "Paciente no encontrado","Error",0);

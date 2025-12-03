@@ -146,9 +146,13 @@ public class Institucion {
      * @param apellido
      * @return Paciente
      */
-    public Paciente buscarPacienteApellido(String apellido){
-        Persona encontrado = Arreglo.buscarPersonaApellido(pacientes, apellido);
-        return (Paciente)encontrado;
+    public Paciente[] buscarPacienteApellido(String apellido){
+        Persona[] encontrado = Arreglo.buscarPersonaApellido(pacientes, apellido);
+        Paciente[] resultado = new Paciente[encontrado.length];
+        for(int i=0;i<resultado.length;i++){
+            resultado[i] = (Paciente)encontrado[i];
+        }
+        return resultado;
     }
     /**
      * Busca profesional por dni
@@ -166,9 +170,9 @@ public class Institucion {
      * @param apellido
      * @return Profesional
      */
-    public Profesional buscarProfesionalApellido(String apellido){
-        Persona encontrado = Arreglo.buscarPersonaApellido(profesionales, apellido);
-        return (Profesional)encontrado;
+    public Profesional[] buscarProfesionalApellido(String apellido){
+        Persona[] encontrado = Arreglo.buscarPersonaApellido(profesionales, apellido);
+        return (Profesional[])encontrado;
     }
     /**
      * Retorna String con informacion de los pacientes

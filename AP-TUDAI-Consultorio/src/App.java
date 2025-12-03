@@ -16,8 +16,10 @@ public class App {
         /*Pacientes */
         Paciente pac1 = new Paciente("29555208", "Omar", "Roselli", "Vivorata 2968", 4379450, "OSDE", 10, false); 
         Paciente pac2 = new Paciente("35250250", "Ignacio", "Carucci", "Planes 1234", 1234567, "SMATA", 10, false);
+        Paciente pac3 = new Paciente("31676836", "Roberto", "Roselli", "Almafuerte 845", 4561234, "Medife", 5, false);
         delta.agregarPaciente(pac1);
         delta.agregarPaciente(pac2);
+        delta.agregarPaciente(pac3);
         /*Profesionales */
         Especialista prof1 = new Especialista("31625325", "Malena", "Griffiths", "Colon 30",58744291 ,10363,12500,Especialidad.OSTEOPATIA);
         Profesional prof2 = new Profesional("1234567","John","Doe","Fake Street 1234",1234567,101010,10500);
