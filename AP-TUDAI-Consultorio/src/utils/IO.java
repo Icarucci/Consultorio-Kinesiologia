@@ -148,7 +148,33 @@ public class IO {
         } while (!condicion);
         return fecha;
     }
-
+    /**
+     * METODO QUE GESTIONA EL INGRESO DE UN CAMPO SOLICITADO COMO SI O NO
+     * @param titulo
+     * @param mensaje
+     * @return boolean 
+     */
+    public static boolean inputCharBoolean(String titulo,String mensaje){
+        boolean condicion = false;
+        boolean resultado = false;
+        do {
+            try {
+                char res = JOptionPane.showInputDialog(null,mensaje,titulo,1).charAt(0);
+                if(res=='s'||res=='S'||res=='y'||res=='Y'){
+                    condicion=true;
+                    resultado= true;
+                }else if(res=='n'||res=='N'){
+                    condicion= true;
+                    resultado= false;
+                }else{
+                    JOptionPane.showMessageDialog(null, "Valor ingresado no valido","Upsss",0);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error en el ingreso","Error",0);
+            }
+        } while (!condicion);
+        return resultado;
+    }
     /**
      * Metodo de ingreso de una hora
      * @param titulo
