@@ -1,6 +1,9 @@
 package objetos;
 
+import javax.swing.JOptionPane;
+
 import utils.Arreglo;
+import utils.IO;
 
 public class Institucion {
     /*Atributos privados */
@@ -130,6 +133,16 @@ public class Institucion {
         profesionales = Arreglo.agregarProfesional(profesionales, prof);
         return true;
     }
+
+    /**
+     * Retorna la cantidad de profesionales
+     * @param prof
+     * @return
+     */
+    public int cantProfesionales(){
+        return profesionales.length;
+    }
+
     /**
      * Busca paciente por dni
      * @param dni
@@ -236,16 +249,57 @@ public class Institucion {
     public int cantidadTurnos(){
         return turnos.length;
     }
+
+    //SUELDOS
     /**
-     * Retorna el total de los sueldos de los profesionales.
+     * Retorna el valor total de los sueldos de los profesionales.
      * @return double
      */
-    public double pagarSueldos(){
+    public double totalSueldos(){
         double total = 0.0;
         for(int i=0;i<profesionales.length;i++){
-            total += profesionales[i].sueldoTotal(valorTurno);
+            total += profesionales[i].getSueldo(getValorTurno());
         }
         return total;
+    }
+    /**
+     * Muestra listado de todos los profesionales con su sueldo
+     * @return
+     */
+    public String mostrarSueldos(){
+        String retorno = "";
+        for (int index = 0; index < profesionales.length; index++){
+            retorno += (index+1)+". "+profesionales[index].getApellido()+", "+profesionales[index].getNombre()+" - Matricula: "+profesionales[index].getMatricula()+" | Sueldo: $ "+profesionales[index].getSueldo(getValorTurno())+"\n\n";
+        }
+        return retorno;
+    }    
+
+    public void pagarSueldo(int profesional){
+        boolean atras = false;
+        do {
+            int seleccion = IO.opcionSelect(profesionales[profesional-1].getApellido()+profesionales[profesional-1].getNombre(), "Sueldo total a pagar: $ "+profesionales[profesional-1].getSueldo(getValorTurno())+"\n\n1. Pagar", 1);
+            switch (seleccion) {
+                case 0:
+                    atras = true;
+                    break;
+                case 1:
+                    if(profesionales[profesional-1].getSueldo(getValorTurno()) == 0.0){
+                        profesionales[profesional-1].setSueldo(0);
+                        profesionales[profesional-1].setTurnosTrabajados(0);
+                        JOptionPane.showMessageDialog(null, "Se pagó el sueldo correctamente.", "Pago", seleccion);
+                        atras = true;
+                        break;
+                    }else{
+                        JOptionPane.showMessageDialog(null, "ERROR: no hay saldo que pagar.", "SALDO = 0", seleccion);
+                        atras = true;
+                        break;
+                    }
+
+                default:
+                    break;
+            }  
+        } while (!atras);
+
     }
 
 }
