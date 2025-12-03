@@ -108,9 +108,17 @@ public class Paciente extends Persona {
     //Mostrar paciente
     @Override
     public String toString() {
-    return  "PACIENTE\n"+super.toString()+
-            "\nObra Social: "+obraSocial+
-            "\nSesiones Totales: "+sesionesTotales+
-            "\nCrónico: "+cronico;
+        if(cronico){
+            return  "PACIENTE\n"+super.toString()+
+                "\nObra Social: "+obraSocial+
+                "\nSesiones Totales: "+sesionesTotales+
+                "\nCrónico: es cronico";
+        }else{
+            return  "PACIENTE\n"+super.toString()+
+                "\nObra Social: "+obraSocial+
+                "\nSesiones Totales: "+sesionesTotales+
+                "\nCrónico: no es cronico";
+        }
+        
     }
 }

@@ -25,7 +25,7 @@ public class ViewPacientes {
                     int telefono = IO.inputIntegerPositive("Paciente", "Ingrese el telefono");
                     int sesionesTotales = IO.inputIntegerPositive("Paciente", "Ingrese cantidad de sesiones");
                     String obraSocial = IO.inputString("Paciente", "Ingrese Obra Social");
-                    boolean cronico = IO.inputBoolean("Paciente", "Es cronico (true/false)");
+                    boolean cronico = IO.inputCharBoolean("Paciente", "Es cronico");
                     //Crea al paciente
                     Paciente paciente = new Paciente(id, nombre, apellido, direccion, telefono, obraSocial, sesionesTotales, cronico);
                     //Lo agrega al arreglo
