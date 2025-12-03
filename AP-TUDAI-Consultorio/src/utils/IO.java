@@ -107,7 +107,17 @@ public class IO {
      * @return String input
      */
     public static String inputString(String titulo, String mensaje){
-        return JOptionPane.showInputDialog(null,mensaje,titulo,1);
+        boolean condicion = false;
+        String resultado ="";
+        do {
+            resultado = JOptionPane.showInputDialog(null,mensaje,titulo,1);
+            if(resultado == null){
+                JOptionPane.showMessageDialog(null, "No puede cerrarse o cancelarse el dialogo","Error",0);
+            }else{
+                condicion = true;
+            }    
+        } while (!condicion);
+        return resultado;
     }
 
      /**
