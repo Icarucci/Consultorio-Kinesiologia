@@ -6,7 +6,7 @@ import objetos.Hora;
 
 /*CLASE UTILITARIA PARA GESTIONAR LOS INPUTS Y OUTPUS */
 public class IO {
-   
+
     /**
      * METODO PARA SOLICITAR EN EL INPUT DEL USUARIO LA SELECCION EN UN MENU NUMERICO DESDE 0-limite.
      * RECOMENDADO EL 0 PARA OPCION SALIR O ATRAS.
@@ -27,7 +27,11 @@ public class IO {
                     JOptionPane.showMessageDialog(null, "Valor ingresado no valido","Error",0);
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,"Error en el ingreso","Error",0);
+                if(e.getMessage().equals("Cannot parse null string")){
+                    return 0;
+                }else{
+                    JOptionPane.showMessageDialog(null,"Error en el ingreso","Error",0);
+                }
             }
         } while (!condicion);
         return retorno;
@@ -113,6 +117,8 @@ public class IO {
             resultado = JOptionPane.showInputDialog(null,mensaje,titulo,1);
             if(resultado == null){
                 JOptionPane.showMessageDialog(null, "No puede cerrarse o cancelarse el dialogo","Error",0);
+            }else if(resultado.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Upppppsss Campo vacio!","Error",0);
             }else{
                 condicion = true;
             }    

@@ -12,7 +12,7 @@ public class ViewPacientes {
     public static void opcionMenuPacientes(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Buscar paciente\n3.Listar Pacientes\n4.Editar Paciente\n0. Atras", 4);
+            int opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Buscar paciente\n3.Listar Pacientes\n4.Editar Paciente", 4);
             switch (opcionMenuPacientes) {
                 case 0:
                     atras = true;
@@ -34,7 +34,7 @@ public class ViewPacientes {
                     if (agregado) {
                         JOptionPane.showMessageDialog(null,"Paciente cargado correctamente.\n\n"+paciente.toString(),"Carga de paciente",JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(null,"No se pudo cargar el paciente.\nLa lista está llena o datos duplicados (DNI).","Error",JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"No se pudo cargar el paciente.\nDatos duplicados (DNI).","Error",JOptionPane.WARNING_MESSAGE);
                     }
                     break;
                 case 2:

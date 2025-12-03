@@ -8,7 +8,7 @@ public class ViewFinanzas {
      public static void opcionMenuFinanzas(Institucion inst){
         boolean atras = false;
         do {
-           int opcionMenuFinanzas = IO.opcionSelect("Finanzas", "1. Gastos mensuales\n2. Pagar Sueldos\n0. Atras", 3);
+           int opcionMenuFinanzas = IO.opcionSelect("Finanzas", "1. Gastos mensuales\n2. Pagar Sueldos", 3);
            switch (opcionMenuFinanzas) {
                 case 0:
                     atras = true;

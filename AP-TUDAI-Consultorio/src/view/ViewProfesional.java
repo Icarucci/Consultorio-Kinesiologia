@@ -12,7 +12,7 @@ public class ViewProfesional {
     public static void opcionMenuProfesionales(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1.Agregar nuevo Profesional\n2.Listar Profesionales\n0. Atras", 5);
+            int opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1.Agregar nuevo Profesional\n2.Listar Profesionales", 5);
             switch (opcionMenuProfesionales) {
                 case 0:
                     atras = true;
