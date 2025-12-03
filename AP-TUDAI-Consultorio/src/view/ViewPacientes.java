@@ -84,6 +84,33 @@ public class ViewPacientes {
                     if(respuesta != null){
                         /*Mostrar encontrado */
                         JOptionPane.showMessageDialog(null, respuesta.toString());
+                        /*Edicion ID */
+                        String texto = respuesta.getId();
+                        String nuevo = IO.editarCampoString(texto, "ID");
+                        respuesta.setId(nuevo);
+                        /*Edicion Apellido */
+                        texto = respuesta.getApellido();
+                        nuevo = IO.editarCampoString(texto,"Apellido");
+                        respuesta.setApellido(nuevo);
+                        /*Edicion Nombre */
+                        texto = respuesta.getNombre();
+                        nuevo = IO.editarCampoString(texto,"Nombre");
+                        respuesta.setNombre(nuevo);
+                        /*Edicion direccion */
+                        texto = respuesta.getDireccion();
+                        nuevo = IO.editarCampoString(texto, "Direccion");
+                        respuesta.setDireccion(nuevo);
+                        /*Edicion telefono */
+                        int numero = respuesta.getTelefono();
+                        int nuevoNumero = IO.editarCampoInteger(numero, "Telefono");
+                        respuesta.setTelefono(nuevoNumero);
+                        /*Edicion Sesiones */
+                        numero = respuesta.getSesionesTotales();
+                        nuevoNumero = IO.editarCampoInteger(numero, "Sesiones");
+                        respuesta.setSesionesTotales(nuevoNumero);
+                        /*Edicion cronico */
+                        boolean estado = IO.inputCharBoolean("Paciente", "Es cronico");
+                        respuesta.setCronico(estado);
                     }else{
                         /*No se encontro paciente*/
                         JOptionPane.showMessageDialog(null, "Paciente no encontrado","Error",0);
@@ -94,4 +121,6 @@ public class ViewPacientes {
             }
         } while (!atras);
     }
+
+    
 }
