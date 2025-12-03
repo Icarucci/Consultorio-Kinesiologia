@@ -17,7 +17,7 @@ public class ViewTurnos {
     public static void opcionMenuTurnos(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuTurnos = IO.opcionSelect("Turnos", "1. Agendar turno\n2. Visualizar Turnos\n3. Seleccionar Turno\n0. Atras", 3);
+            int opcionMenuTurnos = IO.opcionSelect("Turnos", "1. Agendar turno\n2. Visualizar Turnos\n3. Seleccionar Turno", 3);
             switch (opcionMenuTurnos) {
                 case 0:
                     atras = true;

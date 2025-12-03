@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JOptionPane;
 import objetos.Institucion;
 import utils.IO;
 
@@ -18,7 +19,7 @@ public class Visualizacion {
     public void menuPrincipal(){
         boolean finalizar = false;
         do {
-            opcionMenuPrincipal = IO.opcionSelect("Bienvenido a "+inst.getNombre(), "1.Pacientes\n2.Profesionales\n3.Turnos\n4.Finanzas\n0.Salir", 4);
+            opcionMenuPrincipal = IO.opcionSelect("Bienvenido a "+inst.getNombre(), "1.Pacientes\n2.Profesionales\n3.Turnos\n4.Finanzas", 4);
             switch (opcionMenuPrincipal) {
                 case 1:
                     ViewPacientes.opcionMenuPacientes(inst);
@@ -34,6 +35,7 @@ public class Visualizacion {
                     break;
                 case 0:
                     finalizar = true;
+                    JOptionPane.showMessageDialog(null, "Hasta pronto!","Adios!",2);
                     break;
                 default:
                     break;
