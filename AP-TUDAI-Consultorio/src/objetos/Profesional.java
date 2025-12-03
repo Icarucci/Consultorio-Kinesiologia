@@ -17,7 +17,7 @@ public class Profesional extends Persona {
         //Son particulares de Profesional
         this.matricula = matricula;
         this.sueldo = 0;
-        turnosTrabajados = 1;
+        turnosTrabajados = 0;
     }
     //Getters & Setters
     //MATRICULA
