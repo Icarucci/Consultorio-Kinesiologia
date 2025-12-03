@@ -42,6 +42,21 @@ public class Arreglo {
         nuevo[nuevo.length-1] = prof;
         return nuevo;
     }
+    //AGREGAR PERSONA
+    /**
+     * METODO QUE RECIBE UN ARREGLO DE PERSONAS Y LE AGREGA UNA PERSONA EN UNA NUEVA POSICION.
+     * @param arreglo
+     * @param pte
+     * @return
+     */
+    public static Persona[] agregarPersona(Persona[] arreglo, Persona persona){
+        Persona [] nuevo = new Persona[arreglo.length+1];
+        for(int i=0;i<arreglo.length;i++){
+            nuevo[i]=arreglo[i];
+        }
+        nuevo[nuevo.length-1] = persona;
+        return nuevo;
+    }
 
     /**
      * METODO QUE RECIBE UN ARREGLO DE TURNOS Y LE AGREGA UN TURNO EN UNA NUEVA POSICION.
@@ -150,13 +165,25 @@ public class Arreglo {
      * @param apellido
      * @return objeto Persona o Null
      */
-    public static Persona buscarPersonaApellido(Persona[]arreglo,String apellido){
-        Persona retorno = null;
+    public static Persona[] buscarPersonaApellido(Persona[]arreglo,String apellido){
+        Persona[] retorno = new Persona[0];
         for(int i=0;i<arreglo.length;i++){
-            if(arreglo[i].getApellido().compareTo(apellido)==0){
-                retorno = arreglo[i];
+            if(arreglo[i].getApellido().equals(apellido)){
+                retorno = Arreglo.agregarPersona(retorno, arreglo[i]);
             }
         }
         return retorno;
+    }
+    /**
+     * METODO QUE RECIBE UN ARREGLO DE PERSONAS Y RETORNA LA INFORMACION DE TODOS LOS ELEMENTOS.
+     * @param arreglo
+     * @return String 
+     */
+    public static String showArregloPersona(Persona[]arreglo){
+        String resultado="";
+        for(int i=0;i<arreglo.length;i++){
+            resultado+=arreglo[i].toString()+"\n";
+        }
+        return resultado;
     }
 }
