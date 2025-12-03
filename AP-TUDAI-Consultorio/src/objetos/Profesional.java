@@ -16,7 +16,7 @@ public class Profesional extends Persona {
         super(id, nombre, apellido, direccion, telefono);
         //Son particulares de Profesional
         this.matricula = matricula;
-        this.sueldo = sueldo;
+        this.sueldo = sueldo; //Sueldo basico fijo
         turnosTrabajados = 0;
     }
     //Getters & Setters
@@ -52,7 +52,7 @@ public class Profesional extends Persona {
 
     //SUELDO
     /**
-     * Trae ek Sueldo del Profesional
+     * Trae el Sueldo del Profesional
      * @return double 
      */
     public double getSueldo() {
@@ -92,7 +92,7 @@ public class Profesional extends Persona {
         setTurnosTrabajados(getTurnosTrabajados()+1);
     }
     /**
-     * Retorna el sueldo total
+     * Retorna el sueldo total = Sueldo Basico + (valor del turno * cantidad de turnos)
      * @param valorTurno
      * @return double
      */

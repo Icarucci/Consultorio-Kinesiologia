@@ -16,6 +16,8 @@ public class Visualizacion {
     private int opcionMenuPrincipal;
     private int opcionMenuPacientes;
     private int opcionMenuProfesionales;
+    private int opcionMenuTurnos;
+    private int opcionMenuFinanzas;
     /*Constructor */
     public Visualizacion(Institucion inst){
         this.inst = inst;
@@ -26,7 +28,7 @@ public class Visualizacion {
     public void menuPrincipal(){
         boolean finalizar = false;
         do {
-             opcionMenuPrincipal = IO.opcionSelect("Bienvenido a "+inst.getNombre(), "1.Pacientes\n2.Profesionales\n3.Turnos\n0.Salir", 3);
+            opcionMenuPrincipal = IO.opcionSelect("Bienvenido a "+inst.getNombre(), "1.Pacientes\n2.Profesionales\n3.Turnos\n4.Finanzas\n0.Salir", 4);
             switch (opcionMenuPrincipal) {
                 case 1:
                     opcionMenuPacientes();
@@ -36,6 +38,9 @@ public class Visualizacion {
                     break;
                 case 3:
                     opcionMenuTurnos();
+                    break;
+                case 4:
+                    opcionMenuFinanzas();
                     break;
                 case 0:
                     finalizar = true;
@@ -119,7 +124,12 @@ public class Visualizacion {
                 case 4:
                     /*Edicion de un paciente */
                     String dni = IO.inputString("Busqueda Paciente", "Ingrese el dni del paciente:");
+                    //Volver al menú anterior al presionar cancelar
+                    if (dni == null) {
+                        break;
+                    }
                     Paciente respuesta = inst.buscarPacientePorDni(dni);
+
                     if(respuesta != null){
                         /*Mostrar encontrado */
                         JOptionPane.showMessageDialog(null, respuesta.toString());
@@ -178,14 +188,18 @@ public class Visualizacion {
     public void opcionMenuTurnos(){
         boolean atras = false;
         do {
-            opcionMenuPacientes = IO.opcionSelect("Turnos", "1. Agendar turno\n2. Visualizar Turnos\n3. Seleccionar Turno\n0. Atras", 3);
-            switch (opcionMenuPacientes) {
+            opcionMenuTurnos = IO.opcionSelect("Turnos", "1. Agendar turno\n2. Visualizar Turnos\n3. Seleccionar Turno\n0. Atras", 3);
+            switch (opcionMenuTurnos) {
                 case 0:
                     atras = true;
                     break;
                 case 1:
                     /*Busco paciente */
                     String pacBuscado = IO.inputString("Seleccion Paciente", "Listado:\n"+inst.mostrarPacientes()+"\nIngrese el dni:");
+                    //Volver al menú anterior al presionar cancelar
+                    if (pacBuscado == null) {
+                        break;
+                    }
                     Paciente paciente = inst.buscarPacientePorDni(pacBuscado);
                     if(paciente!=null){
                         /*Busco profesional */
@@ -324,4 +338,22 @@ public class Visualizacion {
         JOptionPane.showMessageDialog(null, inst.showTurnos(),"Turnos de "+inst.getNombre(),1);
     }
 
+    public void opcionMenuFinanzas(){
+        boolean atras = false;
+        do {
+           opcionMenuFinanzas = IO.opcionSelect("Finanzas", "1. Gastos mensuales\n2. Pagar Sueldos\n0. Atras", 3);
+           switch (opcionMenuFinanzas) {
+                case 0:
+                    atras = true;
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+            default:
+                break;
+           }
+        } while (!atras);
+
+    }
 }
