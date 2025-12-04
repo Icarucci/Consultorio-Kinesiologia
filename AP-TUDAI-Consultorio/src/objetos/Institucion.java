@@ -182,7 +182,19 @@ public class Institucion {
      */
     public Profesional[] buscarProfesionalApellido(String apellido){
         Persona[] encontrado = Arreglo.buscarPersonaApellido(profesionales, apellido);
-        return (Profesional[])encontrado;
+        Profesional[] resultado = new Profesional[encontrado.length];
+        for(int i=0;i<resultado.length;i++){
+            resultado[i] = (Profesional)encontrado[i];
+        }
+        return resultado;
+    }
+    public Profesional buscarProfesionalMatricula(int buscada){
+        for(int i=0;i<profesionales.length;i++){
+            if(profesionales[i].getMatricula()== buscada){
+                return profesionales[i];
+            }
+        }
+        return null;
     }
     /**
      * Retorna String con informacion de los pacientes

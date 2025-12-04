@@ -263,4 +263,17 @@ public class IO {
         }
         return nuevo;
     }
+
+    public static double editarCampoDouble(double numero,String valor){
+        JTextField campo = new JTextField("");
+        String texto = String.valueOf(numero);
+        Placeholder.setPlaceholder(campo, texto);
+        Object[] contenido = {"Ingrese el nuevo "+valor,campo};
+        int resName = JOptionPane.showConfirmDialog(null, contenido,"Entrada",1,1);
+        double nuevo = 0;
+        if(resName == JOptionPane.OK_OPTION){
+            nuevo= Double.parseDouble(campo.getText());
+        }
+        return nuevo;
+    }
 }

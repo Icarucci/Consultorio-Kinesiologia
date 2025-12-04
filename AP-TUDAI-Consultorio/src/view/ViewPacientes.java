@@ -40,7 +40,7 @@ public class ViewPacientes {
                 case 2:
                     boolean atras2 = false;
                         do {
-                            int opcion = IO.opcionSelect("Buscar paciente","1. Buscar por DNI\n2. Buscar por apellido",5);
+                            int opcion = IO.opcionSelect("Buscar paciente","1. Buscar por DNI\n2. Buscar por apellido",2);
                             switch (opcion) {
                                 case 0:
                                     atras2 = true;
