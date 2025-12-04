@@ -3,7 +3,6 @@ package view;
 import javax.swing.JOptionPane;
 import objetos.Institucion;
 import objetos.Paciente;
-import utils.Arreglo;
 import utils.IO;
 
 public class ViewPacientes {
@@ -13,7 +12,7 @@ public class ViewPacientes {
     public static void opcionMenuPacientes(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Buscar paciente\n3.Listar Pacientes\n4.Editar Paciente", 4);
+            int opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Seleccionar paciente\n3.Listar Pacientes\n4.Editar Paciente", 4);
             switch (opcionMenuPacientes) {
                 case 0:
                     atras = true;
@@ -41,7 +40,7 @@ public class ViewPacientes {
                 case 2:
                     boolean atras2 = false;
                         do {
-                            int opcion = IO.opcionSelect("Buscar paciente","1. Buscar por DNI\n2. Buscar por apellido\n0. Atras",5);
+                            int opcion = IO.opcionSelect("Buscar paciente","1. Buscar por DNI\n2. Buscar por apellido",5);
                             switch (opcion) {
                                 case 0:
                                     atras2 = true;
@@ -50,8 +49,7 @@ public class ViewPacientes {
                                     String dni = IO.inputString("Busqueda Paciente", "Ingrese el dni del paciente:");
                                     Paciente respuesta = inst.buscarPacientePorDni(dni);
                                     if(respuesta != null){
-                                        /*Mostrar encontrado */
-                                        JOptionPane.showMessageDialog(null, respuesta.toString());
+                                        addSesiones(respuesta);
                                     }else{
                                         /*No se encontro paciente*/
                                         JOptionPane.showMessageDialog(null, "Paciente no encontrado","Error",0);
@@ -61,8 +59,14 @@ public class ViewPacientes {
                                     String apellidoBuscado = IO.inputString("Busqueda Paciente", "Ingrese el apellido del paciente");
                                     Paciente[] res = inst.buscarPacienteApellido(apellidoBuscado);
                                     if(res != null){
-                                        /*Mostrar encontrado */
-                                        JOptionPane.showMessageDialog(null, Arreglo.showArregloPersona(res));
+                                        /*Mostrar encontrados Tengo que elegir cual*/
+                                        String muestra="";
+                                        for(int i=0;i<res.length;i++){
+                                            muestra+= (i+1)+" - "+res[i].vistaReducida()+"\n";
+                                        }
+                                        int seleccionado = IO.opcionSelect("Seleccion de paciente", muestra, res.length);
+                                        Paciente elegido = res[seleccionado-1];
+                                        addSesiones(elegido);
                                     }else{
                                         /*No se encontro paciente*/
                                         JOptionPane.showMessageDialog(null, "Paciente no encontrado","Error",0);
@@ -123,5 +127,14 @@ public class ViewPacientes {
         } while (!atras);
     }
 
+    public static void addSesiones(Paciente paciente){
+        boolean cargar = IO.inputCharBoolean("Paciente "+paciente.getApellido(), paciente.toString()+"\n\nAgregar sesiones?: ");
+        if(cargar){
+            int ses = IO.inputIntegerPositive("Cargar sesiones a "+paciente.getApellido(), "Ingrese la cantidad de sesiones a agregar\n\nSesiones remanentes: "+paciente.getSesionesRemanentes());
+            paciente.setSesionesTotales(paciente.getSesionesTotales()+ses);
+            paciente.setSesionesRemanentes(paciente.getSesionesRemanentes()+ses);
+            JOptionPane.showMessageDialog(null, "Agregadas "+ses+" sesiones\nSesiones remanentes: "+paciente.getSesionesRemanentes());
+        }
+    }
     
 }
