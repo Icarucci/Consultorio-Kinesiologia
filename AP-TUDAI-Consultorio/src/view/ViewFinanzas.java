@@ -1,8 +1,8 @@
 package view;
 
 import javax.swing.JOptionPane;
-
 import objetos.Institucion;
+import objetos.Profesional;
 import utils.IO;
 
 public class ViewFinanzas {
@@ -50,16 +50,21 @@ public class ViewFinanzas {
                 case 2:
                     boolean atras4 = false;
                     do {
-                        int opcionMenuPagarSueldos = IO.opcionSelect("Pagar Sueldos", "Seleccione el profesional para pagar el sueldo:\n\n"+inst.mostrarSueldos()+"\n\nTotal sueldos: $ "+inst.totalSueldos(), inst.cantProfesionales());
-                        if (opcionMenuPagarSueldos >= 1 && opcionMenuPagarSueldos <= inst.cantProfesionales()) {
-                            
-                            inst.pagarSueldo(opcionMenuPagarSueldos);
-        
-                        } else {
-                            System.out.println("Opción inválida");
+                        int seleccion = IO.opcionSelect("Pagar Sueldos", "Seleccione el profesional para pagar el sueldo:\n\n"+inst.mostrarSueldos()+"\n\nTotal sueldos: $ "+inst.totalSueldos(), inst.cantProfesionales());
+                        switch (seleccion) {
+                        case 0:
                             atras4 = true;
-                        }
-                        
+                            break;
+                        default:
+                            Profesional profesional = inst.getProfesionalIndex(seleccion);
+                            if(profesional != null){
+                                double aPagar = profesional.cobrar();
+                                JOptionPane.showMessageDialog(null, "Pagado a "+profesional.getApellido()+" sueldo de: "+aPagar,"Pagado",3);
+                            }else{
+                                JOptionPane.showMessageDialog(null, "No hay profesionales cargados","Error",0);
+                            }
+                            break;
+                        }      
                     } while (!atras4);
                     break;
             default:

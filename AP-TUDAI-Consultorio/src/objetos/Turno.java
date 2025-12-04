@@ -122,7 +122,7 @@ public class Turno {
      * Al ejecutarse el turno, el profesional cobra por este.
      */
     public void profesionalCobra(){
-        profesional.cobrarTurno();
+        profesional.trabajarTurno();
     }
 
     @Override
