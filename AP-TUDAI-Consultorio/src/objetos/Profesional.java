@@ -52,16 +52,14 @@ public class Profesional extends Persona {
 
     //SUELDO
     /**
-     * Trae el Sueldo del Profesional
+     * Trae el Sueldo fijo del Profesional
      * @return double 
      */
-    public double getSueldo(double valorTurno) {
-        //HARDCODEAMOS UN VALOR ESTANDAR
-        double sueldo = valorTurno*getTurnosTrabajados();
+    public double getSueldo() {
         return sueldo;
     }
     /**
-     * Modifica el Sueldo del Profesional
+     * Modifica el Sueldo fijo del Profesional
      * @param sueldo
      */
     public void setSueldo(double saldarSueldo) {
@@ -100,13 +98,11 @@ public class Profesional extends Persona {
      */
     public double sueldoTotal(double valorTurno){
         return sueldo+(valorTurno*getTurnosTrabajados());
+    } 
+    public String vistaReducida(){
+        return getApellido()+", "+getNombre()+" - "+getId()+" - "+getMatricula();
     }
 
-    public double cobrar(){
-        double sueldo = sueldoTotal(matricula);
-        setTurnosTrabajados(0);
-        return sueldo;
-    }
     //Metodo Mostrar Profesional
     @Override
     public String toString() {

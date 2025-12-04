@@ -58,7 +58,7 @@ public class ViewFinanzas {
                         default:
                             Profesional profesional = inst.getProfesionalIndex(seleccion);
                             if(profesional != null){
-                                double aPagar = profesional.cobrar();
+                                double aPagar = profesional.sueldoTotal(inst.getValorTurno());
                                 JOptionPane.showMessageDialog(null, "Pagado a "+profesional.getApellido()+" sueldo de: "+aPagar,"Pagado",3);
                             }else{
                                 JOptionPane.showMessageDialog(null, "No hay profesionales cargados","Error",0);
