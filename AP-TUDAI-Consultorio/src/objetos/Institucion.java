@@ -279,7 +279,7 @@ public class Institucion {
                     atras = true;
                     break;
                 case 1:
-                    if(profesionales[profesional-1].getSueldo(getValorTurno()) == 0.0){
+                    if(profesionales[profesional-1].getSueldo(getValorTurno()) != 0.0){
                         profesionales[profesional-1].setSueldo(0);
                         profesionales[profesional-1].setTurnosTrabajados(0);
                         JOptionPane.showMessageDialog(null, "Se pagó el sueldo correctamente.", "Pago", seleccion);
