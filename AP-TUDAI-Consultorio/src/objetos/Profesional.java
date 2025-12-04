@@ -16,7 +16,7 @@ public class Profesional extends Persona {
         super(id, nombre, apellido, direccion, telefono);
         //Son particulares de Profesional
         this.matricula = matricula;
-        this.sueldo = 0;
+        this.sueldo = sueldo;
         turnosTrabajados = 0;
     }
     //Getters & Setters
@@ -90,7 +90,7 @@ public class Profesional extends Persona {
      * Incrementa la cantidad de turnos trabajados
      *
      */
-    public void cobrarTurno(){
+    public void trabajarTurno(){
         setTurnosTrabajados(getTurnosTrabajados()+1);
     }
     /**
@@ -100,6 +100,12 @@ public class Profesional extends Persona {
      */
     public double sueldoTotal(double valorTurno){
         return sueldo+(valorTurno*getTurnosTrabajados());
+    }
+
+    public double cobrar(){
+        double sueldo = sueldoTotal(matricula);
+        setTurnosTrabajados(0);
+        return sueldo;
     }
     //Metodo Mostrar Profesional
     @Override
