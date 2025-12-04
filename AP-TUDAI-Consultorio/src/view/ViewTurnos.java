@@ -79,7 +79,7 @@ public class ViewTurnos {
                     /*visualizar turnos */
                     boolean back = false;
                     do {
-                        int seleccion = IO.opcionSelect("Visualizacion de Turnos","Que turnos desea visualizar:\n1.Por paciente\n2.Por profesional\n3.Por puesto\n4.Todos\n0.Atras",4);
+                        int seleccion = IO.opcionSelect("Visualizacion de Turnos","Que turnos desea visualizar:\n1.Por paciente\n2.Por profesional\n3.Por puesto\n4.Todos",4);
                         switch (seleccion) {
                             case 0:
                                 back = true;
@@ -108,7 +108,7 @@ public class ViewTurnos {
                     }else{
                         boolean back2 = false;   
                         do {
-                            int seleccion = IO.opcionSelect("Seleccion de Turno", inst.showTurnos()+"\n0.Atras",inst.cantidadTurnos());
+                            int seleccion = IO.opcionSelect("Seleccion de Turno", inst.showTurnos(),inst.cantidadTurnos());
                             if(seleccion == 0){
                                 back2 = true;
                             }else{

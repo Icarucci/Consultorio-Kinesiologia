@@ -104,7 +104,9 @@ public class Paciente extends Persona {
         }
         return false;        
     }
-    
+    public String vistaReducida(){
+        return getApellido()+", "+getNombre()+" - "+getId();
+    }
     //Mostrar paciente
     @Override
     public String toString() {
@@ -116,7 +118,7 @@ public class Paciente extends Persona {
         }else{
             return  "PACIENTE\n"+super.toString()+
                 "\nObra Social: "+obraSocial+
-                "\nSesiones Totales: "+sesionesTotales+
+                "\nSesiones Remanenes/Totales: "+sesionesRemanentes+"/"+sesionesTotales+
                 "\nCrónico: no es cronico";
         }
         
