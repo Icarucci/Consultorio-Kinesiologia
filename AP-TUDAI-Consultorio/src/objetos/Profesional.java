@@ -7,16 +7,15 @@ import java.time.LocalDate;
 public class Profesional extends Persona {
     //ATRIBUTOS PRIVADOS
     private int matricula;
-    private double sueldo;
     private int turnosTrabajados;
 
+
     //CONSTRUCTOR
-    public Profesional(String id, String nombre, String apellido, String direccion, int telefono, int matricula, double sueldo) {
+    public Profesional(String id, String nombre, String apellido, String direccion, int telefono, int matricula) {
         //ID, NOMBRE, APELLIDO, DIRECCION, TELEFONO se heredan del padre PERSONA
         super(id, nombre, apellido, direccion, telefono);
         //Son particulares de Profesional
         this.matricula = matricula;
-        this.sueldo = sueldo;
         turnosTrabajados = 0;
     }
     //Getters & Setters
@@ -50,21 +49,6 @@ public class Profesional extends Persona {
         this.turnosTrabajados = turnosTrabajados;
     }
 
-    //SUELDO
-    /**
-     * Trae el Sueldo fijo del Profesional
-     * @return double 
-     */
-    public double getSueldo() {
-        return sueldo;
-    }
-    /**
-     * Modifica el Sueldo fijo del Profesional
-     * @param sueldo
-     */
-    public void setSueldo(double saldarSueldo) {
-        this.sueldo = saldarSueldo;
-    }
     /**
      * Validacion que el profesional no tiene un turno a la misma hora y el mismo dia
      * @param fecha
@@ -91,23 +75,23 @@ public class Profesional extends Persona {
     public void trabajarTurno(){
         setTurnosTrabajados(getTurnosTrabajados()+1);
     }
-    /**
-     * Retorna el sueldo total = Sueldo Basico + (valor del turno * cantidad de turnos)
-     * @param valorTurno
-     * @return double
-     */
-    public double sueldoTotal(double valorTurno){
-        return sueldo+(valorTurno*getTurnosTrabajados());
-    } 
+
     public String vistaReducida(){
         return getApellido()+", "+getNombre()+" - "+getId()+" - "+getMatricula();
+    }
+    /**
+     * CALCULAR SUELDO
+     * @return
+     */
+        public double calcularSueldo(double valorTurno){
+            double sueldo = valorTurno*getTurnosTrabajados();
+            return sueldo;
     }
 
     //Metodo Mostrar Profesional
     @Override
     public String toString() {
         return  "PROFESIONAL\n" +super.toString()+
-                "\nMatrícula: " + matricula +
-                "\nSueldo: $" + sueldo;
+                "\nMatrícula: " + matricula;
     }
 }

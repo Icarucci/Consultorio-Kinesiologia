@@ -2,6 +2,7 @@ package objetos;
 
 import utils.Arreglo;
 
+
 public class Institucion {
     /*Atributos privados */
     private String nombre;
@@ -188,7 +189,12 @@ public class Institucion {
         }
         return resultado;
     }
-    public Profesional buscarProfesionalMatricula(int buscada){
+    /**
+     * Retorna al profesional buscado por matricula
+     * @param buscada
+     * @return
+     */
+        public Profesional buscarProfesionalMatricula(int buscada){
         for(int i=0;i<profesionales.length;i++){
             if(profesionales[i].getMatricula()== buscada){
                 return profesionales[i];
@@ -218,6 +224,7 @@ public class Institucion {
         }
         return retorno;
     }
+
     //AGENDAR NUEVO TURNO
     /**
      * Agrega nuevo Turno al arreglo de turnos
@@ -261,27 +268,34 @@ public class Institucion {
 
     //SUELDOS
     /**
-     * Retorna el valor total de los sueldos de los profesionales.
-     * @return double
+     * Retorna la sumatoria de todos los sueldos de los profesionales
+     * @return sueldos
      */
-    public double totalSueldos(){
-        double total = 0.0;
-        for(int i=0;i<profesionales.length;i++){
-            total += profesionales[i].sueldoTotal(valorTurno);
+    public double sumaSueldos(){
+        double sueldos = 0;
+        for (int i = 0; i < pacientes.length; i++) {
+            sueldos += profesionales[i].calcularSueldo(getValorTurno());
         }
-        return total;
+        return sueldos;
     }
     /**
      * Muestra listado de todos los profesionales con su sueldo
      * @return
      */
-    public String mostrarSueldos(){
+    public String mostrarSueldosArreglo(){
         String retorno = "";
         for (int index = 0; index < profesionales.length; index++){
-            retorno += (index+1)+". "+profesionales[index].getApellido()+", "+profesionales[index].getNombre()+" - Matricula: "+profesionales[index].getMatricula()+" | Sueldo: $ "+profesionales[index].sueldoTotal(valorTurno)+"\n\n";
+            retorno += (index+1)+". "+profesionales[index].getApellido()+", "+profesionales[index].getNombre()+" - Matricula: "+profesionales[index].getMatricula()+" | Sueldo: $ "+profesionales[index].calcularSueldo(getValorTurno())+"\n\n";
         }
         return retorno;
     }    
+    /**
+     * Para pagar el sueldo, resetea la cantidad de turnos trabajados del profesional a 0.
+     * @param prof
+     */
+    public void pagarSueldo(Profesional prof){
+        prof.setTurnosTrabajados(0);
+    }
 
     public Profesional getProfesionalIndex(int index){
         if(profesionales.length > 0){
@@ -291,4 +305,13 @@ public class Institucion {
         }
     }
 
+    public double getGastosTotales(){
+        double gastosTotales = sumaSueldos()+getCostoFijo();
+        return gastosTotales;
+    }
+
+
 }
+
+
+

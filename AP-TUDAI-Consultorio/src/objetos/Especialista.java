@@ -4,9 +4,9 @@ public class Especialista extends Profesional{
     /*Atributos */
     private Especialidad especialidad;
     /*Constructor */
-    public Especialista(String id, String nombre, String apellido, String direccion, int telefono, int matricula,double sueldo, Especialidad especialidad) {
+    public Especialista(String id, String nombre, String apellido, String direccion, int telefono, int matricula, Especialidad especialidad) {
         //ID NOMBRE APELLIDO DIRECCION TELEFONO MATRICULA Y SUELDO vienen del padre Profesional
-        super(id, nombre, apellido, direccion, telefono, matricula, sueldo);
+        super(id, nombre, apellido, direccion, telefono, matricula);
         this.especialidad = especialidad;
     }
     /*Getters & Setters */
@@ -24,10 +24,13 @@ public class Especialista extends Profesional{
     public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
     }
+
     @Override
-    public double sueldoTotal(double valor){
-        //Redefine - Cobra un 25% mas. por se especialista
-        return super.sueldoTotal(valor)*1.25;
+        public double calcularSueldo(double valorTurno){
+            //Redefine - Cobra un 25% mas. por ser especialista
+            double sueldo = 1.25*(valorTurno*getTurnosTrabajados());
+            return sueldo;
+            
     }
 
     @Override

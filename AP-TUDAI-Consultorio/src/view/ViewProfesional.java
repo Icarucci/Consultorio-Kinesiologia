@@ -25,7 +25,7 @@ public class ViewProfesional {
                     String direccion = IO.inputString("Profesional", "Ingrese direccion");
                     int telefono = IO.inputIntegerPositive("Profesional", "Ingrese el telefono");
                     int matricula = IO.inputIntegerPositive("Profesional", "Ingrese la matricula");
-                    Profesional prof = new Profesional(id, nombre, apellido, direccion, telefono, matricula, 0);
+                    Profesional prof = new Profesional(id, nombre, apellido, direccion, telefono, matricula);
                     //Lo agrega al arreglo
                     boolean agregado = inst.agregarProfesional(prof);
                     //Checkeo si se pudo agregar
@@ -72,10 +72,6 @@ public class ViewProfesional {
                         int mat = respuesta.getMatricula();
                         int nuevaMat = IO.editarCampoInteger(mat, "Matricula");
                         respuesta.setMatricula(nuevaMat);
-                        /*Edicion Sueldo */
-                        double sueldo = respuesta.getSueldo();
-                        double nuevoSueldo = IO.editarCampoDouble(sueldo,"Sueldo fijo");
-                        respuesta.setSueldo(nuevoSueldo);
                     }else{
                         /*No se encontro paciente*/
                         JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
