@@ -83,7 +83,7 @@ public class Profesional extends Persona {
      * CALCULAR SUELDO
      * @return
      */
-        public double calcularSueldo(double valorTurno){
+        public double getSueldo(double valorTurno){
             double sueldo = valorTurno*getTurnosTrabajados();
             return sueldo;
     }

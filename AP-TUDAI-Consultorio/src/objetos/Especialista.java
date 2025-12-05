@@ -26,7 +26,7 @@ public class Especialista extends Profesional{
     }
 
     @Override
-        public double calcularSueldo(double valorTurno){
+        public double getSueldo(double valorTurno){
             //Redefine - Cobra un 25% mas. por ser especialista
             double sueldo = 1.25*(valorTurno*getTurnosTrabajados());
             return sueldo;

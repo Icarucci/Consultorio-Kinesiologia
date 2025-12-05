@@ -267,14 +267,17 @@ public class Institucion {
     }
 
     //SUELDOS
+    public double calculoSueldo(Profesional prof){
+        return prof.getSueldo(getValorTurno());
+    }
     /**
      * Retorna la sumatoria de todos los sueldos de los profesionales
      * @return sueldos
      */
     public double sumaSueldos(){
         double sueldos = 0;
-        for (int i = 0; i < pacientes.length; i++) {
-            sueldos += profesionales[i].calcularSueldo(getValorTurno());
+        for (int i = 0; i < profesionales.length; i++) {
+            sueldos += calculoSueldo(profesionales[i]);
         }
         return sueldos;
     }
@@ -285,7 +288,7 @@ public class Institucion {
     public String mostrarSueldosArreglo(){
         String retorno = "";
         for (int index = 0; index < profesionales.length; index++){
-            retorno += (index+1)+". "+profesionales[index].getApellido()+", "+profesionales[index].getNombre()+" - Matricula: "+profesionales[index].getMatricula()+" | Sueldo: $ "+profesionales[index].calcularSueldo(getValorTurno())+"\n\n";
+            retorno += (index+1)+". "+profesionales[index].getApellido()+", "+profesionales[index].getNombre()+" - Matricula: "+profesionales[index].getMatricula()+" | Sueldo: $ "+calculoSueldo(profesionales[index])+"\n\n";
         }
         return retorno;
     }    
