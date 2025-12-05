@@ -10,7 +10,7 @@ public class ViewFinanzas {
      public static void opcionMenuFinanzas(Institucion inst){
         boolean atras = false;
         do {
-           int opcionMenuFinanzas = IO.opcionSelect("Finanzas", "1. Gastos mensuales\n2. Pagar Sueldos", 3);
+           int opcionMenuFinanzas = IO.opcionSelect("Finanzas", "1. Gastos mensuales\n2. Comprobantes", 3);
            switch (opcionMenuFinanzas) {
                 case 0:
                     atras = true;
@@ -18,7 +18,7 @@ public class ViewFinanzas {
                 case 1:
                     boolean atras2 = false;
                     do {
-                        int opcionMenuGastosMensuales = IO.opcionSelect("Gastos Mensuales", "1. Gastos fijos\n2. Gastos Sueldos", 2);
+                        int opcionMenuGastosMensuales = IO.opcionSelect("Gastos Mensuales", "Gastos Totales: $"+inst.getGastosTotales()+"\n\n1. Gastos fijos\n2. Gastos Sueldos", 2);
                         switch (opcionMenuGastosMensuales) {
                             case 0:
                                 atras2 = true;
@@ -42,30 +42,34 @@ public class ViewFinanzas {
                                     }        
                                 } while (!atras3);
                                 break;
+                            case 2:
+                                boolean atras4 = false;
+                                do {
+                                    int seleccion = IO.opcionSelect("Gastos Sueldos", "Seleccione el profesional para pagar el sueldo:\n\n"+inst.mostrarSueldosArreglo()+"\n\nTotal sueldos: $ "+inst.sumaSueldos(), inst.cantProfesionales());
+                                    switch (seleccion) {
+                                    case 0:
+                                        atras4 = true;
+                                        break;
+                                    default:
+                                        Profesional profesional = inst.getProfesionalIndex(seleccion);
+                                        if(profesional != null){
+                                            double aPagar = profesional.calcularSueldo(inst.getValorTurno());
+                                            JOptionPane.showMessageDialog(null, "Pagado a "+profesional.getApellido()+" sueldo de: "+aPagar,"Pagado",3);
+                                            inst.pagarSueldo(profesional);
+                                        }else{
+                                            JOptionPane.showMessageDialog(null, "No hay profesionales cargados","Error",0);
+                                        }
+                                        break;
+                                    }      
+                                } while (!atras4);
+                                break;    
                             default:
                                 break;
                         }
                     } while (!atras2);
                     break;
                 case 2:
-                    boolean atras4 = false;
-                    do {
-                        int seleccion = IO.opcionSelect("Pagar Sueldos", "Seleccione el profesional para pagar el sueldo:\n\n"+inst.mostrarSueldos()+"\n\nTotal sueldos: $ "+inst.totalSueldos(), inst.cantProfesionales());
-                        switch (seleccion) {
-                        case 0:
-                            atras4 = true;
-                            break;
-                        default:
-                            Profesional profesional = inst.getProfesionalIndex(seleccion);
-                            if(profesional != null){
-                                double aPagar = profesional.sueldoTotal(inst.getValorTurno());
-                                JOptionPane.showMessageDialog(null, "Pagado a "+profesional.getApellido()+" sueldo de: "+aPagar,"Pagado",3);
-                            }else{
-                                JOptionPane.showMessageDialog(null, "No hay profesionales cargados","Error",0);
-                            }
-                            break;
-                        }      
-                    } while (!atras4);
+
                     break;
             default:
                 break;
