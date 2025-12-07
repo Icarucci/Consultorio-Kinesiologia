@@ -105,6 +105,17 @@ public class Institucion {
         pacientes = Arreglo.agregarPaciente(pacientes, pte);
         return true;
     }
+    //METODOS DE ORDENAMIENTO DE PACIENTES
+    public void ordenaPacienteId(){
+        Arreglo.ordenaPersonasID(pacientes);
+    }
+    public void ordenaPacienteApellido(){
+        Arreglo.ordenaPersonasApellido(pacientes);
+    }
+    public void ordenaPAcienteSesiones(){
+        Arreglo.ordenaPersonasSesiones(pacientes);
+    }
+
     /**
      * Agrega un profesional al arreglo de profesionales
      * @param profesional
@@ -212,6 +223,28 @@ public class Institucion {
             retorno += pacientes[index].getApellido()+", "+pacientes[index].getNombre()+" - "+pacientes[index].getId()+" Sesiones: "+pacientes[index].getSesionesRemanentes()+"/"+pacientes[index].getSesionesTotales()+"\n";
         }
         return retorno;
+    }
+    public boolean encontrarPacienteIndex(String id){
+        boolean resultado = false;
+        boolean fin=false;
+        int index=0;
+        int i = -1;
+        while(!fin){
+            if(index<pacientes.length){
+                if(pacientes[index].getId().equals(id)){
+                    fin=true;
+                    i = index;
+                }
+            }else{
+                fin = true;
+            }
+            index++;
+        }
+        if(i != -1){
+            pacientes = (Paciente[])Arreglo.eliminar(pacientes,i);
+            resultado=true;
+        }
+        return resultado;
     }
     /**
      * Retorna String con informacion de los profesionales

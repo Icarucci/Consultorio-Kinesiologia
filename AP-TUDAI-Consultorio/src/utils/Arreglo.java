@@ -98,6 +98,18 @@ public class Arreglo {
         return nuevo;
     }
     /*ORDENAMIENTOS*/
+    public static Paciente[] ordenaPersonasSesiones(Paciente[]arreglo){
+        for(int i=0;i<arreglo.length-1;i++){
+            for(int j=0;j<arreglo.length-1;j++){
+                if(arreglo[j].getSesionesRemanentes()>arreglo[j+1].getSesionesRemanentes()){
+                    Paciente aux = arreglo[j];
+                    arreglo[j] = arreglo[j+1];
+                    arreglo[j+1] = aux;
+                }
+            }
+        }
+        return arreglo;
+    }
     /**
      * METODO QUE RECIBE UN ARREGLO DE PERSONAS Y LO DEVUELVE ORDENADO POR APELLIDO.
      * burbujeo
@@ -183,6 +195,18 @@ public class Arreglo {
         String resultado="";
         for(int i=0;i<arreglo.length;i++){
             resultado+=arreglo[i].toString()+"\n";
+        }
+        return resultado;
+    }
+
+    public static Paciente[] eliminar(Paciente[]personas,int index){
+        Paciente[] resultado = new Paciente[personas.length-1];
+        int j=0;
+        for(int i=0; i<personas.length;i++){
+            if(i!=index){
+                resultado[j]=personas[i];
+                j++;
+            }
         }
         return resultado;
     }

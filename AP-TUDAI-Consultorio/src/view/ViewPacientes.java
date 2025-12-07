@@ -12,7 +12,7 @@ public class ViewPacientes {
     public static void opcionMenuPacientes(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Seleccionar paciente\n3.Listar Pacientes\n4.Editar Paciente", 4);
+            int opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Seleccionar paciente\n3.Listar Pacientes\n4.Editar Paciente\n5.Eliminar paciente\n\n", 5);
             switch (opcionMenuPacientes) {
                 case 0:
                     atras = true;
@@ -79,8 +79,31 @@ public class ViewPacientes {
                     break;
                 case 3: 
                     /*Listar pacientes. - Se lista la informacion escencial. Apellido, Nombre - Dni , Sesiones realizadas/Sesiones totales. */
-                    String res = inst.mostrarPacientes();
-                    JOptionPane.showMessageDialog(null,res,"Listado Pacientes",1);
+                    boolean fin = false;
+                    do {
+                        String res = inst.mostrarPacientes();
+                        res = "Ordenar por:\n1. DNI - 2. Apellido - 3. Sesiones Remantenes\n\n"+res;
+                        int index = IO.opcionSelect("Ordenamiento", res, 3);
+                        switch (index) {
+                            case 0:
+                                fin = true;
+                                break;
+                            case 1:
+                                /*Ordeno por DNI */
+                                inst.ordenaPacienteId();
+                                break;
+                            case 2:
+                                /*Ordeno por Apellido */
+                                inst.ordenaPacienteApellido();
+                                break;
+                            case 3:
+                                /*Ordeno por Sesiones remanentes */
+                                inst.ordenaPAcienteSesiones();
+                                break;
+                            default:
+                                break;
+                        }
+                    } while (!fin);
                     break;
                 case 4:
                     /*Edicion de un paciente */
@@ -119,6 +142,16 @@ public class ViewPacientes {
                     }else{
                         /*No se encontro paciente*/
                         JOptionPane.showMessageDialog(null, "Paciente no encontrado","Error",0);
+                    }
+                    break;
+                case 5:
+                    /*Elimino un paciente segun su ID */
+                    String ident = IO.inputString("Eliminar Paciente", "Ingrese dni del paciente a eliminar");
+                    boolean response = inst.encontrarPacienteIndex(ident);
+                    if(response){
+                        JOptionPane.showMessageDialog(null, "Paciente eliminado con exito","Eliminado",3);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No se encontro el paciente","Error",0);
                     }
                     break;
                 default:

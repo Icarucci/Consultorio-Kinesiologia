@@ -16,13 +16,19 @@ public class App {
         /*Pacientes */
         Paciente pac1 = new Paciente("29555208", "Omar", "Roselli", "Vivorata 2968", 4379450, "OSDE", 10, false); 
         Paciente pac2 = new Paciente("35250250", "Ignacio", "Carucci", "Planes 1234", 1234567, "SMATA", 10, false);
+        Paciente pac3 = new Paciente("25452831","Maria Soledad","Roselli","Scavini 2345",643169,"Medife",25,false);
+        Paciente pac4 = new Paciente("05795903","Maria de los Angeles","Inclan","San Lorenzo 262",15020650,"IOMA",10,false);
         delta.agregarPaciente(pac1);
         delta.agregarPaciente(pac2);
+        delta.agregarPaciente(pac3);
+        delta.agregarPaciente(pac4);
         /*Profesionales */
         Especialista prof1 = new Especialista("31625325", "Malena", "Griffiths", "Colon 30",58744291 ,10363,Especialidad.OSTEOPATIA);
         Profesional prof2 = new Profesional("1234567","John","Doe","Fake Street 1234",1234567,101010);
+        Especialista prof3 = new Especialista("38601802", "JUlita", "Della Penna", "Planes 916", 33959603, 10364, Especialidad.ATM);
         delta.agregarProfesional(prof1);
         delta.agregarProfesional(prof2);
+        delta.agregarProfesional(prof3);
         /*Puestos laborales*/
         Puesto p1 = new Puesto("Camilla 1");
         Puesto p2 = new Puesto("Camilla 2");
