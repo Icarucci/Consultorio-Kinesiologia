@@ -1,5 +1,6 @@
 package utils;
 
+import objetos.Comprobante;
 import objetos.Paciente;
 import objetos.Persona;
 import objetos.Profesional;
@@ -209,5 +210,24 @@ public class Arreglo {
             }
         }
         return resultado;
+    }
+
+    //COMPROBANTE
+    /**
+     * Crea un arreglo nuevo con una posición más.
+     * Copia todos los elementos del arreglo original al nuevo.
+     * Coloca el comprobante nuevo en la última posición del arreglo nuevo.
+     * Devuelve el arreglo nuevo ya ampliado.
+     * @param arreglo
+     * @param comp
+     * @return
+     */
+    public static Comprobante[] agregarComprobante(Comprobante[]arreglo, Comprobante comp){
+        Comprobante [] nuevo = new Comprobante[arreglo.length+1];
+        for(int i=0;i<arreglo.length;i++){
+            nuevo[i]=arreglo[i];
+        }
+        nuevo[nuevo.length-1] = comp;
+        return nuevo;
     }
 }

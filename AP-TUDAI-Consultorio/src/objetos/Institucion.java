@@ -1,5 +1,8 @@
 package objetos;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import utils.Arreglo;
 
 
@@ -12,6 +15,7 @@ public class Institucion {
     private Puesto[] puestos = new Puesto[5];
     private double costoFijo;
     private double valorTurno;
+    private Comprobante[] comprobantes = new Comprobante[0];
 
     /*Constructor */
     public Institucion(String nombre, double costoFijo){
@@ -346,7 +350,55 @@ public class Institucion {
         return gastosTotales;
     }
 
+    public void generarComprobante(Profesional prof){
+        //Obtiene la fecha, hora y minutos actual
+        LocalDate fecha = LocalDate.now();
+        int hora = LocalTime.now().getHour();
+        int minuto = LocalTime.now().getMinute();
+        //El número de comprobante se genera acorde al correspondiente al indice del arreglo comprobantes
+        int numero = comprobantes.length+1;
+        //Genera el texto del comprobante
+        String datos = "Delta Kinesiología"+
+                    "\n\nComprobante de pago"+
+                    "\nFecha: "+fecha+
+                    " | Hora: "+hora+":"+minuto+
+                    "\n\nSe pagó un total de: $"+calculoSueldo(prof)+
+                    "\nSe pagó a: "+prof.getApellido()+", "+prof.getNombre()+
+                    "\n\nNúmero de comprobante de pago: "+numero;
+        //Crea el objeto Comprobante
+        Comprobante comp = new Comprobante(fecha, datos);
+        //Lo agrega al arreglo comprobantes
+        comprobantes = Arreglo.agregarComprobante(comprobantes, comp);
+    }
 
+    /**
+     * Muestra la cantidad de comprobantes del arreglo con su fecha de pago
+     * @return
+     */
+    public String mostrarComprobantesArreglo(){
+        String retorno = "";
+        for (int index = 0; index < comprobantes.length; index++){
+            retorno += (index+1)+". Fecha de pago: "+comprobantes[index].getFecha()+"\n\n";
+        }
+        return retorno;
+    }   
+
+    /**
+     * Retorna la cantidad de comprobantes totales
+     * @return
+     */
+    public int getCantComprobantes(){
+        return comprobantes.length;
+    }
+
+    /**
+     * Muestra el objeto comprobante correspondiente al index que le pasemos del optionSelect
+     * @param index
+     * @return
+     */
+    public Comprobante mostrarComprobante(int index){
+        return comprobantes[index-1];
+    }
 }
 
 

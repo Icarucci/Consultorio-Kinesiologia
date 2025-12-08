@@ -1,6 +1,8 @@
 package view;
 
 import javax.swing.JOptionPane;
+
+import objetos.Comprobante;
 import objetos.Institucion;
 import objetos.Profesional;
 import utils.IO;
@@ -53,9 +55,14 @@ public class ViewFinanzas {
                                     default:
                                         Profesional profesional = inst.getProfesionalIndex(seleccion);
                                         if(profesional != null){
-                                            double aPagar = inst.calculoSueldo(profesional);
-                                            JOptionPane.showMessageDialog(null, "Pagado a "+profesional.getApellido()+" sueldo de: "+aPagar,"Pagado",3);
-                                            inst.pagarSueldo(profesional);
+                                            if(inst.calculoSueldo(profesional) == 0.0){
+                                                JOptionPane.showMessageDialog(null, "No hay saldo pendiente para abonar a "+profesional.getApellido()+", "+profesional.getNombre(), "Error", 2);
+                                            } else {
+                                                double aPagar = inst.calculoSueldo(profesional);
+                                                JOptionPane.showMessageDialog(null, "Pagado a "+profesional.getApellido()+" sueldo de: $"+aPagar,"Pagado",3);
+                                                inst.generarComprobante(profesional);
+                                                inst.pagarSueldo(profesional);
+                                            }
                                         }else{
                                             JOptionPane.showMessageDialog(null, "No hay profesionales cargados","Error",0);
                                         }
@@ -69,8 +76,17 @@ public class ViewFinanzas {
                     } while (!atras2);
                     break;
                 case 2:
+                    if(inst.getCantComprobantes() == 0){
+                        JOptionPane.showMessageDialog(null, "No hay comprobantes.", "ERROR", 0);
+                        break;
+                    } else {
+                        String comprobantes = inst.mostrarComprobantesArreglo();
+                        int index = IO.opcionSelect("COMPROBANTES", "Seleccione el comprobante que desea visualizar\n\n"+comprobantes, inst.getCantComprobantes());
+                        Comprobante comp = inst.mostrarComprobante(index);
+                        JOptionPane.showMessageDialog(null, comp.getDato(), "Comprobante N° "+index, 1);
+                        break;
+                    }
 
-                    break;
             default:
                 break;
            }
