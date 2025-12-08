@@ -98,7 +98,7 @@ public class ViewPacientes {
                                 break;
                             case 3:
                                 /*Ordeno por Sesiones remanentes */
-                                inst.ordenaPAcienteSesiones();
+                                inst.ordenaPacienteSesiones();
                                 break;
                             default:
                                 break;

@@ -1,7 +1,5 @@
 package objetos;
 
-import utils.Arreglo;
-
 
 public class Institucion {
     /*Atributos privados */
@@ -9,7 +7,7 @@ public class Institucion {
     private Profesional[] profesionales = new Profesional[0];
     private Paciente[] pacientes = new Paciente[0];
     private Turno[] turnos = new Turno[0];
-    private Puesto[] puestos = new Puesto[5];
+    private final Puesto[] puestos = new Puesto[5];
     private double costoFijo;
     private double valorTurno;
 
@@ -102,20 +100,14 @@ public class Institucion {
             }
         }
         //Si no hay otro paciente con mismo dni, agrega al paciente
-        pacientes = Arreglo.agregarPaciente(pacientes, pte);
+        Paciente[] auxiliar = new Paciente[pacientes.length+1];
+        Persona [] resultado = agregarPersona(pacientes, pte);
+        for(int i=0;i<auxiliar.length;i++){
+            auxiliar[i] = (Paciente)resultado[i];
+        }
+        pacientes = auxiliar;
         return true;
     }
-    //METODOS DE ORDENAMIENTO DE PACIENTES
-    public void ordenaPacienteId(){
-        Arreglo.ordenaPersonasID(pacientes);
-    }
-    public void ordenaPacienteApellido(){
-        Arreglo.ordenaPersonasApellido(pacientes);
-    }
-    public void ordenaPAcienteSesiones(){
-        Arreglo.ordenaPersonasSesiones(pacientes);
-    }
-
     /**
      * Agrega un profesional al arreglo de profesionales
      * @param profesional
@@ -129,19 +121,105 @@ public class Institucion {
         for (int i = 0; i < profesionales.length; i++) {
             if (profesionales[i] != null) {
                 //DNI duplicado?
-                if (profesionales[i].getId().equals(prof.getId())) {
-                    return false;
-                }
-                //Matricula duplicada?
-                if (profesionales[i].getMatricula() == prof.getMatricula()) {
+                if (profesionales[i].getId().equals(prof.getId())||profesionales[i].getMatricula() == prof.getMatricula()) {
                     return false;
                 }
             }
         }
         //Si no hay otro profesional con mismo dni o matricula, lo agrega
-        profesionales = Arreglo.agregarProfesional(profesionales, prof);
+        Profesional[] auxiliar = new Profesional[profesionales.length+1];
+        Persona [] resultado = agregarPersona(profesionales, prof);
+        for(int i=0;i<auxiliar.length;i++){
+            auxiliar[i] = (Profesional)resultado[i];
+        }
+        profesionales = auxiliar;
         return true;
     }
+    /**
+     * METODO QUE RECIBE UN ARREGLO DE PERSONAS Y AGREGA UN LUGAR Y UNA NUEVA PERSONA AL ARREGLO
+     * @param personas
+     * @param persona
+     * @return arreglo de personas
+     */
+    public Persona[] agregarPersona(Persona[]personas,Persona persona){
+        Persona[]resultado = new Persona[personas.length+1];
+        for(int i=0;i<personas.length;i++){
+            resultado[i]=personas[i];
+        }
+        resultado[personas.length] = persona;
+        return resultado;
+    }
+    //METODOS DE ORDENAMIENTO DE PACIENTES
+    public void ordenaPacienteId(){
+        ordenaPersonasID(pacientes);
+    }
+    public void ordenaPacienteApellido(){
+        ordenaPersonasApellido(pacientes);
+    }
+    public void ordenaPacienteSesiones(){
+        for(int i=0;i<pacientes.length-1;i++){
+            for(int j=0;j<pacientes.length-1;j++){
+                if(pacientes[j].getSesionesRemanentes()>pacientes[j+1].getSesionesRemanentes()){
+                    Paciente aux = pacientes[j];
+                    pacientes[j] = pacientes[j+1];
+                    pacientes[j+1] = aux;
+                }
+            }
+        }
+    }
+    //METODOS DE ORDENAMIENTO DE PROFESIONALES
+    public void ordenaProfesionalesID(){
+        ordenaPersonasID(profesionales);
+    }
+    public void ordenaProfesionalesApellido(){
+        ordenaPersonasApellido(profesionales);
+    }
+    public void ordenaProfesionalesMatricula(){
+        for(int i=0;i<profesionales.length-1;i++){
+            for(int j=0;j<profesionales.length-1;j++){
+                if(profesionales[j].getMatricula()>profesionales[j+1].getMatricula()){
+                    Profesional aux = profesionales[j];
+                    profesionales[j] = profesionales[j+1];
+                    profesionales[j+1] = aux;
+                }
+            }
+        }
+    }
+    /* METODO QUE RECIBE UN ARREGLO DE PERSONAS Y LO DEVUELVE ORDENADO POR SU ID.
+    * burbujeo
+    * @param arreglo
+    * @return arreglo ordenado por ID
+    */
+    public Persona[] ordenaPersonasID(Persona[] arreglo){
+        for(int i=0; i < arreglo.length - 1; i++){
+            for(int j=0; j < arreglo.length - 1; j++){
+                if (arreglo[j].getId().compareTo(arreglo[j+1].getId()) > 0) {
+                    Persona aux = arreglo[j];
+                    arreglo[j] = arreglo[j+1];
+                    arreglo[j+1] = aux;
+                }
+            }
+        }
+        return arreglo;
+    }
+    
+    /* METODO QUE RECIBE UN ARREGLO DE PERSONAS Y LO DEVUELVE ORDENADO POR APELLIDO.
+    * burbujeo
+    * @param arreglo
+    * @return arreglo ordenado por apellido
+    */
+    public Persona[] ordenaPersonasApellido(Persona[]arreglo){
+        for(int i=0;i<arreglo.length-1;i++){
+            for(int j=0;j<arreglo.length-1;j++){
+                if((arreglo[j].getApellido().compareTo(arreglo[j+1].getApellido()))>0){
+                    Persona aux = arreglo[j];
+                    arreglo[j] = arreglo[j+1];
+                    arreglo[j+1] = aux;
+                }
+            }
+        }
+        return arreglo;
+    }    
 
     /**
      * Retorna la cantidad de profesionales
@@ -158,10 +236,31 @@ public class Institucion {
      * @return paciente
      */
     public Paciente buscarPacientePorDni(String dni) {
-        Persona[]ordenado = Arreglo.ordenaPersonasID(pacientes);
+        Persona[]ordenado = ordenaPersonasID(pacientes);
         //3. Aplicamos búsqueda binaria
-        Persona encontrado = Arreglo.buscaPersonaId(ordenado, dni);
+        Persona encontrado = buscaPersonaId(ordenado, dni);
         return (Paciente)encontrado;
+    }
+    /* METODO DE BUSQUEDA BINARIA DE PERSONAS A PARTIR DE SU ID.
+    * @param arreglo de Persona ordenado por ID
+    * @param id
+    * @return objeto Persona o Null.
+    */
+    public Persona buscaPersonaId(Persona[]arreglo,String id){
+        int inicio = 0;
+        int fin = arreglo.length-1;
+        while(inicio<=fin){
+            int medio = inicio+(fin-inicio)/2;
+            if(arreglo[medio].getId().compareTo(id)==0){
+                return arreglo[medio];
+            }
+            if(arreglo[medio].getId().compareTo(id)<0){
+                inicio=medio+1;
+            }else{
+                fin=medio-1;
+            }
+        }
+        return null;
     }
     /**
      * Busca paciente por apellido
@@ -169,12 +268,28 @@ public class Institucion {
      * @return Paciente
      */
     public Paciente[] buscarPacienteApellido(String apellido){
-        Persona[] encontrado = Arreglo.buscarPersonaApellido(pacientes, apellido);
+        Persona[] encontrado = buscarPersonaApellido(pacientes, apellido);
         Paciente[] resultado = new Paciente[encontrado.length];
         for(int i=0;i<resultado.length;i++){
             resultado[i] = (Paciente)encontrado[i];
         }
         return resultado;
+    }
+
+    /**
+     * METODO DE BUSQUEDA POR APELLIDO (LINEAL)
+     * @param arreglo
+     * @param apellido
+     * @return objeto Persona o Null
+     */
+    public Persona[] buscarPersonaApellido(Persona[]arreglo,String apellido){
+        Persona[] retorno = new Persona[0];
+        for(int i=0;i<arreglo.length;i++){
+            if(arreglo[i].getApellido().equals(apellido)){
+                retorno = agregarPersona(retorno, arreglo[i]);
+            }
+        }
+        return retorno;
     }
     /**
      * Busca profesional por dni
@@ -182,9 +297,9 @@ public class Institucion {
      * @return Profesional
      */
     public Profesional buscarProfesionalPorDni(String dni) {
-        Persona[]ordenado = Arreglo.ordenaPersonasID(profesionales);
+        Persona[]ordenado = ordenaPersonasID(profesionales);
         //3. Aplicamos búsqueda binaria
-        Persona encontrado = Arreglo.buscaPersonaId(ordenado, dni);
+        Persona encontrado = buscaPersonaId(ordenado, dni);
         return (Profesional)encontrado;
     }
     /**
@@ -193,7 +308,7 @@ public class Institucion {
      * @return Profesional
      */
     public Profesional[] buscarProfesionalApellido(String apellido){
-        Persona[] encontrado = Arreglo.buscarPersonaApellido(profesionales, apellido);
+        Persona[] encontrado = buscarPersonaApellido(profesionales, apellido);
         Profesional[] resultado = new Profesional[encontrado.length];
         for(int i=0;i<resultado.length;i++){
             resultado[i] = (Profesional)encontrado[i];
@@ -241,8 +356,19 @@ public class Institucion {
             index++;
         }
         if(i != -1){
-            pacientes = (Paciente[])Arreglo.eliminar(pacientes,i);
+            pacientes = eliminar(pacientes,i);
             resultado=true;
+        }
+        return resultado;
+    }
+    public Paciente[] eliminar(Paciente[]personas,int index){
+        Paciente[] resultado = new Paciente[personas.length-1];
+        int j=0;
+        for(int i=0; i<personas.length;i++){
+            if(i!=index){
+                resultado[j]=personas[i];
+                j++;
+            }
         }
         return resultado;
     }
@@ -264,7 +390,7 @@ public class Institucion {
      * @param Turno
      */
     public void agendarNuevoTurno(Turno tt){
-        turnos = Arreglo.agregarTurno(turnos, tt);
+        turnos = agregarTurno(turnos, tt);
     }
     /**
      * Muestra los turnos registrados
@@ -345,8 +471,31 @@ public class Institucion {
         double gastosTotales = sumaSueldos()+getCostoFijo();
         return gastosTotales;
     }
-
-
+    /**
+    * METODO QUE RECIBE UN ARREGLO DE PERSONAS Y RETORNA LA INFORMACION DE TODOS LOS ELEMENTOS.
+    * @param arreglo
+    * @return String 
+    */
+    public String showArregloPersona(Persona[]arreglo){
+        String resultado="";
+        for(int i=0;i<arreglo.length;i++){
+            resultado+=arreglo[i].toString()+"\n";
+        }
+        return resultado;
+    }
+    /**
+    * METODO QUE RECIBE UN ARREGLO DE TURNOS Y LE AGREGA UN TURNO EN UNA NUEVA POSICION.
+    * @param arreglo
+    * @return arreglo de Turno con una posicion mas
+    */
+    public Turno[] agregarTurno(Turno[]arreglo, Turno turno){
+        Turno [] nuevo = new Turno[arreglo.length+1];
+        for(int i=0;i<arreglo.length;i++){
+            nuevo[i]=arreglo[i];
+        }
+        nuevo[nuevo.length-1] = turno;
+        return nuevo;
+    }
 }
 
 
