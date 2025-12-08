@@ -1,7 +1,6 @@
 package objetos;
 
 import java.time.LocalDate;
-import utils.Arreglo;
 
 public class Puesto {
     //ATRIBUTOS
@@ -70,7 +69,19 @@ public class Puesto {
      * @param Turno
      */
     public void agendarNuevoTurno(Turno tt){
-        turnos = Arreglo.agregarTurno(turnos, tt);
+        turnos = agregarTurno(turnos, tt);
+    }
+    /* METODO QUE RECIBE UN ARREGLO DE TURNOS Y LE AGREGA UN TURNO EN UNA NUEVA POSICION.
+    * @param arreglo
+    * @return arreglo de Turno con una posicion mas
+    */
+    public Turno[] agregarTurno(Turno[]arreglo, Turno turno){
+        Turno [] nuevo = new Turno[arreglo.length+1];
+        for(int i=0;i<arreglo.length;i++){
+            nuevo[i]=arreglo[i];
+        }
+        nuevo[nuevo.length-1] = turno;
+        return nuevo;
     }
 
     /**

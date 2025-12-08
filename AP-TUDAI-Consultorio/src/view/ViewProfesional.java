@@ -3,7 +3,6 @@ package view;
 import javax.swing.JOptionPane;
 import objetos.Institucion;
 import objetos.Profesional;
-import utils.Arreglo;
 import utils.IO;
 
 public class ViewProfesional {
@@ -100,7 +99,7 @@ public class ViewProfesional {
                                     Profesional[] ans = inst.buscarProfesionalApellido(apellidoBuscado);
                                     if(ans.length != 0){
                                         /*Mostrar encontrados Tengo que elegir cual*/
-                                        JOptionPane.showMessageDialog(null, Arreglo.showArregloPersona(ans),"Profesional",1);
+                                        JOptionPane.showMessageDialog(null, inst.showArregloPersona(ans),"Profesional",1);
                                     }else{
                                         /*No se encontro profesional*/
                                         JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
