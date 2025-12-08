@@ -494,9 +494,16 @@ public class Institucion {
         //Crea el objeto Comprobante
         Comprobante comp = new Comprobante(fecha, datos);
         //Lo agrega al arreglo comprobantes
-        comprobantes = Arreglo.agregarComprobante(comprobantes, comp);
+        agregarComprobante(comp);
     }
-
+    public void agregarComprobante(Comprobante comprobante){
+        Comprobante[] auxiliar = new Comprobante[comprobantes.length+1];
+        for(int i=0;i<comprobantes.length;i++){
+            auxiliar[i]=comprobantes[i];
+        }
+        auxiliar[comprobantes.length] = comprobante;
+        comprobantes = auxiliar;
+    }
     /**
      * Muestra la cantidad de comprobantes del arreglo con su fecha de pago
      * @return
