@@ -226,14 +226,6 @@ public class Institucion {
     }    
 
     /**
-     * Retorna la cantidad de pacientes
-     * @return
-     */
-    public int cantPacientes(){
-        return pacientes.length;
-    }
-
-    /**
      * Retorna la cantidad de profesionales
      * @param prof
      * @return
@@ -406,9 +398,7 @@ public class Institucion {
             return res;
         }
         for(int i=0;i<turnos.length;i++){
-            if(!turnos[i].isAsistencia()){
-                res += turnos[i].getTurnoId()+" - "+turnos[i]+"\n";
-            }
+            res += turnos[i].getTurnoId()+" - "+turnos[i]+"\n";
         }
         return res;
     }
@@ -480,36 +470,21 @@ public class Institucion {
         LocalDate fecha = LocalDate.now();
         int hora = LocalTime.now().getHour();
         int minuto = LocalTime.now().getMinute();
-        String min ="";
-        if(minuto<10){
-            min = "0"+minuto;
-        }else{
-            min = ""+minuto;
-        }
         //El número de comprobante se genera acorde al correspondiente al indice del arreglo comprobantes
         int numero = comprobantes.length+1;
         //Genera el texto del comprobante
-    
-        String datos= getNombre()+
-                "\n\nComprobante de pago"+
-                "\nFecha: "+fecha+
-                " | Hora: "+hora+":"+min+
-                "\n\nSe pagó un total de: $"+calculoSueldo(prof)+
-                "\nSe pagó a: "+prof.getApellido()+", "+prof.getNombre()+
-                "\n\nNúmero de comprobante de pago: "+numero;
-        
+        String datos = "Delta Kinesiología"+
+                    "\n\nComprobante de pago"+
+                    "\nFecha: "+fecha+
+                    " | Hora: "+hora+":"+minuto+
+                    "\n\nSe pagó un total de: $"+calculoSueldo(prof)+
+                    "\nSe pagó a: "+prof.getApellido()+", "+prof.getNombre()+
+                    "\n\nNúmero de comprobante de pago: "+numero;
         //Crea el objeto Comprobante
         Comprobante comp = new Comprobante(fecha, datos);
         //Lo agrega al arreglo comprobantes
         agregarComprobante(comp);
     }
-    /**
-     * Crea un arreglo nuevo con una posición más.
-     * Copia todos los elementos del arreglo original al nuevo.
-     * Coloca el comprobante nuevo en la última posición del arreglo nuevo.
-     * Devuelve el arreglo nuevo ya ampliado.
-     * @param comprobante
-     */
     public void agregarComprobante(Comprobante comprobante){
         Comprobante[] auxiliar = new Comprobante[comprobantes.length+1];
         for(int i=0;i<comprobantes.length;i++){
@@ -570,11 +545,6 @@ public class Institucion {
         }
         nuevo[nuevo.length-1] = turno;
         turnos = nuevo;
-    }
-
-    //HISTORIA CLINICA
-    public void evolucionar(){
-
     }
 }
 
