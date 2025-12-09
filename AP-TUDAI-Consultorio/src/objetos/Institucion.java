@@ -494,7 +494,7 @@ public class Institucion {
         //El número de comprobante se genera acorde al correspondiente al indice del arreglo comprobantes
         int numero = comprobantes.length+1;
         //Genera el texto del comprobante
-        String datos = "Delta Kinesiología"+
+        String datos = getNombre()+
                     "\n\nComprobante de pago"+
                     "\nFecha: "+fecha+
                     " | Hora: "+hora+":"+minuto+
