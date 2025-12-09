@@ -387,15 +387,6 @@ public class Institucion {
         }
         return retorno;
     }
-
-    //AGENDAR NUEVO TURNO
-    /**
-     * Agrega nuevo Turno al arreglo de turnos
-     * @param Turno
-     */
-    public void agendarNuevoTurno(Turno tt){
-        turnos = agregarTurno(turnos, tt);
-    }
     /**
      * Muestra los turnos registrados
      * @return String
@@ -481,16 +472,24 @@ public class Institucion {
         LocalDate fecha = LocalDate.now();
         int hora = LocalTime.now().getHour();
         int minuto = LocalTime.now().getMinute();
+        String min ="";
+        if(minuto<10){
+            min = "0"+minuto;
+        }else{
+            min = ""+minuto;
+        }
         //El número de comprobante se genera acorde al correspondiente al indice del arreglo comprobantes
         int numero = comprobantes.length+1;
         //Genera el texto del comprobante
-        String datos = "Delta Kinesiología"+
-                    "\n\nComprobante de pago"+
-                    "\nFecha: "+fecha+
-                    " | Hora: "+hora+":"+minuto+
-                    "\n\nSe pagó un total de: $"+calculoSueldo(prof)+
-                    "\nSe pagó a: "+prof.getApellido()+", "+prof.getNombre()+
-                    "\n\nNúmero de comprobante de pago: "+numero;
+    
+        String datos= getNombre()+
+                "\n\nComprobante de pago"+
+                "\nFecha: "+fecha+
+                " | Hora: "+hora+":"+min+
+                "\n\nSe pagó un total de: $"+calculoSueldo(prof)+
+                "\nSe pagó a: "+prof.getApellido()+", "+prof.getNombre()+
+                "\n\nNúmero de comprobante de pago: "+numero;
+        
         //Crea el objeto Comprobante
         Comprobante comp = new Comprobante(fecha, datos);
         //Lo agrega al arreglo comprobantes
@@ -549,13 +548,13 @@ public class Institucion {
     * @param arreglo
     * @return arreglo de Turno con una posicion mas
     */
-    public Turno[] agregarTurno(Turno[]arreglo, Turno turno){
-        Turno [] nuevo = new Turno[arreglo.length+1];
-        for(int i=0;i<arreglo.length;i++){
-            nuevo[i]=arreglo[i];
+    public void agregarTurno(Turno turno){
+        Turno [] nuevo = new Turno[turnos.length+1];
+        for(int i=0;i<turnos.length;i++){
+            nuevo[i]=turnos[i];
         }
         nuevo[nuevo.length-1] = turno;
-        return nuevo;
+        turnos = nuevo;
     }
 }
 
