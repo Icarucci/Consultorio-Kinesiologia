@@ -69,34 +69,35 @@ public class Puesto {
      * @param Turno
      */
     public void agendarNuevoTurno(Turno tt){
-        turnos = agregarTurno(turnos, tt);
-    }
-    /* METODO QUE RECIBE UN ARREGLO DE TURNOS Y LE AGREGA UN TURNO EN UNA NUEVA POSICION.
-    * @param arreglo
-    * @return arreglo de Turno con una posicion mas
-    */
-    public Turno[] agregarTurno(Turno[]arreglo, Turno turno){
-        Turno [] nuevo = new Turno[arreglo.length+1];
-        for(int i=0;i<arreglo.length;i++){
-            nuevo[i]=arreglo[i];
+        Turno [] nuevo = new Turno[turnos.length+1];
+        for(int i=0;i<turnos.length;i++){
+            nuevo[i]=turnos[i];
         }
-        nuevo[nuevo.length-1] = turno;
-        return nuevo;
+        nuevo[nuevo.length-1] = tt;
+        turnos = nuevo;
     }
-
+  
     /**
      * Retorna un String con la informacion de los turnos
      * @return String
      */
     public String showTurnos(){
-        String res ="";
-        if(turnos.length==0){
-            res+="Sin turnos al momento";
+         if(turnos.length==0){
+            String res="Sin turnos al momento";
             return res;
         }
+        String ausentes="\nAusentes:";
+        String presentes="\nPresentes:";
+        String futuros="\nFuturos:";
         for(int i=0;i<turnos.length;i++){
-            res += turnos[i]+"\n";
+            if(turnos[i].getAsistencia()>0){
+                presentes+="\n"+turnos[i].getTurnoId()+" - "+turnos[i];
+            }else if(turnos[i].getAsistencia()<0){
+                ausentes+="\n"+turnos[i].getTurnoId()+" - "+turnos[i];
+            }else{
+                futuros+="\n"+turnos[i].getTurnoId()+" - "+turnos[i];
+            }
         }
-        return res;
+        return ausentes+"\n---------------------------------"+presentes+"\n---------------------------------"+futuros;
     }
 }

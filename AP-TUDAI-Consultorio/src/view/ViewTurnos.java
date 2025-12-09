@@ -2,7 +2,6 @@ package view;
 
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
-
 import objetos.Evolucion;
 import objetos.Hora;
 import objetos.Institucion;
@@ -19,7 +18,7 @@ public class ViewTurnos {
     public static void opcionMenuTurnos(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuTurnos = IO.opcionSelect("Turnos", "1. Agendar turno\n2. Visualizar Turnos\n3. Seleccionar Turno", 3);
+            int opcionMenuTurnos = IO.opcionSelect("Turnos", "1. Agendar turno\n2. Visualizar Turnos\n3. Seleccionar Turno\n0. Atras", 3);
             switch (opcionMenuTurnos) {
                 case 0:
                     atras = true;
@@ -33,6 +32,10 @@ public class ViewTurnos {
                     }
                     Paciente paciente = inst.buscarPacientePorDni(pacBuscado);
                     if(paciente!=null){
+                        if(paciente.getSesionesTotales() == paciente.cantidadTurnos()){
+                            JOptionPane.showMessageDialog(null, "No posee mas turnos disponibles","Error",0);
+                            break;
+                        }
                         /*Busco profesional */
                         if(paciente.getSesionesRemanentes() != 0){
                             String profBuscado = IO.inputString("Seleccion Profesional", "Listado\n"+inst.mostrarProfesionales()+"\nIngrese el dni:");
@@ -41,8 +44,8 @@ public class ViewTurnos {
                                 /*Selecciono la fecha */
                                 LocalDate fecha = IO.inputLocaldate("Fecha", "Seleccione fecha");
                                 if(!fecha.isBefore(LocalDate.now())){
-                                    Hora hora = IO.inputHora("Horario", "Ingrese horario del turno");
-                                    int index = IO.opcionSelect("Seleccion del Puesto", "1.Camilla 1\n2.Camilla 2\n3. Bicicleta\n4.Gimnasio 1\n5.Gimnasio 2", 5);
+                                    Hora hora = IO.inputHora("Horario", "Ingrese horario del turno de 9 a 18hs");
+                                    int index = IO.inputIntegerPositiveLimite("Seleccion del Puesto", "1.Camilla 1\n2.Camilla 2\n3. Bicicleta\n4.Gimnasio 1\n5.Gimnasio 2",5); 
                                     Puesto puesto = inst.getPuesto(index-1);
                                     /*Validaciones*/
                                     /*El paciente debe validar que no tiene turno ese dia */
@@ -60,9 +63,9 @@ public class ViewTurnos {
                                     }else{
                                         Turno nuevoTurno = new Turno(puesto,paciente,profesional,fecha,hora);
                                         inst.agregarTurno(nuevoTurno);
-                                        paciente.agendarNuevoTurno(nuevoTurno);
-                                        profesional.agendarNuevoTurno(nuevoTurno);
-                                        puesto.agendarNuevoTurno(nuevoTurno);
+                                        // paciente.agendarNuevoTurno(nuevoTurno);
+                                        // profesional.agendarNuevoTurno(nuevoTurno);
+                                        // puesto.agendarNuevoTurno(nuevoTurno);
                                     }
                                 }else{
                                     JOptionPane.showMessageDialog(null, "No puede seleccionarse una fecha previa al dia actual","Error",0);
@@ -81,7 +84,7 @@ public class ViewTurnos {
                     /*visualizar turnos */
                     boolean back = false;
                     do {
-                        int seleccion = IO.opcionSelect("Visualizacion de Turnos","Que turnos desea visualizar:\n1.Por paciente\n2.Por profesional\n3.Por puesto\n4.Todos",4);
+                        int seleccion = IO.opcionSelect("Visualizacion de Turnos","Que turnos desea visualizar:\n1. Por paciente\n2. Por profesional\n3. Por puesto\n4. Todos\n0. Atras",4);
                         switch (seleccion) {
                             case 0:
                                 back = true;
@@ -110,14 +113,14 @@ public class ViewTurnos {
                     }else{
                         boolean back2 = false;   
                         do {
-                            int seleccion = IO.opcionSelect("Seleccion de Turno", inst.showTurnos(),inst.cantidadTurnos());
+                            int seleccion = IO.opcionSelect("Seleccion de Turno", inst.showTurnosDisponibles()+"\n0. Atras",inst.cantidadTurnos());
                             if(seleccion == 0){
                                 back2 = true;
                             }else{
                                 Turno turnoSeleccionado = inst.getTurno(seleccion-1);
-                                int confirmacion = IO.opcionSelect("Turno", turnoSeleccionado.toString()+"\nConfirma asistencia:\n1.Si\n2.No",2);
+                                int confirmacion = IO.inputIntegerPositiveLimite("Turno", turnoSeleccionado.toString()+"\nConfirma asistencia:\n1.Si\n2.No", 2);
                                 if(confirmacion == 1){
-                                    turnoSeleccionado.setAsistencia(true);
+                                    turnoSeleccionado.setAsistencia(1);
                                     turnoSeleccionado.pacienteAsistio();
                                     turnoSeleccionado.profesionalCobra();
                                     //Evolucionamos en la HC el turno al dar el presente
@@ -132,6 +135,10 @@ public class ViewTurnos {
                                     } else {
                                         JOptionPane.showMessageDialog(null, texto, "Evolucion generada con exito", 1);
                                     }
+                                }else{
+                                    turnoSeleccionado.setAsistencia(-1);
+                                    turnoSeleccionado.pacienteAsistio();
+                                    turnoSeleccionado.profesionalCobra();
                                 }
                             }
                         } while (!back2);
@@ -170,7 +177,7 @@ public class ViewTurnos {
      * VISUALIZACION DE LOS TURNOS POR PUESTO
      */
     public static void viewTurnosPuesto(Institucion inst){
-        int index = IO.opcionSelect("Seleccion del Puesto", "1.Camilla 1\n2.Camilla 2\n3. Bicicleta\n4.Gimnasio 1\n5.Gimnasio 2", 5);
+        int index = IO.inputIntegerPositiveLimite("Seleccion del Puesto", "1.Camilla 1\n2.Camilla 2\n3. Bicicleta\n4.Gimnasio 1\n5.Gimnasio 2", 5);
         Puesto puesto = inst.getPuesto(index-1);
         JOptionPane.showMessageDialog(null, puesto.showTurnos(),"Turnos de "+puesto.getNombre(),1);
     }

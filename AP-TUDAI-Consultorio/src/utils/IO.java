@@ -61,6 +61,23 @@ public class IO {
         return retorno;
     }
 
+    public static int inputIntegerPositiveLimite(String titulo,String mensaje,int limite){
+        boolean condicion = false;
+        int retorno = 0;
+        do { 
+            try {
+                retorno = Integer.parseInt(JOptionPane.showInputDialog(null,mensaje,titulo,1));
+                if(retorno>0 && retorno<=limite){
+                    condicion = true;
+                }else{
+                    JOptionPane.showMessageDialog(null, "Valor ingresado no valido","Error",0);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Error en el ingreso","Error",0);
+            }
+        } while (!condicion);
+        return retorno;
+    }
     /**
      * Input de un boolean
      * @param titulo

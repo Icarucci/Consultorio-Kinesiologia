@@ -392,13 +392,34 @@ public class Institucion {
      * @return String
      */
     public String showTurnos(){
-        String res ="";
         if(turnos.length==0){
-            res+="Sin turnos al momento";
+            String res="Sin turnos al momento";
             return res;
         }
+        String ausentes="\nAusentes:";
+        String presentes="\nPresentes:";
+        String futuros="\nFuturos:";
         for(int i=0;i<turnos.length;i++){
-            res += turnos[i].getTurnoId()+" - "+turnos[i]+"\n";
+            if(turnos[i].getAsistencia()>0){
+                presentes+="\n"+turnos[i].getTurnoId()+" - "+turnos[i];
+            }else if(turnos[i].getAsistencia()<0){
+                ausentes+="\n"+turnos[i].getTurnoId()+" - "+turnos[i];
+            }else{
+                futuros+="\n"+turnos[i].getTurnoId()+" - "+turnos[i];
+            }
+        }
+        return ausentes+"\n---------------------------------"+presentes+"\n---------------------------------"+futuros;
+    }
+    public String showTurnosDisponibles(){
+         if(turnos.length==0){
+            String res="Sin turnos al momento";
+            return res;
+        }
+        String res ="";
+        for(int i=0;i<turnos.length;i++){
+            if(turnos[i].getAsistencia()==0){
+                res += "\n"+turnos[i].getTurnoId()+" - "+turnos[i];
+            }
         }
         return res;
     }

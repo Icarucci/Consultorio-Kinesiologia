@@ -10,7 +10,7 @@ public class Turno {
     private Profesional profesional;
     private LocalDate fecha;
     private Hora hora;
-    private boolean asistencia;
+    private int asistencia;
     private int turnoId;
     private static int contador=1;
 
@@ -21,9 +21,12 @@ public class Turno {
         this.profesional = profesional;
         this.fecha = fecha;
         this.hora = hora;
-        this.asistencia = false;
+        this.asistencia = 0;
         this.turnoId = contador;
         this.contador++;
+        paciente.agendarNuevoTurno(this);
+        profesional.agendarNuevoTurno(this);
+        puestoAsignado.agendarNuevoTurno(this);
     }
     //Getters & Setters
 
@@ -101,21 +104,23 @@ public class Turno {
      * Retorna un boolean con la asistencia
      * @return boolean
      */
-    public boolean isAsistencia() {
+    public int getAsistencia() {
         return asistencia;
     }
     /**
      * Setea la asistencia
      * @param asistencia
      */
-    public void setAsistencia(boolean asistencia) {
+    public void setAsistencia(int asistencia) {
         this.asistencia = asistencia;
     }
     /**
      * Ejecuta un metodo que si el paciente asistio a un turno, resta de las sesiones remanentes
      */
     public void pacienteAsistio(){
-        paciente.setSesionesRemanentes(paciente.getSesionesRemanentes()-1);
+        if(!paciente.isCronico()){
+            paciente.setSesionesRemanentes(paciente.getSesionesRemanentes()-1);
+        }
     }
 
     /**
