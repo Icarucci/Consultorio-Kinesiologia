@@ -226,6 +226,14 @@ public class Institucion {
     }    
 
     /**
+     * Retorna la cantidad de pacientes
+     * @return
+     */
+    public int cantPacientes(){
+        return pacientes.length;
+    }
+
+    /**
      * Retorna la cantidad de profesionales
      * @param prof
      * @return
@@ -496,6 +504,13 @@ public class Institucion {
         //Lo agrega al arreglo comprobantes
         agregarComprobante(comp);
     }
+    /**
+     * Crea un arreglo nuevo con una posición más.
+     * Copia todos los elementos del arreglo original al nuevo.
+     * Coloca el comprobante nuevo en la última posición del arreglo nuevo.
+     * Devuelve el arreglo nuevo ya ampliado.
+     * @param comprobante
+     */
     public void agregarComprobante(Comprobante comprobante){
         Comprobante[] auxiliar = new Comprobante[comprobantes.length+1];
         for(int i=0;i<comprobantes.length;i++){
@@ -556,6 +571,11 @@ public class Institucion {
         }
         nuevo[nuevo.length-1] = turno;
         return nuevo;
+    }
+
+    //HISTORIA CLINICA
+    public void evolucionar(){
+
     }
 }
 

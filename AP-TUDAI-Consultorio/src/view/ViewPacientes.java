@@ -12,7 +12,7 @@ public class ViewPacientes {
     public static void opcionMenuPacientes(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Seleccionar paciente\n3.Listar Pacientes\n4.Editar Paciente\n5.Eliminar paciente\n\n", 5);
+            int opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Seleccionar paciente\n3.Listar Pacientes\n4.Editar Paciente\n5.Eliminar paciente\n6. Ver Historia Clinica del paciente\n\n", 6);
             switch (opcionMenuPacientes) {
                 case 0:
                     atras = true;
@@ -154,6 +154,32 @@ public class ViewPacientes {
                         JOptionPane.showMessageDialog(null, "No se encontro el paciente","Error",0);
                     }
                     break;
+                case 6:
+                    /*Ver HC del paciente */
+                    String ptes = inst.mostrarPacientes();
+                    boolean atras3 = false;
+                    do {
+                        String dniStr = IO.inputString("Historia Clínica", "Ingrese el DNI del paciente para ver su HC:\n\n" + ptes);
+                        //Si apretamos cancelar, volvemos hacia atras
+                        if (dniStr == null) {
+                            break;
+                        }
+                        Paciente pte = inst.buscarPacientePorDni(dniStr);
+                        if (pte == null) {
+                            JOptionPane.showMessageDialog(null,"No existe un paciente registrado con ese DNI.","Error",0);
+                        } else {
+                            if (pte.getCantidadEvoluciones() == 0) {
+                                JOptionPane.showMessageDialog(null, "El paciente no tiene evoluciones cargadas.");
+                            } else {
+                                String listado = pte.getListadoEvoluciones();
+                                int cantidad = pte.getCantidadEvoluciones();
+                                int opcion = IO.opcionSelect("Historia Clínica","Seleccione la evolución a ver:\n\n"+listado+"\n0. Atrás",cantidad);
+                                String texto = pte.getEvolucion(opcion-1);
+                                JOptionPane.showMessageDialog(null,texto,"Evolución "+opcion,1);
+                                atras3 = true;
+                            }
+                        }  
+                    } while (!atras3);
                 default:
                     break;
             }

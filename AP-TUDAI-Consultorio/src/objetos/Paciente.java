@@ -8,7 +8,7 @@ public class Paciente extends Persona {
     /*Atributos Privados */
     private String obraSocial;
     private int sesionesTotales;
-    private String[] historiaClinica;
+    private Evolucion[] historiaClinica;
     private int sesionesRemanentes;
     private boolean cronico;
 
@@ -20,7 +20,7 @@ public class Paciente extends Persona {
         //Son caracteristicos de Paciente
         this.obraSocial = obraSocial;
         this.sesionesTotales = sesionesTotales;
-        this.historiaClinica = new String[0];
+        this.historiaClinica = new Evolucion[0];
         this.cronico = cronico;
         sesionesRemanentes = sesionesTotales;
     }
@@ -107,6 +107,64 @@ public class Paciente extends Persona {
     public String vistaReducida(){
         return getApellido()+", "+getNombre()+" - "+getId();
     }
+
+    //HISTORIA CLINICA
+    /**
+     * Crea un arreglo más grande
+     * Copia el contenido anterior
+     * Agrega la evolución nueva
+     * Actualiza el arreglo del paciente
+     * @param evo
+     */
+    public void agregarEvolucion(Evolucion evo) {
+        Evolucion[] aux = new Evolucion[historiaClinica.length + 1];
+        for (int i = 0; i < historiaClinica.length; i++) {
+            aux[i] = historiaClinica[i];
+        }
+        aux[historiaClinica.length] = evo;
+        historiaClinica = aux;
+    }
+
+    /**
+     * Retorna un String con evolucion
+     * @return
+     */
+    public String getEvolucion(int index) {
+        if (index < 0 || index >= historiaClinica.length) {
+            return null;
+        }
+        Evolucion evo = historiaClinica[index];
+        return "Fecha: " + evo.getFecha() +
+            "\n\n" + evo.getEvolucion() +
+            "\n\n" + evo.getProfesional().getApellido() + ", " +
+            evo.getProfesional().getNombre() +
+            "\nMatrícula " + evo.getProfesional().getMatricula();
+    }
+
+    /**
+     * Retorna la cantidad de evoluciones de la Historia Clinica
+     * @return
+     */
+    public int getCantidadEvoluciones() {
+        return historiaClinica.length;
+    }
+
+    /**
+     * Retorna un String con todas las evoluciones
+     * @return
+     */
+    public String getListadoEvoluciones() {
+        String listado = "";
+        for (int i = 0; i < historiaClinica.length; i++) {
+            Evolucion evo = historiaClinica[i];
+            LocalDate fecha = evo.getFecha();
+            String profesional = evo.getProfesional().getApellido() + ", "+evo.getProfesional().getNombre();
+            listado += (i+1)+". "+fecha+ "-"+profesional+"\n";
+        }
+        return listado;
+    }
+
+
     //Mostrar paciente
     @Override
     public String toString() {

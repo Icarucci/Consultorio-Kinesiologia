@@ -2,6 +2,8 @@ package view;
 
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
+
+import objetos.Evolucion;
 import objetos.Hora;
 import objetos.Institucion;
 import objetos.Paciente;
@@ -118,6 +120,18 @@ public class ViewTurnos {
                                     turnoSeleccionado.setAsistencia(true);
                                     turnoSeleccionado.pacienteAsistio();
                                     turnoSeleccionado.profesionalCobra();
+                                    //Evolucionamos en la HC el turno al dar el presente
+                                    String msj = IO.inputString("EVOLUCION","Ingrese la evolucion del paciente:");
+                                    Evolucion evo = new Evolucion(LocalDate.now(), msj, turnoSeleccionado.getProfesional());
+                                    turnoSeleccionado.getPaciente().agregarEvolucion(evo);
+                                    //Ahora mostramos la evolucion
+                                    int indexEvo = turnoSeleccionado.getPaciente().getCantidadEvoluciones()-1;
+                                    String texto = turnoSeleccionado.getPaciente().getEvolucion(indexEvo);
+                                    if (texto == null) {
+                                        JOptionPane.showMessageDialog(null, "No se pudo obtener la evolución solicitada.");
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, texto, "Evolucion generada con exito", 1);
+                                    }
                                 }
                             }
                         } while (!back2);
