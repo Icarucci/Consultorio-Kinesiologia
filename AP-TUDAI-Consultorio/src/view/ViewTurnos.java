@@ -59,7 +59,7 @@ public class ViewTurnos {
                                         JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el puesto: "+puesto.getPuestoNumero()+"."+puesto.getNombre()+" Se encuentra ocupado.","Error",0);
                                     }else{
                                         Turno nuevoTurno = new Turno(puesto,paciente,profesional,fecha,hora);
-                                        inst.agendarNuevoTurno(nuevoTurno);
+                                        inst.agregarTurno(nuevoTurno);
                                         paciente.agendarNuevoTurno(nuevoTurno);
                                         profesional.agendarNuevoTurno(nuevoTurno);
                                         puesto.agendarNuevoTurno(nuevoTurno);

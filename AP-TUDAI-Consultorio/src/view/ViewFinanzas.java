@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.JOptionPane;
-
 import objetos.Comprobante;
 import objetos.Institucion;
 import objetos.Profesional;
@@ -78,15 +77,13 @@ public class ViewFinanzas {
                 case 2:
                     if(inst.getCantComprobantes() == 0){
                         JOptionPane.showMessageDialog(null, "No hay comprobantes.", "ERROR", 0);
-                        break;
                     } else {
                         String comprobantes = inst.mostrarComprobantesArreglo();
                         int index = IO.opcionSelect("COMPROBANTES", "Seleccione el comprobante que desea visualizar\n\n"+comprobantes, inst.getCantComprobantes());
                         Comprobante comp = inst.mostrarComprobante(index);
                         JOptionPane.showMessageDialog(null, comp.getDato(), "Comprobante N° "+index, 1);
-                        break;
                     }
-
+                    break;
             default:
                 break;
            }

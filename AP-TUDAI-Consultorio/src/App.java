@@ -1,9 +1,12 @@
+import java.time.LocalDate;
 import objetos.Especialidad;
 import objetos.Especialista;
+import objetos.Hora;
 import objetos.Institucion;
 import objetos.Paciente;
 import objetos.Profesional;
 import objetos.Puesto;
+import objetos.Turno;
 import view.Visualizacion;
 
 public class App {
@@ -40,6 +43,18 @@ public class App {
         delta.addPuesto(p3);
         delta.addPuesto(p4);
         delta.addPuesto(p5);
+        /*TURNOS HARDCODEADOS */
+        Turno t1 = new Turno(p5, pac4, prof3, LocalDate.of(2026,1,10), Hora.H10);
+        Turno t2 = new Turno(p3, pac3, prof2, LocalDate.of(2026,1,10), Hora.H10);
+        Turno t3 = new Turno(p1, pac2, prof1, LocalDate.of(2026,1,9), Hora.H10);
+        Turno t4 = new Turno(p2, pac1, prof2, LocalDate.of(2026,1,9), Hora.H10);
+        Turno t5 = new Turno(p4, pac2, prof1, LocalDate.of(2026,1,5), Hora.H9);
+        delta.agregarTurno(t1);
+        delta.agregarTurno(t2);
+        delta.agregarTurno(t3);
+        delta.agregarTurno(t4);
+        delta.agregarTurno(t5);
+        
         /*EJECUCION DEL MENU */
         view.menuPrincipal();
     }
