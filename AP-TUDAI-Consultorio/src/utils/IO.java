@@ -117,7 +117,7 @@ public class IO {
         do {
             resultado = JOptionPane.showInputDialog(null,mensaje,titulo,1);
             if(resultado == null){
-                JOptionPane.showMessageDialog(null, "No puede cerrarse o cancelarse el dialogo","Error",0);
+                return null;
             }else if(resultado.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Upppppsss Campo vacio!","Error",0);
             }else{
