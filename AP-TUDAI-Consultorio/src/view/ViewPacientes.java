@@ -12,7 +12,7 @@ public class ViewPacientes {
     public static void opcionMenuPacientes(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Seleccionar paciente\n3.Listar Pacientes\n4.Editar Paciente\n5.Eliminar paciente\n6. Ver Historia Clinica del paciente\n\n", 6);
+            int opcionMenuPacientes = IO.opcionSelect("Pacientes", "1.Nuevo paciente\n2.Seleccionar paciente\n3.Listar Pacientes\n4.Editar Paciente\n5.Eliminar paciente\n6. Ver Historia Clinica del paciente\n0. Atras\n\n", 6);
             switch (opcionMenuPacientes) {
                 case 0:
                     atras = true;
@@ -40,7 +40,7 @@ public class ViewPacientes {
                 case 2:
                     boolean atras2 = false;
                         do {
-                            int opcion = IO.opcionSelect("Buscar paciente","1. Buscar por DNI\n2. Buscar por apellido",2);
+                            int opcion = IO.opcionSelect("Buscar paciente","1. Buscar por DNI\n2. Buscar por apellido\n0. Atras",2);
                             switch (opcion) {
                                 case 0:
                                     atras2 = true;
@@ -64,7 +64,7 @@ public class ViewPacientes {
                                         for(int i=0;i<res.length;i++){
                                             muestra+= (i+1)+" - "+res[i].vistaReducida()+"\n";
                                         }
-                                        int seleccionado = IO.opcionSelect("Seleccion de paciente", muestra, res.length);
+                                        int seleccionado = IO.opcionSelect("Seleccion de paciente", muestra+"\n0.Atras", res.length);
                                         Paciente elegido = res[seleccionado-1];
                                         addSesiones(elegido);
                                     }else{
@@ -82,8 +82,8 @@ public class ViewPacientes {
                     boolean fin = false;
                     do {
                         String res = inst.mostrarPacientes();
-                        res = "Ordenar por:\n1. DNI - 2. Apellido - 3. Sesiones Remantenes\n\n"+res;
-                        int index = IO.opcionSelect("Ordenamiento", res, 3);
+                        res = "Ordenar por:\n1. DNI - 2. Apellido - 3. Sesiones Remantenes -0. Atras\n\n"+res;
+                        int index = IO.opcionSelect("Ordenamiento", res+"\n0.Atras", 3);
                         switch (index) {
                             case 0:
                                 fin = true;

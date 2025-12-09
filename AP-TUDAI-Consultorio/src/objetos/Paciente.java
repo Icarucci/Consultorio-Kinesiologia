@@ -163,7 +163,9 @@ public class Paciente extends Persona {
         }
         return listado;
     }
-
+    public int cantidadTurnos(){
+        return turnos.length;
+    }
 
     //Mostrar paciente
     @Override

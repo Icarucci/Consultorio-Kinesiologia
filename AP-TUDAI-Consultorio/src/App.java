@@ -13,11 +13,11 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         //Inicializamos la institucion
-        Institucion delta = new Institucion("\u0394 Delta", 0);
+        Institucion delta = new Institucion("\u0394 Delta", 1750000);
         Visualizacion view = new Visualizacion(delta);
         //Valores Harcodeados
         /*Pacientes */
-        Paciente pac1 = new Paciente("29555208", "Omar", "Roselli", "Vivorata 2968", 4379450, "OSDE", 10, false); 
+        Paciente pac1 = new Paciente("29555208", "Omar", "Roselli", "Vivorata 2968", 4379450, "OSDE", 3, false); 
         Paciente pac2 = new Paciente("36397301", "Ignacio", "Carucci", "Planes 916", 1234567, "OSMATA", 10, false);
         Paciente pac3 = new Paciente("25452831","Maria Soledad","Roselli","Scavini 2345",643169,"Medife",25,false);
         Paciente pac4 = new Paciente("05795903","Maria de los Angeles","Inclan","San Lorenzo 262",15020650,"IOMA",10,false);
@@ -48,7 +48,7 @@ public class App {
         Turno t2 = new Turno(p3, pac3, prof2, LocalDate.of(2026,1,10), Hora.H10);
         Turno t3 = new Turno(p1, pac2, prof1, LocalDate.of(2026,1,9), Hora.H10);
         Turno t4 = new Turno(p2, pac1, prof2, LocalDate.of(2026,1,9), Hora.H10);
-        Turno t5 = new Turno(p4, pac2, prof1, LocalDate.of(2026,1,5), Hora.H9);
+        Turno t5 = new Turno(p2, pac2, prof1, LocalDate.of(2026,1,5), Hora.H9);
         delta.agregarTurno(t1);
         delta.agregarTurno(t2);
         delta.agregarTurno(t3);

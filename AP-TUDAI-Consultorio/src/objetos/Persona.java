@@ -111,15 +111,23 @@ public class Persona {
         return nuevo;
     }
     public String showTurnos(){
-        String res ="";
         if(turnos.length==0){
-            res+="Sin turnos al momento";
+            String res="Sin turnos al momento";
             return res;
         }
+        String ausentes="\nAusentes:";
+        String presentes="\nPresentes:";
+        String futuros="\nFuturos:";
         for(int i=0;i<turnos.length;i++){
-            res += turnos[i]+"\n";
+            if(turnos[i].getAsistencia()>0){
+                presentes+="\n"+turnos[i].getTurnoId()+" - "+turnos[i];
+            }else if(turnos[i].getAsistencia()<0){
+                ausentes+="\n"+turnos[i].getTurnoId()+" - "+turnos[i];
+            }else{
+                futuros+="\n"+turnos[i].getTurnoId()+" - "+turnos[i];
+            }
         }
-        return res;
+        return ausentes+"\n---------------------------------"+presentes+"\n---------------------------------"+futuros;
     }
 
     public String toString(){

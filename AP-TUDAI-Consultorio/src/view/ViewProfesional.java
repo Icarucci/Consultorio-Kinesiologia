@@ -12,7 +12,7 @@ public class ViewProfesional {
     public static void opcionMenuProfesionales(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1.Agregar nuevo Profesional\n2.Listar Profesionales\n3.Editar Profesional\n4.Visualizar Profesional", 4);
+            int opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1. Agregar nuevo Profesional\n2. Listar Profesionales\n3. Editar Profesional\n4. Visualizar Profesional\n0. Atras", 4);
             switch (opcionMenuProfesionales) {
                 case 0:
                     atras = true;
@@ -79,7 +79,7 @@ public class ViewProfesional {
                 case 4:
                     boolean atras2 = false;
                         do {
-                            int opcion = IO.opcionSelect("Buscar Profesional","1. Buscar por DNI\n2. Buscar por apellido\n3. Buscar por matricula",3);
+                            int opcion = IO.opcionSelect("Buscar Profesional","1. Buscar por DNI\n2. Buscar por apellido\n3. Buscar por matricula\n0. Atras",3);
                             switch (opcion) {
                                 case 0:
                                     atras2 = true;
