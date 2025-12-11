@@ -19,7 +19,7 @@ public class Visualizacion {
     public void menuPrincipal(){
         boolean finalizar = false;
         do {
-            opcionMenuPrincipal = IO.opcionSelect("Bienvenido a "+inst.getNombre(), "1.Pacientes\n2.Profesionales\n3.Turnos\n4.Finanzas\n0.Atras", 4);
+            opcionMenuPrincipal = IO.opcionSelect("Bienvenido a "+inst.getNombre(), "1.Pacientes\n2.Profesionales\n3.Turnos\n4.Institucion\n0.Atras", 4);
             switch (opcionMenuPrincipal) {
                 case 1:
                     ViewPacientes.opcionMenuPacientes(inst);

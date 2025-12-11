@@ -134,7 +134,7 @@ public class IO {
         do {
             resultado = JOptionPane.showInputDialog(null,mensaje,titulo,1);
             if(resultado == null){
-                return null;
+                JOptionPane.showMessageDialog(null, "Opcion no valida","Error",0);
             }else if(resultado.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Upppppsss Campo vacio!","Error",0);
             }else{
@@ -178,7 +178,7 @@ public class IO {
         do {
             try {
                 char res = JOptionPane.showInputDialog(null,mensaje,titulo,1).charAt(0);
-                if(res=='s'||res=='S'||res=='y'||res=='Y'){
+                if(res=='s'||res=='S'||res=='y'||res=='Y'||res=='y'){
                     condicion=true;
                     resultado= true;
                 }else if(res=='n'||res=='N'){

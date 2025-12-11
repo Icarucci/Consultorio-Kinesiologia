@@ -11,7 +11,7 @@ public class ViewFinanzas {
      public static void opcionMenuFinanzas(Institucion inst){
         boolean atras = false;
         do {
-           int opcionMenuFinanzas = IO.opcionSelect("Finanzas", "1. Gastos mensuales\n2. Comprobantes\n0. Atras", 3);
+           int opcionMenuFinanzas = IO.opcionSelect("Institucion", "1. Gastos mensuales\n2. Comprobantes\n3. Nombre de la institucion\n4.Valor turno\n0. Atras", 4);
            switch (opcionMenuFinanzas) {
                 case 0:
                     atras = true;
@@ -84,8 +84,15 @@ public class ViewFinanzas {
                         JOptionPane.showMessageDialog(null, comp.getDato(), "Comprobante N° "+index, 1);
                     }
                     break;
-            default:
-                break;
+                case 3:
+                    String nombre = IO.editarCampoString(inst.getNombre(),"nombre");
+                    inst.setNombre(nombre);
+                    break;
+                case 4:
+                    Double valor = IO.inputDoublePositive("Valor del Turno", "Ingrese el nuevo importe("+inst.getValorTurno()+"): ");
+                    inst.setValorTurno(valor);
+                default:
+                    break;
            }
         } while (!atras);
 

@@ -18,6 +18,7 @@ public class ViewPacientes {
                     atras = true;
                     break;
                 case 1:
+                    /*NUEVO PACIENTE */
                     String id = IO.inputString("Paciente", "Ingrese el DNI");
                     String nombre = IO.inputString("Paciente", "Ingrese nombre");
                     String apellido = IO.inputString("Paciente", "Ingrese apellido");
@@ -38,6 +39,7 @@ public class ViewPacientes {
                     }
                     break;
                 case 2:
+                    /*SELECCIONAR PACIENTE */
                     boolean atras2 = false;
                         do {
                             int opcion = IO.opcionSelect("Buscar paciente","1. Buscar por DNI\n2. Buscar por apellido\n0. Atras",2);
