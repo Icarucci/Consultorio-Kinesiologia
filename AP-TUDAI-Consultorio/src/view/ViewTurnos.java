@@ -18,7 +18,7 @@ public class ViewTurnos {
     public static void opcionMenuTurnos(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuTurnos = IO.opcionSelect("Turnos", "1. Agendar turno\n2. Visualizar Turnos\n3. Seleccionar Turno\n0. Atras", 3);
+            int opcionMenuTurnos = IO.opcionSelect("Turnos", "1. Agendar turno\n2. Visualizar Turnos\n3. Seleccionar Turno\n4. Cancelar turno \n0. Atras", 4);
             switch (opcionMenuTurnos) {
                 case 0:
                     atras = true;
@@ -63,9 +63,6 @@ public class ViewTurnos {
                                     }else{
                                         Turno nuevoTurno = new Turno(puesto,paciente,profesional,fecha,hora);
                                         inst.agregarTurno(nuevoTurno);
-                                        // paciente.agendarNuevoTurno(nuevoTurno);
-                                        // profesional.agendarNuevoTurno(nuevoTurno);
-                                        // puesto.agendarNuevoTurno(nuevoTurno);
                                     }
                                 }else{
                                     JOptionPane.showMessageDialog(null, "No puede seleccionarse una fecha previa al dia actual","Error",0);
@@ -144,6 +141,28 @@ public class ViewTurnos {
                         } while (!back2);
                     }
                     break;
+                case 4:
+                    /*Cancelacion de un turno */
+                    if(inst.cantidadTurnos()==0){
+                        JOptionPane.showMessageDialog(null, "No se disponen de turnos","Seleccion de Turno",0);
+                    }else{
+                        boolean back3 = false;   
+                        do {
+                            int seleccion = IO.opcionSelect("Cancelar Turno",inst.showTurnosDisponibles(), inst.cantidadTurnosVigentes());
+                            if(seleccion == 0){
+                                back3 = true;
+                            }else{
+                                Turno turnoSeleccionado = inst.getTurno(seleccion-1);
+                                /**Se elimina el turno del paciente - de la institucion -del puesto y del profesional.**/
+                                turnoSeleccionado.getPaciente().eliminarTurnoId(turnoSeleccionado.getTurnoId());
+                                turnoSeleccionado.getPaciente().recuperarTurno();
+                                turnoSeleccionado.getProfesional().eliminarTurnoId(turnoSeleccionado.getTurnoId());
+                                turnoSeleccionado.getPuestoAsignado().eliminarTurnoId(turnoSeleccionado.getTurnoId());
+                                inst.eliminarTurnoId(turnoSeleccionado.getTurnoId());
+                            }
+                        } while (!back3);
+                    }
+                    break;
                 default:
                     break;
             }
@@ -186,6 +205,13 @@ public class ViewTurnos {
      */
     public static void viewTurnosAll(Institucion inst){
         JOptionPane.showMessageDialog(null, inst.showTurnos(),"Turnos de "+inst.getNombre(),1);
+    }
+
+    /**
+     * Visualiza los turnos vigentes
+     */
+    public static void viewVigentes(Institucion inst){
+        JOptionPane.showMessageDialog(null, inst.showTurnosDisponibles(),"Turnos vigentes:",1);
     }
 
 }

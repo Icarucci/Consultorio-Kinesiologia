@@ -148,8 +148,9 @@ public class ViewPacientes {
                     break;
                 case 5:
                     /*Elimino un paciente segun su ID */
-                    String ident = IO.inputString("Eliminar Paciente", "Ingrese dni del paciente a eliminar");
-                    boolean response = inst.encontrarPacienteIndex(ident);
+                    String pacientes = inst.mostrarPacientes();
+                    String ident = IO.inputString("Eliminar Paciente", pacientes+"\nIngrese dni del paciente a eliminar");
+                    boolean response = inst.eliminarPacienteConIndex(ident);
                     if(response){
                         JOptionPane.showMessageDialog(null, "Paciente eliminado con exito","Eliminado",3);
                     }else{

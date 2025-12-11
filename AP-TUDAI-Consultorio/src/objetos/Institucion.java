@@ -343,7 +343,7 @@ public class Institucion {
         }
         return retorno;
     }
-    public boolean encontrarPacienteIndex(String id){
+    public boolean eliminarPacienteConIndex(String id){
         boolean resultado = false;
         boolean fin=false;
         int index=0;
@@ -437,6 +437,15 @@ public class Institucion {
      */
     public int cantidadTurnos(){
         return turnos.length;
+    }
+    public int cantidadTurnosVigentes(){
+        int contador = 0;
+        for(int i=0;i<turnos.length;i++){
+            if(turnos[i].getAsistencia()==0){
+                contador++;
+            }
+        }
+        return contador;
     }
 
     //SUELDOS
@@ -565,6 +574,22 @@ public class Institucion {
             nuevo[i]=turnos[i];
         }
         nuevo[nuevo.length-1] = turno;
+        turno.getPaciente().setSesionesRemanentes(turno.getPaciente().getSesionesRemanentes()-1);
+        turnos = nuevo;
+    }
+    /**
+     * ELIMINA UN TURNO SEGUN SU ID
+     * @param id
+     */
+    public void eliminarTurnoId(int id){
+        Turno[] nuevo = new Turno[turnos.length-1];
+        int count =0;
+        for (int i=0;i<turnos.length;i++){
+            if(turnos[i].getTurnoId()!= id){
+                nuevo[count] = turnos[i];
+                count++;
+            }
+        }
         turnos = nuevo;
     }
 }

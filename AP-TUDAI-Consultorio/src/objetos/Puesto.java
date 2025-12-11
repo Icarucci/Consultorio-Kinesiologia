@@ -76,6 +76,21 @@ public class Puesto {
         nuevo[nuevo.length-1] = tt;
         turnos = nuevo;
     }
+    /**
+     * ELIMINA UN TURNO SEGUN SU ID
+     * @param id
+     */
+    public void eliminarTurnoId(int id){
+        Turno[] nuevo = new Turno[turnos.length-1];
+        int count =0;
+        for (int i=0;i<turnos.length;i++){
+            if(turnos[i].getTurnoId()!= id){
+                nuevo[count] = turnos[i];
+                count++;
+            }
+        }
+        turnos = nuevo;
+    }
   
     /**
      * Retorna un String con la informacion de los turnos

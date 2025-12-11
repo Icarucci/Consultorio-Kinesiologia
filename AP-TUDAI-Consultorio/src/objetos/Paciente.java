@@ -166,7 +166,9 @@ public class Paciente extends Persona {
     public int cantidadTurnos(){
         return turnos.length;
     }
-
+    public void recuperarTurno(){
+        setSesionesRemanentes(getSesionesRemanentes()+1);
+    }
     //Mostrar paciente
     @Override
     public String toString() {

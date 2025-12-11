@@ -110,6 +110,22 @@ public class Persona {
         nuevo[nuevo.length-1] = turno;
         return nuevo;
     }
+    /**
+     * ELIMINA UN TURNO SEGUN SU ID
+     * @param id
+     */
+    public void eliminarTurnoId(int id){
+        Turno[] nuevo = new Turno[turnos.length-1];
+        int contador =0;
+        for (int i=0;i<turnos.length;i++){
+            if(turnos[i].getTurnoId()!= id){
+                nuevo[contador] = turnos[i];
+                contador++;
+            }
+        }
+        turnos = nuevo;
+    }
+
     public String showTurnos(){
         if(turnos.length==0){
             String res="Sin turnos al momento";
