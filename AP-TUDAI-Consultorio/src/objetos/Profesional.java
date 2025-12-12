@@ -83,9 +83,9 @@ public class Profesional extends Persona {
      * CALCULAR SUELDO
      * @return
      */
-        public double getSueldo(double valorTurno){
-            double sueldo = valorTurno*getTurnosTrabajados();
-            return sueldo;
+        public double getSueldo(double valorTurno, double coef){
+            //IGNORAMOS EL COEFICIENTE YA QUE NO LO NECESITA
+            return valorTurno*getTurnosTrabajados();
     }
 
     //Metodo Mostrar Profesional

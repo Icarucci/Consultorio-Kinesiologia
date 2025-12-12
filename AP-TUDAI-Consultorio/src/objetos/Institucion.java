@@ -13,6 +13,7 @@ public class Institucion {
     private Puesto[] puestos = new Puesto[0];
     private double costoFijo;
     private double valorTurno;
+    private double coefEspecialista;
     private Comprobante[] comprobantes = new Comprobante[0];
 
     /*Constructor */
@@ -20,6 +21,7 @@ public class Institucion {
         this.nombre = nombre;
         this.costoFijo = costoFijo;
         valorTurno = 25000;
+        coefEspecialista = 1.25;
     }
     //Getters & Setters
     /**
@@ -488,9 +490,20 @@ public class Institucion {
         return contador;
     }
 
+    //COEFICIENTE ESPECIALISTA
+    public double getCoefEspecialista() {
+        return coefEspecialista;
+    }
+
+    public void setCoefEspecialista(double coefEspecialista) {
+        if (coefEspecialista > 0) {
+            this.coefEspecialista = coefEspecialista;
+        }
+    }
+
     //SUELDOS
     public double calculoSueldo(Profesional prof){
-        return prof.getSueldo(getValorTurno());
+        return prof.getSueldo(getValorTurno(), getCoefEspecialista());
     }
     /**
      * Retorna la sumatoria de todos los sueldos de los profesionales
