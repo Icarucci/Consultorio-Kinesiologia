@@ -8,16 +8,17 @@ import objetos.Puesto;
 import utils.IO;
 
 public class ViewInstitucion {
-    
+    //MENU FINANZAS
      public static void opcionMenuFinanzas(Institucion inst){
         boolean atras = false;
         do {
-           int opcionMenuFinanzas = IO.opcionSelect("Institucion", "1. Gastos mensuales\n2. Comprobantes\n3. Nombre de la institucion\n4.Valor turno\n5. Coeficiente Sueldo Especialista\n6.Puestos\n0. Atras", 5);
+           int opcionMenuFinanzas = IO.opcionSelect("Institucion", "1. Gastos mensuales\n2. Comprobantes\n3. Nombre de la institucion\n4.Valor turno\n5. Coeficiente Sueldo Especialista\n6.Puestos\n0. Atras", 6);
            switch (opcionMenuFinanzas) {
                 case 0:
                     atras = true;
                     break;
                 case 1:
+                    //MENU GASTOS
                     boolean atras2 = false;
                     do {
                         int opcionMenuGastosMensuales = IO.opcionSelect("Gastos Mensuales", "Gastos Totales: $"+inst.getGastosTotales()+"\n\n1. Gastos fijos\n2. Gastos Sueldos\n0. Atras", 2);
@@ -26,6 +27,7 @@ public class ViewInstitucion {
                                 atras2 = true;
                                 break;
                             case 1:
+                                //GASTOS FIJOS
                                 boolean atras3 = false;
                                 do {
                                     String gastos = String.valueOf(inst.getCostoFijo());
@@ -45,6 +47,7 @@ public class ViewInstitucion {
                                 } while (!atras3);
                                 break;
                             case 2:
+                                //GASTOS SUELDOS
                                 boolean atras4 = false;
                                 do {
                                     int seleccion = IO.opcionSelect("Gastos Sueldos", "Seleccione el profesional para pagar el sueldo:\n\n"+inst.mostrarSueldosArreglo()+"\n0. Atras\n\nTotal sueldos: $ "+inst.sumaSueldos(), inst.cantProfesionales());
@@ -76,6 +79,7 @@ public class ViewInstitucion {
                     } while (!atras2);
                     break;
                 case 2:
+                    //MENU COMPROBANTES
                     if(inst.getCantComprobantes() == 0){
                         JOptionPane.showMessageDialog(null, "No hay comprobantes.", "ERROR", 0);
                     } else {
@@ -86,13 +90,16 @@ public class ViewInstitucion {
                     }
                     break;
                 case 3:
+                    //EDITAR NOMBRE INSTITUCION
                     String nombre = IO.editarCampoString(inst.getNombre(),"nombre");
                     inst.setNombre(nombre);
                     break;
                 case 4:
+                    //EDITAR VALOR DEL TURNO
                     Double valor = IO.inputDoublePositive("Valor del Turno", "Ingrese el nuevo importe("+inst.getValorTurno()+"): ");
                     inst.setValorTurno(valor);
                 case 5:
+                    //EDITAR VALOR DEL COEFICIENTE SUELDO ESPECIALISTA
                     boolean atras3 = false;
                     do {    
                         int opcionMenuCoefEsp = IO.opcionSelect("Coeficiente sueldo", "El coeficiente actual para calculo de sueldo del especialista es: "+inst.getCoefEspecialista()+"\n\nSeleccione una opcion:\n1. Modificar Coeficiente\n0. Atras", 2);
@@ -111,6 +118,7 @@ public class ViewInstitucion {
                     } while (!atras3);
                     break;
                 case 6:
+                    //MENU PUESTOS
                     boolean atras4 = false;
                     do {
                         int op = IO.opcionSelect("Puestos", "1. Listar puestos\n2.Crear puesto\n0.Atras",2);

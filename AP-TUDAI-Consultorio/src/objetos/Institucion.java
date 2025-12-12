@@ -352,6 +352,11 @@ public class Institucion {
         }
         return retorno;
     }
+    /**
+     * Elimina al paciente del arreglo por el id
+     * @param id
+     * @return
+     */
     public boolean eliminarPacienteConIndex(String id){
         boolean resultado = false;
         boolean fin=false;
@@ -374,6 +379,13 @@ public class Institucion {
         }
         return resultado;
     }
+    /**
+     * Disminuye la cantidad de pacientes en 1 en el arreglo
+     * @param personas
+     * @param index
+     * @return
+     */
+    public Paciente[] eliminar(Paciente[]personas,int index){
     public boolean eliminarProfesionalConIndex(String id){
         boolean resultado = false;
         boolean fin=false;
