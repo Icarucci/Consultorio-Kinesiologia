@@ -386,6 +386,21 @@ public class Institucion {
      * @return
      */
     public Paciente[] eliminar(Paciente[]personas,int index){
+        Paciente[] resultado = new Paciente[personas.length-1];
+        int j=0;
+        for(int i=0; i<personas.length;i++){
+            if(i!=index){
+                resultado[j]=personas[i];
+                j++;
+            }
+        }
+        return resultado;
+    }
+    /**
+     * Elimina al paciente del arreglo por el id
+     * @param id
+     * @return
+     */
     public boolean eliminarProfesionalConIndex(String id){
         boolean resultado = false;
         boolean fin=false;
