@@ -12,7 +12,7 @@ public class ViewProfesional {
     public static void opcionMenuProfesionales(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1. Agregar nuevo Profesional\n2. Seleccionar Profesional\n3. Listar Profesionales\n4. Editar Profesional\n5. Visualizar Profesional\n0. Atras", 4);
+            int opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1. Agregar nuevo Profesional\n2. Seleccionar Profesional\n3. Listar Profesionales\n4. Editar Profesional\n5. Eliminar Profesional\n0. Atras", 5);
             switch (opcionMenuProfesionales) {
                 case 0:
                     atras = true;
@@ -128,6 +128,17 @@ public class ViewProfesional {
                     }
                     break;
                 
+                case 5:
+                    /*Eliminar Profesional */
+                    String profesionales = inst.mostrarProfesionales();
+                    String ident = IO.inputString("Eliminar Profesional", profesionales+"\nIngrese dni del profesional a eliminar");
+                    boolean response = inst.eliminarProfesionalConIndex(ident);
+                    if(response){
+                        JOptionPane.showMessageDialog(null, "Profesional eliminado con exito","Eliminado",2);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No se encontro el profesional","Error",0);
+                    }
+                    break;
                 default:
                     break;
             }
