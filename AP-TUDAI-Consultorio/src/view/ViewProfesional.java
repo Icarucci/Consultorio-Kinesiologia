@@ -12,7 +12,7 @@ public class ViewProfesional {
     public static void opcionMenuProfesionales(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1. Agregar nuevo Profesional\n2. Seleccionar Profesional\n3. Listar Profesionales\n4. Editar Profesional\n5. Visualizar Profesional\n0. Atras", 4);
+            int opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1. Agregar nuevo Profesional\n2. Seleccionar Profesional\n3. Listar Profesionales\n4. Editar Profesional\n5. Eliminar Profesional\n0. Atras", 5);
             switch (opcionMenuProfesionales) {
                 case 0:
                     atras = true;
@@ -127,48 +127,17 @@ public class ViewProfesional {
                         JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
                     }
                     break;
+                
                 case 5:
-                    boolean atras3 = false;
-                        do {
-                            int opcion = IO.opcionSelect("Buscar Profesional","1. Buscar por DNI\n2. Buscar por apellido\n3. Buscar por matricula\n0. Atras",3);
-                            switch (opcion) {
-                                case 0:
-                                    atras3 = true;
-                                    break;
-                                case 1:
-                                    String ident = IO.inputString("Busqueda Profesional", "Ingrese el dni del profesional:");
-                                    Profesional profesional = inst.buscarProfesionalPorDni(ident);
-                                    if(profesional != null){
-                                        JOptionPane.showMessageDialog(null, profesional.toString(),"Profesional",1);
-                                    }else{
-                                        /*No se encontro paciente*/
-                                        JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
-                                    }
-                                    break;
-                                case 2:
-                                    String apellidoBuscado = IO.inputString("Busqueda Profesional", "Ingrese el apellido del profesional");
-                                    Profesional[] ans = inst.buscarProfesionalApellido(apellidoBuscado);
-                                    if(ans.length != 0){
-                                        /*Mostrar encontrados Tengo que elegir cual*/
-                                        JOptionPane.showMessageDialog(null, inst.showArregloPersona(ans),"Profesional",1);
-                                    }else{
-                                        /*No se encontro profesional*/
-                                        JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
-                                    }
-                                    break;
-                                case 3:
-                                    int matriculaBuscada = IO.inputIntegerPositive("Profesional", "Ingrese la matricula:");
-                                    Profesional buscado = inst.buscarProfesionalMatricula(matriculaBuscada);
-                                    if(buscado != null){
-                                        JOptionPane.showMessageDialog(null, buscado.toString(),"Profesional",1);
-                                    }else{
-                                        JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                        } while (!atras3);
+                    /*Eliminar Profesional */
+                    String profesionales = inst.mostrarProfesionales();
+                    String ident = IO.inputString("Eliminar Profesional", profesionales+"\nIngrese dni del profesional a eliminar");
+                    boolean response = inst.eliminarProfesionalConIndex(ident);
+                    if(response){
+                        JOptionPane.showMessageDialog(null, "Profesional eliminado con exito","Eliminado",2);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No se encontro el profesional","Error",0);
+                    }
                     break;
                 default:
                     break;
