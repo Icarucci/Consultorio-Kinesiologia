@@ -102,7 +102,7 @@ public class ViewInstitucion {
                     //EDITAR VALOR DEL COEFICIENTE SUELDO ESPECIALISTA
                     boolean atras3 = false;
                     do {    
-                        int opcionMenuCoefEsp = IO.opcionSelect("Coeficiente sueldo", "El coeficiente actual para calculo de sueldo del especialista es: "+inst.getCoefEspecialista()+"\n\nSeleccione una opcion:\n1. Modificar Coeficiente\n0. Atras", 2);
+                        int opcionMenuCoefEsp = IO.opcionSelect("Coeficiente sueldo", "El coeficiente actual para calculo de sueldo del especialista es: "+inst.getCoefEspecialista()+"\n\nSeleccione una opcion:\n1. Modificar Coeficiente\n0. Atras", 1);
                         switch (opcionMenuCoefEsp) {
                             case 0:
                                 atras3=true;
