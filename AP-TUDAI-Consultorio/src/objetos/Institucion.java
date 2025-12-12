@@ -10,7 +10,7 @@ public class Institucion {
     private Profesional[] profesionales = new Profesional[0];
     private Paciente[] pacientes = new Paciente[0];
     private Turno[] turnos = new Turno[0];
-    private final Puesto[] puestos = new Puesto[5];
+    private Puesto[] puestos = new Puesto[0];
     private double costoFijo;
     private double valorTurno;
     private Comprobante[] comprobantes = new Comprobante[0];
@@ -50,29 +50,7 @@ public class Institucion {
     public void setValorTurno(double valorTurno) {
         this.valorTurno = valorTurno;
     }
-    /**
-     * Agrega un puesto de trabajo al Arreglo de puestos
-     * @param pp
-     * @return true/false en la carga
-     */
-    public boolean addPuesto(Puesto pp){
-        for(int i=0; i<puestos.length;i++){
-            if(puestos[i]==null){
-                puestos[i] =pp;
-                return true;
-            }
-        }
-        return false;
-    }
-    /**
-     * Retorna un puesto a partir de su index
-     * @param index
-     * @return puesto de indice index
-     */
-    public Puesto getPuesto(int index){
-        return puestos[index];
-    }
-    //COSTO FIJO
+      //COSTO FIJO
     /**
      * Muestra el costo fijo
      * @return valor de costo fijo
@@ -87,6 +65,29 @@ public class Institucion {
     public void setCostoFijo(double costoFijo) {
         this.costoFijo = costoFijo;
     }
+    /****************************ARREGLOS***************************/
+    /**
+     * Agrega un puesto de trabajo al Arreglo de puestos
+     * @param pp
+     * @return true/false en la carga
+     */
+    public void addPuesto(Puesto pp){
+        Puesto [] auxiliar = new Puesto[puestos.length+1];
+        for(int i=0; i<puestos.length;i++){
+            auxiliar[i] = puestos[i];
+        }
+        auxiliar[puestos.length] = pp;
+        puestos = auxiliar;
+    }
+    /**
+     * Retorna un puesto a partir de su index
+     * @param index
+     * @return puesto de indice index
+     */
+    public Puesto getPuesto(int index){
+        return puestos[index];
+    }
+  
     /**
      * Agrega un paciente al arreglo de pacientes
      * @param paciente
@@ -206,7 +207,13 @@ public class Institucion {
         }
         return arreglo;
     }
-    
+    public String showPuestos(){
+        String res="";
+        for(int i=0;i<puestos.length;i++){
+            res += puestos[i].toString()+"\n";
+        }
+        return res;
+    }
     /* METODO QUE RECIBE UN ARREGLO DE PERSONAS Y LO DEVUELVE ORDENADO POR APELLIDO.
     * burbujeo
     * @param arreglo

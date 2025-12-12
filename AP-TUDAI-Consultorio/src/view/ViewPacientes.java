@@ -60,7 +60,7 @@ public class ViewPacientes {
                                 case 2:
                                     String apellidoBuscado = IO.inputString("Busqueda Paciente", "Ingrese el apellido del paciente");
                                     Paciente[] res = inst.buscarPacienteApellido(apellidoBuscado);
-                                    if(res != null){
+                                    if(res.length != 0){
                                         /*Mostrar encontrados Tengo que elegir cual*/
                                         String muestra="";
                                         for(int i=0;i<res.length;i++){
@@ -71,7 +71,7 @@ public class ViewPacientes {
                                         addSesiones(elegido);
                                     }else{
                                         /*No se encontro paciente*/
-                                        JOptionPane.showMessageDialog(null, "Paciente no encontrado","Error",0);
+                                        JOptionPane.showMessageDialog(null, "No se encontraron pacientes","Error",0);
                                     }
                                     break;
                                 default:
@@ -84,7 +84,7 @@ public class ViewPacientes {
                     boolean fin = false;
                     do {
                         String res = inst.mostrarPacientes();
-                        res = "Ordenar por:\n1. DNI - 2. Apellido - 3. Sesiones Remantenes -0. Atras\n\n"+res;
+                        res = "Ordenar por:\n1. DNI - 2. Apellido - 3. Sesiones Remantenes\n\n"+res;
                         int index = IO.opcionSelect("Ordenamiento", res+"\n0.Atras", 3);
                         switch (index) {
                             case 0:
@@ -109,7 +109,7 @@ public class ViewPacientes {
                     break;
                 case 4:
                     /*Edicion de un paciente */
-                    String dni = IO.inputString("Busqueda Paciente", "Ingrese el dni del paciente:");
+                    String dni = IO.inputString("Busqueda Paciente", inst.mostrarPacientes()+"\n\nIngrese el dni del paciente:");
                     Paciente respuesta = inst.buscarPacientePorDni(dni);
                     if(respuesta != null){
                         /*Mostrar encontrado */
@@ -152,7 +152,7 @@ public class ViewPacientes {
                     String ident = IO.inputString("Eliminar Paciente", pacientes+"\nIngrese dni del paciente a eliminar");
                     boolean response = inst.eliminarPacienteConIndex(ident);
                     if(response){
-                        JOptionPane.showMessageDialog(null, "Paciente eliminado con exito","Eliminado",3);
+                        JOptionPane.showMessageDialog(null, "Paciente eliminado con exito","Eliminado",2);
                     }else{
                         JOptionPane.showMessageDialog(null, "No se encontro el paciente","Error",0);
                     }
@@ -162,26 +162,27 @@ public class ViewPacientes {
                     String ptes = inst.mostrarPacientes();
                     boolean atras3 = false;
                     do {
-                        String dniStr = IO.inputString("Historia Clínica", "Ingrese el DNI del paciente para ver su HC:\n\n" + ptes);
-                        //Si apretamos cancelar, volvemos hacia atras
-                        if (dniStr == null) {
-                            break;
-                        }
-                        Paciente pte = inst.buscarPacientePorDni(dniStr);
-                        if (pte == null) {
-                            JOptionPane.showMessageDialog(null,"No existe un paciente registrado con ese DNI.","Error",0);
-                        } else {
-                            if (pte.getCantidadEvoluciones() == 0) {
-                                JOptionPane.showMessageDialog(null, "El paciente no tiene evoluciones cargadas.");
+                        String dniStr = IO.stringCancelable("Historia Clínica", "Ingrese el DNI del paciente para ver su HC:\n\n" + ptes);
+                        if (dniStr==null) {
+                            atras3 = true;
+                        }else{
+                            Paciente pte = inst.buscarPacientePorDni(dniStr);
+                            if (pte == null) {
+                                JOptionPane.showMessageDialog(null,"No existe un paciente registrado con ese DNI.","Error",0);
                             } else {
-                                String listado = pte.getListadoEvoluciones();
-                                int cantidad = pte.getCantidadEvoluciones();
-                                int opcion = IO.opcionSelect("Historia Clínica","Seleccione la evolución a ver:\n\n"+listado+"\n0. Atrás",cantidad);
-                                String texto = pte.getEvolucion(opcion-1);
-                                JOptionPane.showMessageDialog(null,texto,"Evolución "+opcion,1);
-                                atras3 = true;
-                            }
-                        }  
+                                if (pte.getCantidadEvoluciones() == 0) {
+                                    JOptionPane.showMessageDialog(null, "El paciente no tiene evoluciones cargadas.");
+                                } else {
+                                    String listado = pte.getListadoEvoluciones();
+                                    int cantidad = pte.getCantidadEvoluciones();
+                                    int opcion = IO.opcionSelect("Historia Clínica","Seleccione la evolución a ver:\n\n"+listado+"\n0. Atrás",cantidad);
+                                    String texto = pte.getEvolucion(opcion-1);
+                                    JOptionPane.showMessageDialog(null,texto,"Evolución "+opcion,1);
+                                    atras3 = true;
+                                }
+                            }  
+                        }
+                        
                     } while (!atras3);
                 default:
                     break;

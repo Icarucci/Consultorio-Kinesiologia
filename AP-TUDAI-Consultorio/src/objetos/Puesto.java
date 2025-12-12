@@ -115,4 +115,8 @@ public class Puesto {
         }
         return ausentes+"\n---------------------------------"+presentes+"\n---------------------------------"+futuros;
     }
+    @Override
+    public String toString(){
+        return puestoNumero+" - "+nombre;
+    }
 }

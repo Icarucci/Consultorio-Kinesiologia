@@ -12,7 +12,7 @@ public class ViewProfesional {
     public static void opcionMenuProfesionales(Institucion inst){
         boolean atras = false;
         do {
-            int opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1. Agregar nuevo Profesional\n2. Listar Profesionales\n3. Editar Profesional\n4. Visualizar Profesional\n0. Atras", 4);
+            int opcionMenuProfesionales = IO.opcionSelect("Profesionales", "1. Agregar nuevo Profesional\n2. Seleccionar Profesional\n3. Listar Profesionales\n4. Editar Profesional\n5. Visualizar Profesional\n0. Atras", 4);
             switch (opcionMenuProfesionales) {
                 case 0:
                     atras = true;
@@ -36,11 +36,62 @@ public class ViewProfesional {
                     }
                     break;
                 case 2:
+                    /*Seleccionar Profesional */
+                    boolean atras2 = false;
+                        do {
+                            int opcion = IO.opcionSelect("Buscar profesional","1. Buscar por DNI\n2. Buscar por apellido\n3. Buscar por matrícula\n0. Atras",3);
+                            switch (opcion) {
+                                case 0:
+                                    atras2 = true;
+                                    break;
+                                case 1:
+                                    String dni = IO.inputString("Busqueda profesional", "Ingrese el dni del profesional:");
+                                    Profesional respuesta = inst.buscarProfesionalPorDni(dni);
+                                    if(respuesta != null){
+                                        JOptionPane.showMessageDialog(null, respuesta.toString(),"Profesional: ",1);
+                                    }else{
+                                        /*No se encontro profesional*/
+                                        JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
+                                    }
+                                    break;
+                                case 2:
+                                    String apellidoBuscado = IO.inputString("Busqueda profesional", "Ingrese el apellido del profesional");
+                                    Profesional[] res = inst.buscarProfesionalApellido(apellidoBuscado);
+                                    if(res.length != 0){
+                                        /*Mostrar encontrados Tengo que elegir cual*/
+                                        String muestra="";
+                                        for(int i=0;i<res.length;i++){
+                                            muestra+= (i+1)+" - "+res[i].vistaReducida()+"\n";
+                                        }
+                                        int seleccionado = IO.opcionSelect("Seleccion de Profesional", muestra+"\n0.Atras", res.length);
+                                        Profesional elegido = res[seleccionado-1];
+                                        JOptionPane.showMessageDialog(null, elegido.toString(),"Profesional: ",1);
+                                    }else{
+                                        /*No se encontro profesional*/
+                                        JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
+                                    }
+                                    break;
+                                case 3:
+                                    int matriculaBuscada = IO.inputIntegerPositive("Busqueda profesional", "Ingrese la matricula del profesional");
+                                    Profesional ans = inst.buscarProfesionalMatricula(matriculaBuscada);
+                                    if(ans != null){
+                                        JOptionPane.showMessageDialog(null, ans.toString(),"Profesional: ",1);
+                                    }else{
+                                        /*No se encontro profesional*/
+                                        JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } while (!atras2);
+                    break;
+                case 3:
                     /*Listar profesionales */
                     String res = inst.mostrarProfesionales();
                     JOptionPane.showMessageDialog(null,res,"Listado Profesionales",1);
                     break;
-                case 3:
+                case 4:
                     /*Edicion de un profesional */
                     String dni = IO.inputString("Busqueda Profesional", inst.mostrarProfesionales()+"\n\nIngrese el dni del profesional:");
                     Profesional respuesta = inst.buscarProfesionalPorDni(dni);
@@ -76,13 +127,13 @@ public class ViewProfesional {
                         JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
                     }
                     break;
-                case 4:
-                    boolean atras2 = false;
+                case 5:
+                    boolean atras3 = false;
                         do {
                             int opcion = IO.opcionSelect("Buscar Profesional","1. Buscar por DNI\n2. Buscar por apellido\n3. Buscar por matricula\n0. Atras",3);
                             switch (opcion) {
                                 case 0:
-                                    atras2 = true;
+                                    atras3 = true;
                                     break;
                                 case 1:
                                     String ident = IO.inputString("Busqueda Profesional", "Ingrese el dni del profesional:");
@@ -117,7 +168,7 @@ public class ViewProfesional {
                                 default:
                                     break;
                             }
-                        } while (!atras2);
+                        } while (!atras3);
                     break;
                 default:
                     break;
