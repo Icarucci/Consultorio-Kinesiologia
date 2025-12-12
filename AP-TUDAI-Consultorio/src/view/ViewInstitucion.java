@@ -12,7 +12,7 @@ public class ViewInstitucion {
      public static void opcionMenuFinanzas(Institucion inst){
         boolean atras = false;
         do {
-           int opcionMenuFinanzas = IO.opcionSelect("Institucion", "1. Gastos mensuales\n2. Comprobantes\n3. Nombre de la institucion\n4.Valor turno\n5.Puestos\n0. Atras", 5);
+           int opcionMenuFinanzas = IO.opcionSelect("Institucion", "1. Gastos mensuales\n2. Comprobantes\n3. Nombre de la institucion\n4.Valor turno\n5. Coeficiente Sueldo Especialista\n6.Puestos\n0. Atras", 5);
            switch (opcionMenuFinanzas) {
                 case 0:
                     atras = true;
@@ -37,7 +37,7 @@ public class ViewInstitucion {
                                         case 1:
                                             Double gastoActualizado = IO.inputDoublePositive("Actualizar gastos fijos", "Ingrese el nuevo monto:");
                                             inst.setCostoFijo(gastoActualizado);
-                                            JOptionPane.showMessageDialog(null, "Nuevo monto fijo mensual: $"+String.valueOf(inst.getCostoFijo()), "Gastos fijos", opcionMenuGastosFijos);        
+                                            JOptionPane.showMessageDialog(null, "Nuevo monto fijo mensual: $"+inst.getCostoFijo(), "Gastos fijos", opcionMenuGastosFijos);        
                                             break;
                                         default:
                                             break;
@@ -94,11 +94,29 @@ public class ViewInstitucion {
                     inst.setValorTurno(valor);
                 case 5:
                     boolean atras3 = false;
+                    do {    
+                        int opcionMenuCoefEsp = IO.opcionSelect("Coeficiente sueldo", "El coeficiente actual para calculo de sueldo del especialista es: "+inst.getCoefEspecialista()+"\n\nSeleccione una opcion:\n1. Modificar Coeficiente\n0. Atras", 2);
+                        switch (opcionMenuCoefEsp) {
+                            case 0:
+                                atras3=true;
+                                break;
+                            case 1:
+                                Double nuevoCoef = IO.inputDoublePositive("Modificar Coeficiente Sueldo Especialista", "Ingrese el nuevo coeficiente:");
+                                inst.setCoefEspecialista(nuevoCoef);
+                                JOptionPane.showMessageDialog(null, "El nuevo coeficiente es: "+inst.getCoefEspecialista(), "Cambio de Coeficiente", 1);
+                                break;
+                            default:
+                                break;
+                        }    
+                    } while (!atras3);
+                    break;
+                case 6:
+                    boolean atras4 = false;
                     do {
                         int op = IO.opcionSelect("Puestos", "1. Listar puestos\n2.Crear puesto\n0.Atras",2);
                         switch (op) {
                             case 0:
-                                atras3=true;
+                                atras4=true;
                                 break;
                             case 1:
                                 JOptionPane.showMessageDialog(null,inst.showPuestos(),"Puestos laborales",1);
@@ -111,7 +129,7 @@ public class ViewInstitucion {
                             default:
                                 break;
                         }
-                    } while (!atras3);
+                    } while (!atras4);
                     
                     break;
                 default:
