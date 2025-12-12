@@ -143,7 +143,22 @@ public class IO {
         } while (!condicion);
         return resultado;
     }
-
+    public static String stringCancelable(String titulo, String mensaje){
+        boolean condicion = false;
+        String resultado ="";
+        do {
+            resultado = JOptionPane.showInputDialog(null,mensaje,titulo,1);
+            if(resultado == null){
+                return null;
+            }
+            if(resultado.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Upppppsss Campo vacio!","Error",0);
+            }else{
+                condicion = true;
+            }    
+        } while (!condicion);
+        return resultado;
+    }
      /**
      * METODO PARA GESTIONAR DESDE LA CLASE UTILITARIA EL INGRESO DE LOCALDATES
      * @param titulo

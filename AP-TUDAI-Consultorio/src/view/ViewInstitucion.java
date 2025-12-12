@@ -4,14 +4,15 @@ import javax.swing.JOptionPane;
 import objetos.Comprobante;
 import objetos.Institucion;
 import objetos.Profesional;
+import objetos.Puesto;
 import utils.IO;
 
-public class ViewFinanzas {
+public class ViewInstitucion {
     
      public static void opcionMenuFinanzas(Institucion inst){
         boolean atras = false;
         do {
-           int opcionMenuFinanzas = IO.opcionSelect("Institucion", "1. Gastos mensuales\n2. Comprobantes\n3. Nombre de la institucion\n4.Valor turno\n0. Atras", 4);
+           int opcionMenuFinanzas = IO.opcionSelect("Institucion", "1. Gastos mensuales\n2. Comprobantes\n3. Nombre de la institucion\n4.Valor turno\n5.Puestos\n0. Atras", 5);
            switch (opcionMenuFinanzas) {
                 case 0:
                     atras = true;
@@ -91,6 +92,28 @@ public class ViewFinanzas {
                 case 4:
                     Double valor = IO.inputDoublePositive("Valor del Turno", "Ingrese el nuevo importe("+inst.getValorTurno()+"): ");
                     inst.setValorTurno(valor);
+                case 5:
+                    boolean atras3 = false;
+                    do {
+                        int op = IO.opcionSelect("Puestos", "1. Listar puestos\n2.Crear puesto\n0.Atras",2);
+                        switch (op) {
+                            case 0:
+                                atras3=true;
+                                break;
+                            case 1:
+                                JOptionPane.showMessageDialog(null,inst.showPuestos(),"Puestos laborales",1);
+                                break;
+                            case 2:
+                                String name = IO.inputString("Nuevo puesto", "Ingrese nombre");
+                                Puesto newPuesto = new Puesto(name);
+                                inst.addPuesto(newPuesto);
+                                break;
+                            default:
+                                break;
+                        }
+                    } while (!atras3);
+                    
+                    break;
                 default:
                     break;
            }

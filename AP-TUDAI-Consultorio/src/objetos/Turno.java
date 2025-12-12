@@ -132,6 +132,6 @@ public class Turno {
 
     @Override
     public String toString(){
-        return "Turno: "+fecha.toString()+" Hora:"+hora+"\nPaciente:"+paciente.getApellido()+" Profesional: "+profesional.getApellido()+" Puesto: "+puestoAsignado.getNombre();
+        return "Turno: "+fecha.toString()+" Hora:"+hora+"\nPaciente: "+paciente.getApellido()+", "+paciente.getNombre()+" Profesional: "+profesional.getApellido()+" Puesto: "+puestoAsignado.getNombre();
     }
 }

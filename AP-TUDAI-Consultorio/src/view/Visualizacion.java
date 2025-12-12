@@ -31,7 +31,7 @@ public class Visualizacion {
                     ViewTurnos.opcionMenuTurnos(inst);
                     break;
                 case 4:
-                    ViewFinanzas.opcionMenuFinanzas(inst);
+                    ViewInstitucion.opcionMenuFinanzas(inst);
                     break;
                 case 0:
                     finalizar = true;
