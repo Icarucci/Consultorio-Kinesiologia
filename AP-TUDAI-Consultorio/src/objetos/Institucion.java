@@ -352,11 +352,6 @@ public class Institucion {
         }
         return retorno;
     }
-    /**
-     * Elimina al paciente del arreglo por el id
-     * @param id
-     * @return
-     */
     public boolean eliminarPacienteConIndex(String id){
         boolean resultado = false;
         boolean fin=false;
@@ -374,68 +369,13 @@ public class Institucion {
             index++;
         }
         if(i != -1){
-            pacientes = eliminarPaciente(pacientes,i);
+            pacientes = eliminar(pacientes,i);
             resultado=true;
         }
         return resultado;
     }
-    /**
-     * Disminuye la cantidad de pacientes en 1 en el arreglo
-     * @param personas
-     * @param index
-     * @return
-     */
     public Paciente[] eliminar(Paciente[]personas,int index){
         Paciente[] resultado = new Paciente[personas.length-1];
-        int j=0;
-        for(int i=0; i<personas.length;i++){
-            if(i!=index){
-                resultado[j]=personas[i];
-                j++;
-            }
-        }
-        return resultado;
-    }
-    /**
-     * Elimina al paciente del arreglo por el id
-     * @param id
-     * @return
-     */
-    public boolean eliminarProfesionalConIndex(String id){
-        boolean resultado = false;
-        boolean fin=false;
-        int index=0;
-        int i = -1;
-        while(!fin){
-            if(index<profesionales.length){
-                if(profesionales[index].getId().equals(id)){
-                    fin=true;
-                    i = index;
-                }
-            }else{
-                fin = true;
-            }
-            index++;
-        }
-        if(i != -1){
-            profesionales = eliminarProfesional(profesionales,i);
-            resultado=true;
-        }
-        return resultado;
-    }
-    public Paciente[] eliminarPaciente(Paciente[]personas,int index){
-        Paciente[] resultado = new Paciente[personas.length-1];
-        int j=0;
-        for(int i=0; i<personas.length;i++){
-            if(i!=index){
-                resultado[j]=personas[i];
-                j++;
-            }
-        }
-        return resultado;
-    }
-    public Profesional[] eliminarProfesional(Profesional[]personas,int index){
-        Profesional[] resultado = new Profesional[personas.length-1];
         int j=0;
         for(int i=0; i<personas.length;i++){
             if(i!=index){
