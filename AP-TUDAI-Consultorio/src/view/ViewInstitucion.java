@@ -145,8 +145,12 @@ public class ViewInstitucion {
                                 break;
                             case 2:
                                 String name = IO.inputString("Nuevo puesto", "Ingrese nombre");
-                                Puesto newPuesto = new Puesto(name);
-                                inst.addPuesto(newPuesto);
+                                if(name != null){
+                                    Puesto newPuesto = new Puesto(name);
+                                    inst.addPuesto(newPuesto);
+                                }else{
+                                    JOptionPane.showMessageDialog(null, "Carga cancelada","Cancelado",2);
+                                }
                                 break;
                             default:
                                 break;
