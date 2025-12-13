@@ -171,9 +171,18 @@ public class ViewPacientes {
                             int nuevoNumero = IO.editarCampoInteger(numero, "Telefono");
                             respuesta.setTelefono(nuevoNumero);
                             /*Edicion Sesiones */
-                            numero = respuesta.getSesionesTotales();
-                            nuevoNumero = IO.editarCampoInteger(numero, "Sesiones");
-                            respuesta.setSesionesTotales(nuevoNumero);
+                            boolean sesiones = false;
+                            int nuevoNumeroSesiones=0;
+                            do {
+                                numero = respuesta.getSesionesTotales();
+                                nuevoNumeroSesiones = IO.editarCampoInteger(numero, "Sesiones(Remanentes: "+respuesta.getSesionesRemanentes()+")");
+                                if(respuesta.getSesionesRemanentes()<=nuevoNumeroSesiones){
+                                    sesiones = true;
+                                }else{
+                                    JOptionPane.showMessageDialog(null, "No puede ingresarse un numero menor a las sesiones remanentes.","Error",0);
+                                }
+                            } while (!sesiones);
+                            respuesta.setSesionesTotales(nuevoNumeroSesiones);
                             /*Edicion cronico */
                             boolean estado = IO.inputCharBoolean("Paciente", "Es cronico");
                             respuesta.setCronico(estado);
