@@ -100,12 +100,6 @@ public class Institucion {
         if (pte == null){
             return false;
         } 
-        //Valida si hay otro usuario con mismo por DNI
-        for (int i = 0; i < pacientes.length; i++) {
-            if (pacientes[i].getId().equals(pte.getId())) {
-                return false;
-            }
-        }
         //Si no hay otro paciente con mismo dni, agrega al paciente
         Paciente[] auxiliar = new Paciente[pacientes.length+1];
         Persona [] resultado = agregarPersona(pacientes, pte);
@@ -115,6 +109,25 @@ public class Institucion {
         pacientes = auxiliar;
         return true;
     }
+    public boolean validaIdPaciente(String id){
+        //Valida si hay otro usuario con mismo por DNI
+        for (int i = 0; i < pacientes.length; i++) {
+            if (pacientes[i].getId().equals(id)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean validaIdProfesional(String id){
+        //Valida si hay otro usuario con mismo por DNI
+        for (int i = 0; i < profesionales.length; i++) {
+            if (profesionales[i].getId().equals(id)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     /**
      * Agrega un profesional al arreglo de profesionales
      * @param profesional

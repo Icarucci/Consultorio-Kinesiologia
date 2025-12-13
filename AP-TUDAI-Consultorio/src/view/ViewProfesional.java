@@ -19,20 +19,38 @@ public class ViewProfesional {
                     break;
                 case 1:
                     String id = IO.inputString("Profesional", "Ingrese el DNI");
-                    String nombre =  IO.inputString("Profesional", "Ingrese nombre");
-                    String apellido = IO.inputString("Profesional", "Ingrese apellido");
-                    String direccion = IO.inputString("Profesional", "Ingrese direccion");
-                    int telefono = IO.inputIntegerPositive("Profesional", "Ingrese el telefono");
-                    int matricula = IO.inputIntegerPositive("Profesional", "Ingrese la matricula");
-                    Profesional prof = new Profesional(id, nombre, apellido, direccion, telefono, matricula);
-                    //Lo agrega al arreglo
-                    boolean agregado = inst.agregarProfesional(prof);
-                    //Checkeo si se pudo agregar
-                    if (agregado) {
-                        JOptionPane.showMessageDialog(null, "Profesional registrado correctamente.\n\n"+prof.toString());   
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se pudo registrar el profesional.\n"+
-                        "Lista llena o datos duplicados (DNI / Matrícula).","Error",JOptionPane.WARNING_MESSAGE);
+                    if(id != null && inst.validaIdProfesional(id)){
+                        int matricula = IO.inputIntegerPositive("Profesional", "Ingrese la matricula");
+                        String nombre =  IO.inputString("Profesional", "Ingrese nombre");
+                        if(nombre != null){
+                            String apellido = IO.inputString("Profesional", "Ingrese apellido");
+                            if(apellido != null){
+                                String direccion = IO.inputString("Profesional", "Ingrese direccion");
+                                if(direccion != null){
+                                    int telefono = IO.inputIntegerPositive("Profesional", "Ingrese el telefono");
+                                    Profesional prof = new Profesional(id, nombre, apellido, direccion, telefono, matricula);
+                                    //Lo agrega al arreglo
+                                    boolean agregado = inst.agregarProfesional(prof);
+                                    //Checkeo si se pudo agregar
+                                    if (agregado) {
+                                        JOptionPane.showMessageDialog(null, "Profesional registrado correctamente.\n\n"+prof.toString());   
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "No se pudo registrar el profesional.\n"+
+                                        "Lista llena o datos duplicados (DNI / Matrícula).","Error",JOptionPane.WARNING_MESSAGE);
+                                    }
+                                }else{
+                                    JOptionPane.showMessageDialog(null, "Carga cancelada","Cancelado",2);
+                                }
+                            }else{
+                                JOptionPane.showMessageDialog(null, "Carga cancelada","Cancelado",2);
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Carga cancelada","Cancelado",2);
+                        }
+                    }else if(id != null){
+                        JOptionPane.showMessageDialog(null, "Dni duplicado","Cancelado",2);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Carga cancelada","Cancelado",2);
                     }
                     break;
                 case 2:
@@ -46,29 +64,37 @@ public class ViewProfesional {
                                     break;
                                 case 1:
                                     String dni = IO.inputString("Busqueda profesional", "Ingrese el dni del profesional:");
-                                    Profesional respuesta = inst.buscarProfesionalPorDni(dni);
-                                    if(respuesta != null){
-                                        JOptionPane.showMessageDialog(null, respuesta.toString(),"Profesional: ",1);
+                                    if(dni != null){
+                                        Profesional respuesta = inst.buscarProfesionalPorDni(dni);
+                                        if(respuesta != null){
+                                            JOptionPane.showMessageDialog(null, respuesta.toString(),"Profesional: ",1);
+                                        }else{
+                                            /*No se encontro profesional*/
+                                            JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
+                                        }
                                     }else{
-                                        /*No se encontro profesional*/
-                                        JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
-                                    }
+                                        JOptionPane.showMessageDialog(null, "Proceso cancelado","Cancelado",2);
+                                    }    
                                     break;
                                 case 2:
                                     String apellidoBuscado = IO.inputString("Busqueda profesional", "Ingrese el apellido del profesional");
-                                    Profesional[] res = inst.buscarProfesionalApellido(apellidoBuscado);
-                                    if(res.length != 0){
-                                        /*Mostrar encontrados Tengo que elegir cual*/
-                                        String muestra="";
-                                        for(int i=0;i<res.length;i++){
-                                            muestra+= (i+1)+" - "+res[i].vistaReducida()+"\n";
+                                    if(apellidoBuscado != null){
+                                        Profesional[] res = inst.buscarProfesionalApellido(apellidoBuscado);
+                                        if(res.length != 0){
+                                            /*Mostrar encontrados Tengo que elegir cual*/
+                                            String muestra="";
+                                            for(int i=0;i<res.length;i++){
+                                                muestra+= (i+1)+" - "+res[i].vistaReducida()+"\n";
+                                            }
+                                            int seleccionado = IO.opcionSelect("Seleccion de Profesional", muestra+"\n0.Atras", res.length);
+                                            Profesional elegido = res[seleccionado-1];
+                                            JOptionPane.showMessageDialog(null, elegido.toString(),"Profesional: ",1);
+                                        }else{
+                                            /*No se encontro profesional*/
+                                            JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
                                         }
-                                        int seleccionado = IO.opcionSelect("Seleccion de Profesional", muestra+"\n0.Atras", res.length);
-                                        Profesional elegido = res[seleccionado-1];
-                                        JOptionPane.showMessageDialog(null, elegido.toString(),"Profesional: ",1);
                                     }else{
-                                        /*No se encontro profesional*/
-                                        JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
+                                        JOptionPane.showMessageDialog(null, "Proceso cancelado","Cancelado",2);
                                     }
                                     break;
                                 case 3:
@@ -94,50 +120,58 @@ public class ViewProfesional {
                 case 4:
                     /*Edicion de un profesional */
                     String dni = IO.inputString("Busqueda Profesional", inst.mostrarProfesionales()+"\n\nIngrese el dni del profesional:");
-                    Profesional respuesta = inst.buscarProfesionalPorDni(dni);
-                    if(respuesta != null){
-                        /*Mostrar encontrado */
-                        JOptionPane.showMessageDialog(null, respuesta.toString());
-                        /*Edicion ID */
-                        String texto = respuesta.getId();
-                        String nuevo = IO.editarCampoString(texto, "ID");
-                        respuesta.setId(nuevo);
-                        /*Edicion Apellido */
-                        texto = respuesta.getApellido();
-                        nuevo = IO.editarCampoString(texto,"Apellido");
-                        respuesta.setApellido(nuevo);
-                        /*Edicion Nombre */
-                        texto = respuesta.getNombre();
-                        nuevo = IO.editarCampoString(texto,"Nombre");
-                        respuesta.setNombre(nuevo);
-                        /*Edicion direccion */
-                        texto = respuesta.getDireccion();
-                        nuevo = IO.editarCampoString(texto, "Direccion");
-                        respuesta.setDireccion(nuevo);
-                        /*Edicion telefono */
-                        int numero = respuesta.getTelefono();
-                        int nuevoNumero = IO.editarCampoInteger(numero, "Telefono");
-                        respuesta.setTelefono(nuevoNumero);
-                        /*Edicion matricula */
-                        int mat = respuesta.getMatricula();
-                        int nuevaMat = IO.editarCampoInteger(mat, "Matricula");
-                        respuesta.setMatricula(nuevaMat);
+                    if(dni != null){
+                         Profesional respuesta = inst.buscarProfesionalPorDni(dni);
+                        if(respuesta != null){
+                            /*Mostrar encontrado */
+                            JOptionPane.showMessageDialog(null, respuesta.toString());
+                            /*Edicion ID */
+                            String texto = respuesta.getId();
+                            String nuevo = IO.editarCampoString(texto, "ID");
+                            respuesta.setId(nuevo);
+                            /*Edicion Apellido */
+                            texto = respuesta.getApellido();
+                            nuevo = IO.editarCampoString(texto,"Apellido");
+                            respuesta.setApellido(nuevo);
+                            /*Edicion Nombre */
+                            texto = respuesta.getNombre();
+                            nuevo = IO.editarCampoString(texto,"Nombre");
+                            respuesta.setNombre(nuevo);
+                            /*Edicion direccion */
+                            texto = respuesta.getDireccion();
+                            nuevo = IO.editarCampoString(texto, "Direccion");
+                            respuesta.setDireccion(nuevo);
+                            /*Edicion telefono */
+                            int numero = respuesta.getTelefono();
+                            int nuevoNumero = IO.editarCampoInteger(numero, "Telefono");
+                            respuesta.setTelefono(nuevoNumero);
+                            /*Edicion matricula */
+                            int mat = respuesta.getMatricula();
+                            int nuevaMat = IO.editarCampoInteger(mat, "Matricula");
+                            respuesta.setMatricula(nuevaMat);
+                        }else{
+                            /*No se encontro paciente*/
+                            JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
+                        }
                     }else{
-                        /*No se encontro paciente*/
-                        JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
-                    }
+                        JOptionPane.showMessageDialog(null, "Proceso cancelado","Cancelado",2);
+                    }                   
                     break;
                 
                 case 5:
                     /*Eliminar Profesional */
                     String profesionales = inst.mostrarProfesionales();
                     String ident = IO.inputString("Eliminar Profesional", profesionales+"\nIngrese dni del profesional a eliminar");
-                    boolean response = inst.eliminarProfesionalConIndex(ident);
-                    if(response){
-                        JOptionPane.showMessageDialog(null, "Profesional eliminado con exito","Eliminado",2);
+                    if(ident != null){
+                        boolean response = inst.eliminarProfesionalConIndex(ident);
+                        if(response){
+                            JOptionPane.showMessageDialog(null, "Profesional eliminado con exito","Eliminado",2);
+                        }else{
+                            JOptionPane.showMessageDialog(null, "No se encontro el profesional","Error",0);
+                        }
                     }else{
-                        JOptionPane.showMessageDialog(null, "No se encontro el profesional","Error",0);
-                    }
+                        JOptionPane.showMessageDialog(null, "Proceso cancelado","Cancelado",2);
+                    }                    
                     break;
                 default:
                     break;

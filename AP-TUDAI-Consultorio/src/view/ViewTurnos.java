@@ -39,36 +39,40 @@ public class ViewTurnos {
                         /*Busco profesional */
                         if(paciente.getSesionesRemanentes() != 0){
                             String profBuscado = IO.inputString("Seleccion Profesional", "Listado\n"+inst.mostrarProfesionales()+"\nIngrese el dni:");
-                            Profesional profesional = inst.buscarProfesionalPorDni(profBuscado);
-                            if(profesional != null){
-                                /*Selecciono la fecha */
-                                LocalDate fecha = IO.inputLocaldate("Fecha", "Seleccione fecha");
-                                if(!fecha.isBefore(LocalDate.now())){
-                                    Hora hora = IO.inputHora("Horario", "Ingrese horario del turno de 9 a 18hs");
-                                    int index = IO.inputIntegerPositiveLimite("Seleccion del Puesto", "1.Camilla 1\n2.Camilla 2\n3. Bicicleta\n4.Gimnasio 1\n5.Gimnasio 2",5); 
-                                    Puesto puesto = inst.getPuesto(index-1);
-                                    /*Validaciones*/
-                                    /*El paciente debe validar que no tiene turno ese dia */
-                                    boolean validacionPaciente = paciente.validacion(fecha);
-                                    /*El profesional debe validar que no tiene otro turno ese dia a esa hora */
-                                    boolean validacionProfesional = profesional.validacion(fecha,hora);
-                                    /*El puesto debe validar que ese dia a esa hora esta libre */
-                                    boolean validacionPuesto = puesto.validacion(fecha,hora);
-                                    if(!validacionPaciente){
-                                        JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el paciente: "+paciente.getApellido()+", "+paciente.getNombre()+" ya posee un turno este dia: "+fecha.toString(),"Error",0);
-                                    }else if (!validacionProfesional) {
-                                        JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el profesional: "+profesional.getApellido()+", "+profesional.getNombre()+"tiene ese turno ocupado","Error",0);
-                                    }else if (!validacionPuesto){
-                                        JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el puesto: "+puesto.getPuestoNumero()+"."+puesto.getNombre()+" Se encuentra ocupado.","Error",0);
+                            if(profBuscado != null){
+                                Profesional profesional = inst.buscarProfesionalPorDni(profBuscado);
+                                if(profesional != null){
+                                    /*Selecciono la fecha */
+                                    LocalDate fecha = IO.inputLocaldate("Fecha", "Seleccione fecha");
+                                    if(!fecha.isBefore(LocalDate.now())){
+                                        Hora hora = IO.inputHora("Horario", "Ingrese horario del turno de 9 a 18hs");
+                                        int index = IO.inputIntegerPositiveLimite("Seleccion del Puesto", "1.Camilla 1\n2.Camilla 2\n3. Bicicleta\n4.Gimnasio 1\n5.Gimnasio 2",5); 
+                                        Puesto puesto = inst.getPuesto(index-1);
+                                        /*Validaciones*/
+                                        /*El paciente debe validar que no tiene turno ese dia */
+                                        boolean validacionPaciente = paciente.validacion(fecha);
+                                        /*El profesional debe validar que no tiene otro turno ese dia a esa hora */
+                                        boolean validacionProfesional = profesional.validacion(fecha,hora);
+                                        /*El puesto debe validar que ese dia a esa hora esta libre */
+                                        boolean validacionPuesto = puesto.validacion(fecha,hora);
+                                        if(!validacionPaciente){
+                                            JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el paciente: "+paciente.getApellido()+", "+paciente.getNombre()+" ya posee un turno este dia: "+fecha.toString(),"Error",0);
+                                        }else if (!validacionProfesional) {
+                                            JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el profesional: "+profesional.getApellido()+", "+profesional.getNombre()+"tiene ese turno ocupado","Error",0);
+                                        }else if (!validacionPuesto){
+                                            JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el puesto: "+puesto.getPuestoNumero()+"."+puesto.getNombre()+" Se encuentra ocupado.","Error",0);
+                                        }else{
+                                            Turno nuevoTurno = new Turno(puesto,paciente,profesional,fecha,hora);
+                                            inst.agregarTurno(nuevoTurno);
+                                        }
                                     }else{
-                                        Turno nuevoTurno = new Turno(puesto,paciente,profesional,fecha,hora);
-                                        inst.agregarTurno(nuevoTurno);
+                                        JOptionPane.showMessageDialog(null, "No puede seleccionarse una fecha previa al dia actual","Error",0);
                                     }
                                 }else{
-                                    JOptionPane.showMessageDialog(null, "No puede seleccionarse una fecha previa al dia actual","Error",0);
+                                    JOptionPane.showMessageDialog(null, "Profesional con dni: "+profBuscado+" no encontrado","Error",0);
                                 }
                             }else{
-                                JOptionPane.showMessageDialog(null, "Profesional con dni: "+profBuscado+" no encontrado","Error",0);
+                                JOptionPane.showMessageDialog(null, "Proceso cancelado","Cancelado",2);
                             }
                         }else{
                             JOptionPane.showMessageDialog(null, "El paciente no posee mas sesiones","Error",0);
@@ -122,6 +126,9 @@ public class ViewTurnos {
                                     turnoSeleccionado.profesionalCobra();
                                     //Evolucionamos en la HC el turno al dar el presente
                                     String msj = IO.inputString("EVOLUCION","Ingrese la evolucion del paciente:");
+                                    if(msj != null){
+                                        msj = "----";
+                                    }
                                     Evolucion evo = new Evolucion(LocalDate.now(), msj, turnoSeleccionado.getProfesional());
                                     turnoSeleccionado.getPaciente().agregarEvolucion(evo);
                                     //Ahora mostramos la evolucion
@@ -173,24 +180,33 @@ public class ViewTurnos {
      */
     public static void viewTurnosPaciente(Institucion inst){
         String pac = IO.inputString("Seleccion Paciente", "Listado:\n"+inst.mostrarPacientes()+"\nIngrese el dni:");
-        Paciente paciente = inst.buscarPacientePorDni(pac);
-         if(paciente==null){
-            JOptionPane.showMessageDialog(null, "No existe paciente con dni: "+pac,"Error",0);
+        if(pac != null){
+            Paciente paciente = inst.buscarPacientePorDni(pac);
+            if(paciente==null){
+                JOptionPane.showMessageDialog(null, "No existe paciente con dni: "+pac,"Error",0);
+            }else{
+                JOptionPane.showMessageDialog(null, paciente.showTurnos(),"Turnos de "+paciente.getApellido()+", "+paciente.getNombre(),1);
+            }
         }else{
-            JOptionPane.showMessageDialog(null, paciente.showTurnos(),"Turnos de "+paciente.getApellido()+", "+paciente.getNombre(),1);
+            JOptionPane.showMessageDialog(null, "Proceso cancelado","Cancelado",2);
         }
+        
     }
     /**
      * VISUALIZACION DE LOS TURNOS POR PROFESIONAL
      */
     public static void viewTurnosProfesional(Institucion inst){
         String profBuscado = IO.inputString("Seleccion Profesional", "Listado\n"+inst.mostrarProfesionales()+"\nIngrese el dni:");
-        Profesional profesional = inst.buscarProfesionalPorDni(profBuscado);
-         if(profesional==null){
-            JOptionPane.showMessageDialog(null, "No existe profesional con dni: "+profBuscado,"Error",0);
+        if(profBuscado != null){
+            Profesional profesional = inst.buscarProfesionalPorDni(profBuscado);
+            if(profesional==null){
+                JOptionPane.showMessageDialog(null, "No existe profesional con dni: "+profBuscado,"Error",0);
+            }else{
+            JOptionPane.showMessageDialog(null, profesional.showTurnos(),"Turnos de "+profesional.getApellido()+", "+profesional.getNombre(),1);
+            }
         }else{
-        JOptionPane.showMessageDialog(null, profesional.showTurnos(),"Turnos de "+profesional.getApellido()+", "+profesional.getNombre(),1);
-        }
+            JOptionPane.showMessageDialog(null, "Proceso cancelado","Cancelado",2);
+        }        
     }
     /**
      * VISUALIZACION DE LOS TURNOS POR PUESTO
