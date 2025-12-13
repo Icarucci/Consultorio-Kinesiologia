@@ -1,6 +1,9 @@
 package view;
 
 import javax.swing.JOptionPane;
+
+import objetos.Especialidad;
+import objetos.Especialista;
 import objetos.Institucion;
 import objetos.Profesional;
 import utils.IO;
@@ -21,31 +24,50 @@ public class ViewProfesional {
                     String id = IO.inputString("Profesional", "Ingrese el DNI");
                     if(id != null && inst.validaIdProfesional(id)){
                         int matricula = IO.inputIntegerPositive("Profesional", "Ingrese la matricula");
-                        String nombre =  IO.inputString("Profesional", "Ingrese nombre");
-                        if(nombre != null){
-                            String apellido = IO.inputString("Profesional", "Ingrese apellido");
-                            if(apellido != null){
-                                String direccion = IO.inputString("Profesional", "Ingrese direccion");
-                                if(direccion != null){
-                                    int telefono = IO.inputIntegerPositive("Profesional", "Ingrese el telefono");
-                                    Profesional prof = new Profesional(id, nombre, apellido, direccion, telefono, matricula);
-                                    //Lo agrega al arreglo
-                                    boolean agregado = inst.agregarProfesional(prof);
-                                    //Checkeo si se pudo agregar
-                                    if (agregado) {
-                                        JOptionPane.showMessageDialog(null, "Profesional registrado correctamente.\n\n"+prof.toString());   
-                                    } else {
-                                        JOptionPane.showMessageDialog(null, "No se pudo registrar el profesional.\n"+
-                                        "Lista llena o datos duplicados (DNI / Matrícula).","Error",JOptionPane.WARNING_MESSAGE);
+                        if(matricula != 0 && inst.validaMatriculaProfesional(matricula)){
+                            String nombre =  IO.inputString("Profesional", "Ingrese nombre");
+                            if(nombre != null){
+                                String apellido = IO.inputString("Profesional", "Ingrese apellido");
+                                if(apellido != null){
+                                    String direccion = IO.inputString("Profesional", "Ingrese direccion");
+                                    if(direccion != null){
+                                        int telefono = IO.inputIntegerPositive("Profesional", "Ingrese el telefono");
+                                        int esProf = JOptionPane.showConfirmDialog(null,"¿El profesional tiene especialidad?","Especialidad",0,3);
+                                        if (esProf == -1) {
+                                            JOptionPane.showMessageDialog(null, "Carga cancelada", "Cancelado", 2);
+                                        }
+                                        Profesional prof = null;
+                                        if(esProf == 0){
+                                        Especialidad especialidad = (Especialidad) JOptionPane.showInputDialog(null,"Seleccione la especialidad del profesional:","Especialidad",JOptionPane.QUESTION_MESSAGE,null,Especialidad.values(),Especialidad.values()[0]);
+                                            if(especialidad != null){
+                                                    prof = new Especialista(id, nombre, apellido, direccion, telefono, matricula, especialidad);
+                                            } else if (especialidad == null){
+                                                    JOptionPane.showMessageDialog(null, "Carga cancelada", "Cancelado", 2);  
+                                            }
+                                        } else if (esProf == 1){
+                                            prof = new Profesional(id, nombre, apellido, direccion, telefono, matricula);
+                                        }                                    
+                                        //Lo agrega al arreglo
+                                        boolean agregado = inst.agregarProfesional(prof);
+                                        //Checkeo si se pudo agregar
+                                        if (agregado) {
+                                            JOptionPane.showMessageDialog(null, "Profesional registrado correctamente.\n\n"+prof.toString());   
+                                        } else {
+                                            JOptionPane.showMessageDialog(null, "No se pudo registrar el profesional.","Error",JOptionPane.WARNING_MESSAGE);
+                                        }
+                                    }else{
+                                        JOptionPane.showMessageDialog(null, "Carga cancelada","Cancelado",2);
                                     }
                                 }else{
                                     JOptionPane.showMessageDialog(null, "Carga cancelada","Cancelado",2);
                                 }
                             }else{
                                 JOptionPane.showMessageDialog(null, "Carga cancelada","Cancelado",2);
-                            }
-                        }else{
+                            } 
+                        } else if (matricula == 0){
                             JOptionPane.showMessageDialog(null, "Carga cancelada","Cancelado",2);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Matrícula duplicada", "Cancelado", 2);
                         }
                     }else if(id != null){
                         JOptionPane.showMessageDialog(null, "Dni duplicado","Cancelado",2);

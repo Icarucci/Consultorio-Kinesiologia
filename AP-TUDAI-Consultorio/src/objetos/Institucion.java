@@ -145,6 +145,16 @@ public class Institucion {
         }
         return true;
     }
+
+    public boolean validaMatriculaProfesional(int matricula){
+        //Valida si hay otro usuario con la misma matricula
+        for (int i = 0; i < profesionales.length; i++) {
+            if (profesionales[i].getMatricula() == matricula) {
+                return false;
+            }
+        }
+        return true;
+    }
     
     /**
      * Agrega un profesional al arreglo de profesionales
