@@ -46,8 +46,9 @@ public class ViewTurnos {
                                     LocalDate fecha = IO.inputLocaldate("Fecha", "Seleccione fecha");
                                     if(!fecha.isBefore(LocalDate.now())){
                                         Hora hora = IO.inputHora("Horario", "Ingrese horario del turno de 9 a 18hs");
-                                        int index = IO.inputIntegerPositiveLimite("Seleccion del Puesto", "1.Camilla 1\n2.Camilla 2\n3. Bicicleta\n4.Gimnasio 1\n5.Gimnasio 2",5); 
-                                        Puesto puesto = inst.getPuesto(index-1);
+                                        String puestos = inst.showPuestos();
+                                        int index = IO.inputIntegerPositiveLimite("Seleccion del Puesto",puestos+"\nSeleccione puesto:",inst.cantidadPuestos()); 
+                                        Puesto puesto = inst.getPuesto(index);
                                         /*Validaciones*/
                                         /*El paciente debe validar que no tiene turno ese dia */
                                         boolean validacionPaciente = paciente.validacion(fecha);
@@ -114,35 +115,40 @@ public class ViewTurnos {
                     }else{
                         boolean back2 = false;   
                         do {
-                            int seleccion = IO.opcionSelect("Seleccion de Turno", inst.showTurnosDisponibles()+"\n0. Atras",inst.cantidadTurnos());
+                            String viewTurnos = inst.showTurnos();
+                            int seleccion = IO.inputIntegerPositiveZero("Turnos", viewTurnos+"\n\n0.Atras\nSeleccione un turno: ");
                             if(seleccion == 0){
-                                back2 = true;
+                                back2=true;
                             }else{
-                                Turno turnoSeleccionado = inst.getTurno(seleccion-1);
-                                int confirmacion = IO.inputIntegerPositiveLimite("Turno", turnoSeleccionado.toString()+"\nConfirma asistencia:\n1.Si\n2.No", 2);
-                                if(confirmacion == 1){
-                                    turnoSeleccionado.setAsistencia(1);
-                                    turnoSeleccionado.pacienteAsistio();
-                                    turnoSeleccionado.profesionalCobra();
-                                    //Evolucionamos en la HC el turno al dar el presente
-                                    String msj = IO.inputString("EVOLUCION","Ingrese la evolucion del paciente:");
-                                    if(msj != null){
-                                        msj = "----";
-                                    }
-                                    Evolucion evo = new Evolucion(LocalDate.now(), msj, turnoSeleccionado.getProfesional());
-                                    turnoSeleccionado.getPaciente().agregarEvolucion(evo);
-                                    //Ahora mostramos la evolucion
-                                    int indexEvo = turnoSeleccionado.getPaciente().getCantidadEvoluciones()-1;
-                                    String texto = turnoSeleccionado.getPaciente().getEvolucion(indexEvo);
-                                    if (texto == null) {
-                                        JOptionPane.showMessageDialog(null, "No se pudo obtener la evolución solicitada.");
-                                    } else {
-                                        JOptionPane.showMessageDialog(null, texto, "Evolucion generada con exito", 1);
+                                Turno turnoSeleccionado = inst.getTurno(seleccion);
+                                if(turnoSeleccionado != null){
+                                    int confirmacion = IO.inputIntegerPositiveLimite("Turno", turnoSeleccionado.toString()+"\nConfirma asistencia:\n1.Si\n2.No", 2);
+                                    if(confirmacion == 1){
+                                        turnoSeleccionado.setAsistencia(1);
+                                        turnoSeleccionado.pacienteAsistio();
+                                        turnoSeleccionado.profesionalCobra();
+                                        //Evolucionamos en la HC el turno al dar el presente
+                                        String msj = IO.inputString("EVOLUCION","Ingrese la evolucion del paciente:");
+                                        if(msj != null){
+                                            msj = "----";
+                                        }
+                                        Evolucion evo = new Evolucion(LocalDate.now(), msj, turnoSeleccionado.getProfesional());
+                                        turnoSeleccionado.getPaciente().agregarEvolucion(evo);
+                                        //Ahora mostramos la evolucion
+                                        int indexEvo = turnoSeleccionado.getPaciente().getCantidadEvoluciones()-1;
+                                        String texto = turnoSeleccionado.getPaciente().getEvolucion(indexEvo);
+                                        if (texto == null) {
+                                            JOptionPane.showMessageDialog(null, "No se pudo obtener la evolución solicitada.");
+                                        } else {
+                                            JOptionPane.showMessageDialog(null, texto, "Evolucion generada con exito", 1);
+                                        }
+                                    }else{
+                                        turnoSeleccionado.setAsistencia(-1);
+                                        turnoSeleccionado.pacienteAsistio();
+                                        turnoSeleccionado.profesionalCobra();
                                     }
                                 }else{
-                                    turnoSeleccionado.setAsistencia(-1);
-                                    turnoSeleccionado.pacienteAsistio();
-                                    turnoSeleccionado.profesionalCobra();
+                                    JOptionPane.showMessageDialog(null, "Turno inexistente","Cancelado",2);
                                 }
                             }
                         } while (!back2);
@@ -155,11 +161,12 @@ public class ViewTurnos {
                     }else{
                         boolean back3 = false;   
                         do {
-                            int seleccion = IO.opcionSelect("Cancelar Turno",inst.showTurnosDisponibles(), inst.cantidadTurnosVigentes());
+                            String vista = inst.showTurnos();
+                            int seleccion = IO.inputIntegerPositiveZero("Turnos", vista+"\nSelecciones turno a cancelar");
                             if(seleccion == 0){
                                 back3 = true;
                             }else{
-                                Turno turnoSeleccionado = inst.getTurno(seleccion-1);
+                                Turno turnoSeleccionado = inst.getTurno(seleccion);
                                 /**Se elimina el turno del paciente - de la institucion -del puesto y del profesional.**/
                                 turnoSeleccionado.getPaciente().eliminarTurnoId(turnoSeleccionado.getTurnoId());
                                 turnoSeleccionado.getPaciente().recuperarTurno();

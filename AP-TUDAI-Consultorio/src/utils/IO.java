@@ -60,7 +60,33 @@ public class IO {
         } while (!condicion);
         return retorno;
     }
-
+     /**
+     * METODO PARA E INGRESO DE UN ENTERO POSITIVO O CERO
+     * @param titulo
+     * @param mensaje
+     * @return entero positivo o cero
+     */
+    public static int inputIntegerPositiveZero(String titulo,String mensaje){
+        boolean condicion = false;
+        int retorno = 0;
+        do { 
+            try {
+                retorno = Integer.parseInt(JOptionPane.showInputDialog(null,mensaje,titulo,1));
+                if(retorno>=0){
+                    condicion = true;
+                }else{
+                    JOptionPane.showMessageDialog(null, "Valor ingresado no valido","Error",0);
+                }
+            } catch (Exception e) {
+                if(e.getMessage().equals("Cannot parse null string")){
+                    return 0;
+                }else{
+                    JOptionPane.showMessageDialog(null,"Error en el ingreso","Error",0);
+                }
+            }
+        } while (!condicion);
+        return retorno;
+    }
     public static int inputIntegerPositiveLimite(String titulo,String mensaje,int limite){
         boolean condicion = false;
         int retorno = 0;

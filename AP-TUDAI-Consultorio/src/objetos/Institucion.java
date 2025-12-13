@@ -86,10 +86,28 @@ public class Institucion {
      * @param index
      * @return puesto de indice index
      */
-    public Puesto getPuesto(int index){
-        return puestos[index];
+    public Puesto getPuesto(int id){
+        for(int i=0;i<puestos.length;i++){
+            if(puestos[i].getPuestoNumero()==id){
+                return puestos[i];
+            }
+        }
+        return null;
     }
-  
+    public void eliminarPuesto(int id){
+        Puesto[] nuevo = new Puesto[puestos.length-1];
+        int contador=0;
+        for(int i=0;i<puestos.length;i++){
+            if(puestos[i].getPuestoNumero()!=id){
+                nuevo[contador]= puestos[i];
+                contador++;
+            }
+        }
+        puestos = nuevo;
+    }
+    public int cantidadPuestos(){
+        return puestos.length;
+    }
     /**
      * Agrega un paciente al arreglo de pacientes
      * @param paciente
@@ -479,12 +497,17 @@ public class Institucion {
         return res;
     }
     /**
-     * Retorna un turno a partir de su index
+     * Retorna un turno a partir de su id
      * @param index
      * @return Turno
      */
-    public Turno getTurno(int index){
-        return turnos[index];
+    public Turno getTurno(int turnoId){
+        for(int i=0;i<turnos.length;i++){
+            if(turnos[i].getTurnoId() == turnoId){
+                return turnos[i];
+            }
+        }
+        return null;
     }
     /**
      * Retorna un entero representando la cantidad total de turnos
