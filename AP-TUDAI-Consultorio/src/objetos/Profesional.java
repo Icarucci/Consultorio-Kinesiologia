@@ -88,10 +88,16 @@ public class Profesional extends Persona {
             return valorTurno*getTurnosTrabajados();
     }
 
+    public String toStringProf(){
+        return getApellido()+", "+getNombre()+" | DNI: "+getId()+" | Matricula: "+getMatricula();
+    }
+
     //Metodo Mostrar Profesional
     @Override
     public String toString() {
         return  "PROFESIONAL\n" +super.toString()+
                 "\nMatrícula: " + matricula;
     }
+
+
 }

@@ -33,6 +33,11 @@ public class Especialista extends Profesional{
     }
 
     @Override
+    public String toStringProf(){
+        return super.toStringProf()+" | Especialidad: "+getEspecialidad();
+    }
+
+    @Override
     public String toString(){
         return super.toString()+ "\nEspecialidad: "+especialidad;
     }
