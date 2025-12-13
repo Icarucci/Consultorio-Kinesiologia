@@ -38,8 +38,12 @@ public class ViewInstitucion {
                                             break;
                                         case 1:
                                             Double gastoActualizado = IO.inputDoublePositive("Actualizar gastos fijos", "Ingrese el nuevo monto:");
-                                            inst.setCostoFijo(gastoActualizado);
-                                            JOptionPane.showMessageDialog(null, "Nuevo monto fijo mensual: $"+inst.getCostoFijo(), "Gastos fijos", opcionMenuGastosFijos);        
+                                            if (gastoActualizado == null) {
+                                                break;
+                                            } else {
+                                                inst.setCostoFijo(gastoActualizado);
+                                                JOptionPane.showMessageDialog(null, "Nuevo monto fijo mensual: $"+inst.getCostoFijo(), "Gastos fijos", opcionMenuGastosFijos);         
+                                            }
                                             break;
                                         default:
                                             break;
@@ -97,7 +101,12 @@ public class ViewInstitucion {
                 case 4:
                     //EDITAR VALOR DEL TURNO
                     Double valor = IO.inputDoublePositive("Valor del Turno", "Ingrese el nuevo importe("+inst.getValorTurno()+"): ");
-                    inst.setValorTurno(valor);
+                    if(valor == null){
+                        break;
+                    } else {
+                        inst.setValorTurno(valor);
+                        JOptionPane.showMessageDialog(null, "El nuevo valor del turno es de $ "+inst.getValorTurno(), "Actualización de valor", 1);
+                    }
                     break;
                 case 5:
                     //EDITAR VALOR DEL COEFICIENTE SUELDO ESPECIALISTA
@@ -110,8 +119,12 @@ public class ViewInstitucion {
                                 break;
                             case 1:
                                 Double nuevoCoef = IO.inputDoublePositive("Modificar Coeficiente Sueldo Especialista", "Ingrese el nuevo coeficiente:");
-                                inst.setCoefEspecialista(nuevoCoef);
-                                JOptionPane.showMessageDialog(null, "El nuevo coeficiente es: "+inst.getCoefEspecialista(), "Cambio de Coeficiente", 1);
+                                if(nuevoCoef == null){
+                                    break;
+                                } else {
+                                    inst.setCoefEspecialista(nuevoCoef);
+                                    JOptionPane.showMessageDialog(null, "El nuevo coeficiente es: "+inst.getCoefEspecialista(), "Cambio de Coeficiente", 1);
+                                }
                                 break;
                             default:
                                 break;

@@ -104,19 +104,25 @@ public class IO {
      * @param mensaje
      * @return double positivo
      */
-    public static double inputDoublePositive(String titulo,String mensaje){
+    public static Double inputDoublePositive(String titulo, String mensaje){
         boolean condicion = false;
-        double retorno = 0;
-        do { 
+        Double retorno = null;
+        do {
+            String input = JOptionPane.showInputDialog(null, mensaje, titulo, 1);
+            //Si se cancela se genera un null, y lo retorna
+            if (input == null) {
+                return null;
+            }
+            //Si no es null, lo parsea y se trabaja
             try {
-                retorno = Double.parseDouble(JOptionPane.showInputDialog(null,mensaje,titulo,1));
-                if(retorno>=0){
+                retorno = Double.parseDouble(input);
+                if (retorno >= 0) {
                     condicion = true;
-                }else{
-                    JOptionPane.showMessageDialog(null, "Valor ingresado no valido","Error",0);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Valor ingresado no válido", "Error", 0);
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,"Error en el ingreso","Error",0);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Error en el ingreso", "Error", 0);
             }
         } while (!condicion);
         return retorno;
