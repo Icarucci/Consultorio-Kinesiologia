@@ -89,14 +89,18 @@ public class ViewPacientes {
                                     if(apellidoBuscado != null){
                                         Paciente[] res = inst.buscarPacienteApellido(apellidoBuscado);
                                         if(res.length != 0){
-                                            /*Mostrar encontrados Tengo que elegir cual*/
+                                            /*Mostrar encontrados*/
                                             String muestra="";
                                             for(int i=0;i<res.length;i++){
                                                 muestra+= (i+1)+" - "+res[i].vistaReducida()+"\n";
                                             }
                                             int seleccionado = IO.opcionSelect("Seleccion de paciente", muestra+"\n0.Atras", res.length);
-                                            Paciente elegido = res[seleccionado-1];
-                                            addSesiones(elegido);
+                                            if(seleccionado == 0){
+                                                JOptionPane.showMessageDialog(null, "Proceso cancelado","Cancelado",2);
+                                            }else{
+                                                Paciente elegido = res[seleccionado-1];
+                                                addSesiones(elegido);
+                                            }                                            
                                         }else{
                                             /*No se encontro paciente*/
                                             JOptionPane.showMessageDialog(null, "No se encontraron pacientes","Error",0);
