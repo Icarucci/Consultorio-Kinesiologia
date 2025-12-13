@@ -45,7 +45,11 @@ public class ViewTurnos {
                                     /*Selecciono la fecha */
                                     LocalDate fecha = IO.inputLocaldate("Fecha", "Seleccione fecha");
                                     if(!fecha.isBefore(LocalDate.now())){
-                                        Hora hora = IO.inputHora("Horario", "Ingrese horario del turno de 9 a 18hs");
+                                        Hora hora = (Hora) JOptionPane.showInputDialog(null,"Seleccione el horario del turno:","Horario",3,null,Hora.values(),Hora.values()[0]);
+                                        if (hora == null) {
+                                            JOptionPane.showMessageDialog(null, "Proceso cancelada", "Cancelado", 2);
+                                            break;
+                                        }
                                         String puestos = inst.showPuestos();
                                         int index = IO.inputIntegerPositiveLimite("Seleccion del Puesto",puestos+"\nSeleccione puesto:",inst.cantidadPuestos()); 
                                         Puesto puesto = inst.getPuesto(index);
@@ -65,6 +69,7 @@ public class ViewTurnos {
                                         }else{
                                             Turno nuevoTurno = new Turno(puesto,paciente,profesional,fecha,hora);
                                             inst.agregarTurno(nuevoTurno);
+                                            JOptionPane.showMessageDialog(null, "Turno cargado con exito.", "Turno cargado", 1);
                                         }
                                     }else{
                                         JOptionPane.showMessageDialog(null, "No puede seleccionarse una fecha previa al dia actual","Error",0);
