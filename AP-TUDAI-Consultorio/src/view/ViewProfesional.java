@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.JOptionPane;
-
 import objetos.Especialidad;
 import objetos.Especialista;
 import objetos.Institucion;
@@ -120,13 +119,17 @@ public class ViewProfesional {
                                     }
                                     break;
                                 case 3:
-                                    int matriculaBuscada = IO.inputIntegerPositive("Busqueda profesional", "Ingrese la matricula del profesional");
-                                    Profesional ans = inst.buscarProfesionalMatricula(matriculaBuscada);
-                                    if(ans != null){
-                                        JOptionPane.showMessageDialog(null, ans.toString(),"Profesional: ",1);
+                                    int matriculaBuscada = IO.inputIntegerPositiveZero("Busqueda profesional", "Ingrese la matricula del profesional");
+                                    if(matriculaBuscada==0){
+                                        JOptionPane.showMessageDialog(null, "Proceso cancelado","Cancelado",2);
                                     }else{
-                                        /*No se encontro profesional*/
-                                        JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
+                                        Profesional ans = inst.buscarProfesionalMatricula(matriculaBuscada);
+                                        if(ans != null){
+                                            JOptionPane.showMessageDialog(null, ans.toString(),"Profesional: ",1);
+                                        }else{
+                                            /*No se encontro profesional*/
+                                            JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);
+                                        }
                                     }
                                     break;
                                 default:
