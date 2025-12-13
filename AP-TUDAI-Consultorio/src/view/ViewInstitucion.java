@@ -135,15 +135,17 @@ public class ViewInstitucion {
                     //MENU PUESTOS
                     boolean atras4 = false;
                     do {
-                        int op = IO.opcionSelect("Puestos", "1. Listar puestos\n2.Crear puesto\n0.Atras",2);
+                        int op = IO.opcionSelect("Puestos", "1. Listar puestos\n2.Crear puesto\n3.Editar puesto\n4.Eliminar puesto\n0.Atras",4);
                         switch (op) {
                             case 0:
                                 atras4=true;
                                 break;
                             case 1:
+                                /*Listado de puestos */
                                 JOptionPane.showMessageDialog(null,inst.showPuestos(),"Puestos laborales",1);
                                 break;
                             case 2:
+                                /*Creacion de un puesto laboral */
                                 String name = IO.inputString("Nuevo puesto", "Ingrese nombre");
                                 if(name != null){
                                     Puesto newPuesto = new Puesto(name);
@@ -151,6 +153,20 @@ public class ViewInstitucion {
                                 }else{
                                     JOptionPane.showMessageDialog(null, "Carga cancelada","Cancelado",2);
                                 }
+                                break;
+                            case 3:
+                                /*Editar un puesto */
+                                String posts = inst.showPuestos();
+                                int idPost = IO.inputIntegerPositiveZero("Puesto", posts+"\nSeleccione el puesto a editar: ");
+                                Puesto pp = inst.getPuesto(idPost);
+                                String nuevoNombre = IO.editarCampoString(pp.getNombre(),"Nombre");
+                                pp.setNombre(nuevoNombre);
+                                break;
+                            case 4:
+                                /*Eliminar un puesto */
+                                String puestos = inst.showPuestos();
+                                int identPuesto = IO.inputIntegerPositiveZero("Puesto", puestos+"\nSeleccione el puesto a eliminar: ");
+                                inst.eliminarPuesto(identPuesto);
                                 break;
                             default:
                                 break;

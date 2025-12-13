@@ -10,9 +10,7 @@ import objetos.Turno;
 import view.Visualizacion;
 
 public class App {
-    public static void main(String[] args) throws Exception {
-
-   
+    public static void main(String[] args) throws Exception {  
         //Inicializamos la institucion
         Institucion delta = new Institucion("\u0394 Delta", 1750000);
         Visualizacion view = new Visualizacion(delta);
