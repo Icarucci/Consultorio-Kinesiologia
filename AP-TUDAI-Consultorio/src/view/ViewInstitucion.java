@@ -98,6 +98,7 @@ public class ViewInstitucion {
                     //EDITAR VALOR DEL TURNO
                     Double valor = IO.inputDoublePositive("Valor del Turno", "Ingrese el nuevo importe("+inst.getValorTurno()+"): ");
                     inst.setValorTurno(valor);
+                    break;
                 case 5:
                     //EDITAR VALOR DEL COEFICIENTE SUELDO ESPECIALISTA
                     boolean atras3 = false;
