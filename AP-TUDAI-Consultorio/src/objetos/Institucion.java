@@ -94,6 +94,7 @@ public class Institucion {
         }
         return null;
     }
+    
     public void eliminarPuesto(int id){
         Puesto[] nuevo = new Puesto[puestos.length-1];
         int contador=0;
@@ -104,7 +105,15 @@ public class Institucion {
             }
         }
         puestos = nuevo;
+        renumerarPuestos();
     }
+
+    private void renumerarPuestos() {
+        for (int i = 0; i < puestos.length; i++) {
+            puestos[i].setPuestoNumero(i + 1);
+        }
+    }
+
     public int cantidadPuestos(){
         return puestos.length;
     }

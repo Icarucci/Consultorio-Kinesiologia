@@ -157,7 +157,10 @@ public class ViewInstitucion {
                             case 3:
                                 /*Editar un puesto */
                                 String posts = inst.showPuestos();
-                                int idPost = IO.inputIntegerPositiveZero("Puesto", posts+"\nSeleccione el puesto a editar: ");
+                                int idPost = IO.inputIntegerPositiveZero("Editar puesto", posts+"\nSeleccione el puesto a editar: ");
+                                if (idPost == 0) {
+                                    break;
+                                }
                                 Puesto pp = inst.getPuesto(idPost);
                                 String nuevoNombre = IO.editarCampoString(pp.getNombre(),"Nombre");
                                 pp.setNombre(nuevoNombre);
@@ -165,7 +168,10 @@ public class ViewInstitucion {
                             case 4:
                                 /*Eliminar un puesto */
                                 String puestos = inst.showPuestos();
-                                int identPuesto = IO.inputIntegerPositiveZero("Puesto", puestos+"\nSeleccione el puesto a eliminar: ");
+                                int identPuesto = IO.inputIntegerPositiveZero("Eliminar puesto", puestos+"\nSeleccione el puesto a eliminar: ");
+                                if (identPuesto == 0) {
+                                    break;
+                                }
                                 inst.eliminarPuesto(identPuesto);
                                 break;
                             default:

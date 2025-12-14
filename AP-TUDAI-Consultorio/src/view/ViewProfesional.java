@@ -20,6 +20,7 @@ public class ViewProfesional {
                     atras = true;
                     break;
                 case 1:
+                    //Crear profesional
                     String id = IO.inputString("Profesional", "Ingrese el DNI");
                     if(id != null && inst.validaIdProfesional(id)){
                         int matricula = IO.inputIntegerPositive("Profesional", "Ingrese la matricula");
@@ -50,9 +51,9 @@ public class ViewProfesional {
                                         boolean agregado = inst.agregarProfesional(prof);
                                         //Checkeo si se pudo agregar
                                         if (agregado) {
-                                            JOptionPane.showMessageDialog(null, "Profesional registrado correctamente.\n\n"+prof.toString());   
+                                            JOptionPane.showMessageDialog(null, "Profesional registrado correctamente.\n\n"+prof.toString(), "Carga correcta", 1);   
                                         } else {
-                                            JOptionPane.showMessageDialog(null, "No se pudo registrar el profesional.","Error",JOptionPane.WARNING_MESSAGE);
+                                            JOptionPane.showMessageDialog(null, "No se pudo registrar el profesional.","Error",0);
                                         }
                                     }else{
                                         JOptionPane.showMessageDialog(null, "Carga cancelada","Cancelado",2);
