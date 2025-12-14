@@ -184,6 +184,5 @@ public class ViewInstitucion {
                     break;
            }
         } while (!atras);
-
     }
 }

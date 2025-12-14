@@ -138,7 +138,7 @@ public class ViewTurnos {
                                         turnoSeleccionado.profesionalCobra();
                                         //Evolucionamos en la HC el turno al dar el presente
                                         String msj = IO.inputString("EVOLUCION","Ingrese la evolucion del paciente:");
-                                        if(msj != null){
+                                        if(msj == null){
                                             msj = "----";
                                         }
                                         Evolucion evo = new Evolucion(LocalDate.now(), msj, turnoSeleccionado.getProfesional());
