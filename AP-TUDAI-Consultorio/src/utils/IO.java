@@ -3,7 +3,6 @@ package utils;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import objetos.Hora;
 
 /*CLASE UTILITARIA PARA GESTIONAR LOS INPUTS Y OUTPUS */
 public class IO {
@@ -241,69 +240,7 @@ public class IO {
         } while (!condicion);
         return resultado;
     }
-    /**
-     * Metodo de ingreso de una hora
-     * @param titulo
-     * @param mensaje
-     * @return Hora
-     */
-    public static Hora inputHora(String titulo, String mensaje){
-        boolean condicion = false;
-        Hora hora = Hora.H9;
-        do {
-            try {
-                int hr = inputIntegerPositive(titulo, mensaje);
-                switch (hr) {
-                    case 9:
-                        hora = Hora.H9;
-                        condicion = true;
-                        break;
-                    case 10:
-                        hora = Hora.H10;
-                        condicion = true;
-                        break;
-                    case 11:
-                        hora = Hora.H11;
-                        condicion = true;
-                        break;
-                    case 12:
-                        hora = Hora.H12;
-                        condicion = true;
-                        break;
-                    case 13:
-                        hora = Hora.H13;
-                        condicion = true;
-                        break;
-                    case 14:
-                        hora = Hora.H14;
-                        condicion = true;
-                        break;
-                    case 15:
-                        hora = Hora.H15;
-                        condicion = true;
-                        break;
-                    case 16:
-                        hora = Hora.H16;
-                        condicion = true;
-                        break;
-                    case 17:
-                        hora = Hora.H17;
-                        condicion = true;
-                        break;
-                    case 18:
-                        hora = Hora.H18;
-                        condicion = true;
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(null, "Error en el ingreso","Error",0);
-                        break;
-                }     
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error en el ingreso","Error",0);
-            }
-        } while (!condicion);
-        return hora;
-    }
+  
 
     public static String editarCampoString(String texto,String valor){
         JTextField campo = new JTextField("");

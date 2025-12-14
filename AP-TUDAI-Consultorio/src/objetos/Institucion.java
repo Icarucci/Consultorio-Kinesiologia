@@ -466,7 +466,7 @@ public class Institucion {
     public String mostrarProfesionales(){
         String retorno = "";
         for (int index = 0; index < profesionales.length; index++){
-            retorno += profesionales[index].toStringProf()+"\n";
+            retorno += profesionales[index].vistaReducida()+"\n";
         }
         return retorno;
     }

@@ -17,7 +17,7 @@ public class Especialista extends Profesional{
     public Especialidad getEspecialidad() {
         return especialidad;
     }
-    @Override
+    
     /**
      * Setea la especialidad 
      * @param especialidad
@@ -32,10 +32,13 @@ public class Especialista extends Profesional{
             return valorTurno*getTurnosTrabajados()*coef;
             
     }
-
     @Override
-    public String toStringProf(){
-        return super.toStringProf()+" | Especialidad: "+getEspecialidad();
+    public boolean esEspecialista(){
+        return true;
+    }
+    @Override
+    public String vistaReducida(){
+        return super.vistaReducida()+" Especialidad: "+especialidad;
     }
 
     @Override

@@ -4,13 +4,10 @@ package objetos;
 
 import java.time.LocalDate;
 
-import javax.swing.JOptionPane;
-
 public class Profesional extends Persona {
     //ATRIBUTOS PRIVADOS
     private int matricula;
     private int turnosTrabajados;
-
 
     //CONSTRUCTOR
     public Profesional(String id, String nombre, String apellido, String direccion, int telefono, int matricula) {
@@ -35,6 +32,9 @@ public class Profesional extends Persona {
      */
     public void setMatricula(int matricula) {
         this.matricula = matricula;
+    }
+    public boolean esEspecialista(){
+        return false;
     }
     /**
      * Retorna la cantidad de turnos trabajados
@@ -79,41 +79,21 @@ public class Profesional extends Persona {
     }
 
     public String vistaReducida(){
-        return getApellido()+", "+getNombre()+" - "+getId()+" - "+getMatricula();
+        return getApellido()+", "+getNombre()+" - DNI: "+getId()+" - Matricula: "+getMatricula();
     }
     /**
      * CALCULAR SUELDO
      * @return
      */
-        public double getSueldo(double valorTurno, double coef){
-            //IGNORAMOS EL COEFICIENTE YA QUE NO LO NECESITA
-            return valorTurno*getTurnosTrabajados();
+    public double getSueldo(double valorTurno, double coef){
+        //IGNORAMOS EL COEFICIENTE YA QUE NO LO NECESITA
+        return valorTurno*getTurnosTrabajados();
     }
-
-    /**
-     * Muestra pocos datos del profesional
-     * @return
-     */
-    public String toStringProf(){
-        return getApellido()+", "+getNombre()+" | DNI: "+getId()+" | Matricula: "+getMatricula();
-    }
-
-    /**
-     * Sirve para poder editar la especialidad del especialista con override ya que profesional no posee especialidad
-     * @param especialidad
-     */
-    public void setEspecialidad(Especialidad especialidad) {
-        JOptionPane.showMessageDialog(null,"El profesional no posee especialidad.","Aviso",1);
-    }
-
-
-
+   
     //Metodo Mostrar Profesional
     @Override
     public String toString() {
         return  "PROFESIONAL\n" +super.toString()+
                 "\nMatrícula: " + matricula;
     }
-
-
 }
