@@ -163,9 +163,16 @@ public class Paciente extends Persona {
         }
         return listado;
     }
+    /**
+     * METODO QUE RETORNA LA CANTIDAD DE TURNOS QUE POSEE EL PACIENTE.
+     * @return
+     */
     public int cantidadTurnos(){
         return turnos.length;
     }
+    /**
+     * METODO QUE MODIFICA LAS SESIONES REMANENTES PARA RECUPERAR UN TURNO.
+     */
     public void recuperarTurno(){
         setSesionesRemanentes(getSesionesRemanentes()+1);
     }
