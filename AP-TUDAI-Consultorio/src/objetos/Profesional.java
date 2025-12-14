@@ -4,6 +4,8 @@ package objetos;
 
 import java.time.LocalDate;
 
+import javax.swing.JOptionPane;
+
 public class Profesional extends Persona {
     //ATRIBUTOS PRIVADOS
     private int matricula;
@@ -88,9 +90,23 @@ public class Profesional extends Persona {
             return valorTurno*getTurnosTrabajados();
     }
 
+    /**
+     * Muestra pocos datos del profesional
+     * @return
+     */
     public String toStringProf(){
         return getApellido()+", "+getNombre()+" | DNI: "+getId()+" | Matricula: "+getMatricula();
     }
+
+    /**
+     * Sirve para poder editar la especialidad del especialista con override ya que profesional no posee especialidad
+     * @param especialidad
+     */
+    public void setEspecialidad(Especialidad especialidad) {
+        JOptionPane.showMessageDialog(null,"El profesional no posee especialidad.","Aviso",1);
+    }
+
+
 
     //Metodo Mostrar Profesional
     @Override
