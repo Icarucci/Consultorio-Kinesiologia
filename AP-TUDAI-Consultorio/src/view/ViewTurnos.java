@@ -52,25 +52,29 @@ public class ViewTurnos {
                                         }
                                         String puestos = inst.showPuestos();
                                         int index = IO.inputIntegerPositiveLimite("Seleccion del Puesto",puestos+"\nSeleccione puesto:",inst.cantidadPuestos()); 
-                                        Puesto puesto = inst.getPuesto(index);
-                                        /*Validaciones*/
-                                        /*El paciente debe validar que no tiene turno ese dia */
-                                        boolean validacionPaciente = paciente.validacion(fecha);
-                                        /*El profesional debe validar que no tiene otro turno ese dia a esa hora */
-                                        boolean validacionProfesional = profesional.validacion(fecha,hora);
-                                        /*El puesto debe validar que ese dia a esa hora esta libre */
-                                        boolean validacionPuesto = puesto.validacion(fecha,hora);
-                                        if(!validacionPaciente){
-                                            JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el paciente: "+paciente.getApellido()+", "+paciente.getNombre()+" ya posee un turno este dia: "+fecha.toString(),"Error",0);
-                                        }else if (!validacionProfesional) {
-                                            JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el profesional: "+profesional.getApellido()+", "+profesional.getNombre()+"tiene ese turno ocupado","Error",0);
-                                        }else if (!validacionPuesto){
-                                            JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el puesto: "+puesto.getPuestoNumero()+"."+puesto.getNombre()+" Se encuentra ocupado.","Error",0);
+                                        if(index != 0){
+                                             Puesto puesto = inst.getPuesto(index);
+                                            /*Validaciones*/
+                                            /*El paciente debe validar que no tiene turno ese dia */
+                                            boolean validacionPaciente = paciente.validacion(fecha);
+                                            /*El profesional debe validar que no tiene otro turno ese dia a esa hora */
+                                            boolean validacionProfesional = profesional.validacion(fecha,hora);
+                                            /*El puesto debe validar que ese dia a esa hora esta libre */
+                                            boolean validacionPuesto = puesto.validacion(fecha,hora);
+                                            if(!validacionPaciente){
+                                                JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el paciente: "+paciente.getApellido()+", "+paciente.getNombre()+" ya posee un turno este dia: "+fecha.toString(),"Error",0);
+                                            }else if (!validacionProfesional) {
+                                                JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el profesional: "+profesional.getApellido()+", "+profesional.getNombre()+"tiene ese turno ocupado","Error",0);
+                                            }else if (!validacionPuesto){
+                                                JOptionPane.showMessageDialog(null, "No pudo asignarse el turno, el puesto: "+puesto.getPuestoNumero()+"."+puesto.getNombre()+" Se encuentra ocupado.","Error",0);
+                                            }else{
+                                                Turno nuevoTurno = new Turno(puesto,paciente,profesional,fecha,hora);
+                                                inst.agregarTurno(nuevoTurno);
+                                                JOptionPane.showMessageDialog(null, "Turno cargado con exito.", "Turno cargado", 1);
+                                            }
                                         }else{
-                                            Turno nuevoTurno = new Turno(puesto,paciente,profesional,fecha,hora);
-                                            inst.agregarTurno(nuevoTurno);
-                                            JOptionPane.showMessageDialog(null, "Turno cargado con exito.", "Turno cargado", 1);
-                                        }
+                                            JOptionPane.showMessageDialog(null,"Proceso cancelado","Cancelado",0);
+                                        }                                       
                                     }else{
                                         JOptionPane.showMessageDialog(null, "No puede seleccionarse una fecha previa al dia actual","Error",0);
                                     }
@@ -147,7 +151,7 @@ public class ViewTurnos {
                                         } else {
                                             JOptionPane.showMessageDialog(null, texto, "Evolucion generada con exito", 1);
                                         }
-                                    }else{
+                                    }else if(confirmacion != 0){
                                         turnoSeleccionado.setAsistencia(-1);
                                         turnoSeleccionado.pacienteAsistio();
                                         turnoSeleccionado.profesionalCobra();
@@ -225,8 +229,12 @@ public class ViewTurnos {
      */
     public static void viewTurnosPuesto(Institucion inst){
         int index = IO.inputIntegerPositiveLimite("Seleccion del Puesto", "1.Camilla 1\n2.Camilla 2\n3. Bicicleta\n4.Gimnasio 1\n5.Gimnasio 2", 5);
-        Puesto puesto = inst.getPuesto(index-1);
-        JOptionPane.showMessageDialog(null, puesto.showTurnos(),"Turnos de "+puesto.getNombre(),1);
+        if(index != 0){
+            Puesto puesto = inst.getPuesto(index);
+            JOptionPane.showMessageDialog(null, puesto.showTurnos(),"Turnos de "+puesto.getNombre(),1);
+        }else{
+            JOptionPane.showMessageDialog(null,"Proceso cancelado","Cancelado",0);
+        }
     }
     /**
      * VISUALIZACION DE LOS TURNOS TOTALES

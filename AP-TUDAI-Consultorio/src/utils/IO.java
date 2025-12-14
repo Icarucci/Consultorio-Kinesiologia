@@ -98,7 +98,11 @@ public class IO {
                     JOptionPane.showMessageDialog(null, "Valor ingresado no valido","Error",0);
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,"Error en el ingreso","Error",0);
+                if(e.getMessage().equals("Cannot parse null string")){
+                    return 0;
+                }else{
+                    JOptionPane.showMessageDialog(null,"Error en el ingreso","Error",0);
+                }
             }
         } while (!condicion);
         return retorno;
