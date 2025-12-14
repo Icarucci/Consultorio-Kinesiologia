@@ -326,6 +326,9 @@ public class IO {
         if(resName == JOptionPane.OK_OPTION){
             nuevo= Integer.parseInt(campo.getText());
         }
+        if(nuevo==0){
+            return numero;
+        }
         return nuevo;
     }
 

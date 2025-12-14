@@ -95,21 +95,19 @@ public class Persona {
         this.telefono = telefono;
     }    
     //AGENDAR NUEVO TURNO
-    public void agendarNuevoTurno(Turno tt){
-        turnos = agregarTurno(turnos, tt);
-    }
-    /* METODO QUE RECIBE UN ARREGLO DE TURNOS Y LE AGREGA UN TURNO EN UNA NUEVA POSICION.
-    * @param arreglo
+    /* METODO QUE RECIBE UN TURNO Y LE AGREGA UN TURNO EN UNA NUEVA POSICION.
+    * @param Turno tt
     * @return arreglo de Turno con una posicion mas
     */
-    public Turno[] agregarTurno(Turno[]arreglo, Turno turno){
-        Turno [] nuevo = new Turno[arreglo.length+1];
-        for(int i=0;i<arreglo.length;i++){
-            nuevo[i]=arreglo[i];
+    public void agendarNuevoTurno(Turno tt){
+        Turno [] nuevo = new Turno[turnos.length+1];
+        for(int i=0;i<turnos.length;i++){
+            nuevo[i]=turnos[i];
         }
-        nuevo[nuevo.length-1] = turno;
-        return nuevo;
+        nuevo[nuevo.length-1] = tt;
+        turnos = nuevo;
     }
+    
     /**
      * ELIMINA UN TURNO SEGUN SU ID
      * @param id
@@ -125,7 +123,10 @@ public class Persona {
         }
         turnos = nuevo;
     }
-
+    /**
+     * Metodo que retorna un String listando la informacion de los turnos.
+     * @return
+     */
     public String showTurnos(){
         if(turnos.length==0){
             String res="Sin turnos al momento";
@@ -145,7 +146,7 @@ public class Persona {
         }
         return ausentes+"\n---------------------------------"+presentes+"\n---------------------------------"+futuros;
     }
-
+    
     public String toString(){
         return  "DNI: " + getId() +
                 "\nApellido: " + getApellido()+
