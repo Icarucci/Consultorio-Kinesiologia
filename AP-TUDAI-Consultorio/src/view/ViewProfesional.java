@@ -174,6 +174,14 @@ public class ViewProfesional {
                             int mat = respuesta.getMatricula();
                             int nuevaMat = IO.editarCampoInteger(mat, "Matricula");
                             respuesta.setMatricula(nuevaMat);
+                            /*Edicion Especialidad */
+                            Especialidad nueva = (Especialidad) JOptionPane.showInputDialog(null,"Seleccione la nueva especialidad:","Especialidad",3,null,Especialidad.values(),Especialidad.values()[0]);
+                            if (nueva != null) {
+                                respuesta.setEspecialidad(nueva);
+                                JOptionPane.showMessageDialog(null, "Los datos fueron modificados con éxito","Edicion de datos",1);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "La especialidad no fue cambiada","Error",2);
+                            }
                         }else{
                             /*No se encontro paciente*/
                             JOptionPane.showMessageDialog(null, "Profesional no encontrado","Error",0);

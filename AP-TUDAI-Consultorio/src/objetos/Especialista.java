@@ -17,6 +17,7 @@ public class Especialista extends Profesional{
     public Especialidad getEspecialidad() {
         return especialidad;
     }
+    @Override
     /**
      * Setea la especialidad 
      * @param especialidad
