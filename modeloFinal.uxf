@@ -1,0 +1,231 @@
+<diagram program="umletino" version="15.1"><zoom_level>6</zoom_level><element><id>UMLClass</id><coordinates><x>198</x><y>66</y><w>138</w><h>222</h></coordinates><panel_attributes>Persona
+-
+- id: String
+- nombre: String
+- apellido: String
+- direccion: String
+- telefono: int
+# turnos: Turno[ ]
+-
+Getters &amp; Setters
+-
++ getId() : String
++ setId(String id) : void
++ getNombre(): String
++ setNombre(String nombre): void
++ getApellido(): String
++ setApellido(String apellido): void
++ getDireccion(): String
++ setDireccion(String direccion):void
++ getTelefono(): int
++ setTelefono(int telefono): void
+-
++ agendarNuevoTurno(Turno tt): void
++ eliminarTurnoId(int id): void
++ showTurnos(): String
++ toString(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>36</x><y>360</y><w>204</w><h>222</h></coordinates><panel_attributes>Paciente
+-
+- obraSocial: String
+- sesionesTotales: int
+- historiaClinica: Evolucion[ ]
+- sesionesRemanentes: int
+- cronico: boolean
+-
+Getters &amp; Setters
+-
++ getObraSocial(): String
++ setObraSocial(String obraSocial): void
++ getSesionesTotales(): int
++ setSesionesTotales(int sesionesTotales): void
++ getSesionesRemanenetes(): int
++ setSesionesRemanentes(int sesionesRemanentes): void
++ isCronico(): boolean
++ setCronico(boolean cronico): void
+-
++ agregarEvolucion(Evolucion evolucion): void
++ getEvolucion(int index): String
++ getCantidadEvoluciones(): int
++ getListadoEvoluciones(): String
++ cantidadTurnos(): int
++ recuperarTurno(): void
++ toString(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>294</x><y>360</y><w>186</w><h>150</h></coordinates><panel_attributes>Profesional
+-
+- matricula: int
+- turnosTrabajados: int
+-
+Getters &amp; Setters
+-
++ getMatricula(): int
++ setMatricula(int matricula): void
++ getTurnosTrabajados(): int
++ setTurnosTrabajados(int turnosTrabajados): void
+-
++ esEspecialista(): boolean
++ validacion(LocalDate fecha, Hora hora): boolean
++ trabajarTurno(): void
++ getSueldo(double valorTurno, double coef): double
++ vistaReducida(): String
++ toString(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>294</x><y>558</y><w>186</w><h>108</h></coordinates><panel_attributes>Especialista
+-
+- especialidad: Especialidad
+-
+Getters &amp; Setters
+-
++ getEspecialidad(): Especialidad
++ setEspecialidad(Especialidad especialidad): void
+-
++ esEspecialista(): boolean
++ getSueldo(double valorTurno, double coef): double
++ vistaReducida(): String
++ toString(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>36</x><y>642</y><w>162</w><h>114</h></coordinates><panel_attributes> Evolucion
+-
+- fecha: LocalDate
+- evolucion: String
+- profesional: Profesional
+-
+Getters &amp; Setters
+-
++ getFecha(): LocalDate
++ setFecha(LocalDate fecha): void
++ getEvolucion(): String
++ setEvolucion(String evolucion): void
++ getProfesional (): Profesional
++ setProfesional(Profesional profesional): void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>696</x><y>330</y><w>96</w><h>72</h></coordinates><panel_attributes>Comprobante
+-
+- fecha: LocalDate
+- dato: String
+-
+Getters &amp; Setters
+-
++ getFecha(): LocalDate
++ getDato(): String
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>828</x><y>66</y><w>246</w><h>672</h></coordinates><panel_attributes>Institucion
+-
+- nombre: String
+- profesionales: Profesional [ ]
+- pacientes: Paciente [ ]
+- turnos: Turno [ ]
+- puestos: Puesto [ ]
+- costoFijo: double
+- valorTurno: double
+- coefEspecialista: double
+- comprobantes: Comprobante [ ]
+-
+Getters &amp; Setters
+-
++ getNombre(): String
++ setNombre(String nombre): void
++ getValorTurno(): double
++ setValorTurno(double valorTurno): void
++ getCostoFijo(): double
++ setCostoFijo(double costoFijo): void
+-
++ addPuesto(Puesto pp): void
++ getPuesto(int id): Puesto
++ eliminarPuesto(int id): void
+- renumerarPuesto(): void
++ cantidadPuestos(): int
++ agregarPaciente(Paciente pp): boolean
++ validaIdPaciente(String id): boolean
++ validaIdProfesional(String id): boolean
++ validaMatriculaProfesional(int matricula): boolean
++ agregarProfesional(Profesional profesional): boolean
++ agregarPersona(Persona[ ] personas, Persona persona): Persona[ ]
++ ordenaPacientesId():void
++ ordenaPacienteApellido(): void
++ ordenaPacienteSesiones(): void
++ ordenaProfesionalesId(): void
++ ordenaProfesionalesApellido(): void
++ ordenaProfesionalesMatricula():void
++ ordenaPersonasID (Persona[ ]): Persona [ ]
++ showPuestos(): String
++ ordenaPersonasApellido( Persona[ ] ): Persona [ ]
++ cantProfesionales(): int
++ buscarPacientePorDni(String): Paciente
++ buscaPersonaId (Persona[ ], String): Persona
++ buscarPacienteApellido(String): Paciente[ ]
++ buscarPersonaApellido(Persona[ ], String): Persona[ ]
++ buscarProfesioanlPorDni(String): Profesional
++ buscarProfesionalApellido(String): Profesional[ ]
++ buscarProfesaionlMatricula(int): Profesional
++ mostrarPacientes(): String
++ eliminarPacienteConIndex (String): boolean
++ eliminarProfesionalConIndex(String): boolean
++ eliminarPaciente (Paciente[ ], int): Paciente[]
++ eliminarProfesional(Profesional [ ] , int): Profesional [ ]
++ mostrarProfesionales(): String
++ showTurnos(): String
++ showTurnosDisponibles(): String
++ getTurno(int ): Turno
++ cantidadTurnos(): int
++ cantidadTurnosVigentes(): int
++ getCoefEspecialista(): int
++ setCoefEspecialista(double):void
++ calculoSueldo(Profesional prof): double
++ sumaSueldos(): double
++ mostrarSueldosArreglo(): String
++ pagarSueldo(Profesional prof): void
++ getProfesionalIndex(int): Profesional
++ getGastosTotales (): double
++ generarComprobante(Profesional prof): void
++ agregarComprobante(Comprobante): void
++ mostrarComprobantesArreglo(): String
++ getCantComprobantes(): int
++ motrarComprobante(int): Comprobante
++ showArregloPersona(Persona[ ]): String
++ agregarTurno(Turno): void
++ eliminarTurno(int): void
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>150</y><w>138</w><h>162</h></coordinates><panel_attributes>Puesto
+-
+- contador: int
+- nombre: String
+- turnos: Turno[ ]
+- puestoNumero: int
+-
+Getters &amp; Setters
+-
++ getNombre(): String
++ setNombre(String): void
++ getPuestoNumero(): int
++ setNumeroPuesto(int): void
+-
++ validacion(LocalDate, Hora): boolean
++ agendarNuevoTurno(Turno): void
++ eliminarTurnoId(int): void
++ showTurnos(): String
++ toString(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>66</y><w>138</w><h>240</h></coordinates><panel_attributes>Turno
+-
+- puestoAsignado: Puesto
+- paciente: Paciente
+- profesional: Profesional
+- fecha: LocalDate
+- hora: Hora
+- asistencia: int
+- turnoId: int
+- contador: int
+-
+Getters &amp; Setters
+-
++ getPuestoAsignado (): Puesto
++ setPuestoAsignado(Puesto): void
++ getPaciente(): Paciente
++ getProfesional(): Profesional
++ getFecha(): LocalDate
++ getHora(): Hora
++ setHora (Hora): void
++ getTurnoId(): int
++ setTurnoId(int): void
++ getAsistencia(): int
++ setAsistencia(int):void
+-
++ pacienteCronico(): void
++ profesionalCobra(): void
++ toString(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>138</x><y>282</y><w>156</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>240;10;240;70;10;70;10;130</additional_attributes></element><element><id>Relation</id><coordinates><x>276</x><y>282</y><w>132</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70;200;70;200;130</additional_attributes></element><element><id>Relation</id><coordinates><x>384</x><y>504</y><w>18</w><h>66</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>522</x><y>570</y><w>60</w><h>18</h></coordinates><panel_attributes>Especialidad</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>474</x><y>570</y><w>60</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>192</x><y>576</y><w>24</w><h>114</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>20;10;20;170;10;170</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>108</y><w>132</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;200;10</additional_attributes></element><element><id>Relation</id><coordinates><x>582</x><y>90</y><w>60</w><h>108</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>80;160;30;160;30;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>786</x><y>150</y><w>54</w><h>228</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>70;10;30;10;30;360;10;360</additional_attributes></element><element><id>Relation</id><coordinates><x>762</x><y>120</y><w>78</w><h>78</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>110;10;50;10;50;110;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>582</x><y>72</y><w>258</w><h>54</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>410;70;200;70;200;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>474</x><y>378</y><w>366</w><h>78</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>590;110;80;110;80;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>468</y><w>624</w><h>228</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>1020;10;870;10;870;360;10;360;10;190</additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>78</y><w>60</w><h>18</h></coordinates><panel_attributes>Hora</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>414</x><y>84</y><w>48</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>60;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1092</x><y>0</y><w>18</w><h>810</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;1330</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1146</x><y>126</y><w>90</w><h>168</h></coordinates><panel_attributes>App</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1266</x><y>0</y><w>18</w><h>810</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;10;10;1330</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1296</x><y>168</y><w>60</w><h>90</h></coordinates><panel_attributes>Visualizacion</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1068</x><y>204</y><w>90</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>130;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1230</x><y>210</y><w>78</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;110;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1380</x><y>168</y><w>60</w><h>90</h></coordinates><panel_attributes>ViewInstitucion
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1410</x><y>42</y><w>60</w><h>90</h></coordinates><panel_attributes>ViewPacientes
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1500</x><y>168</y><w>60</w><h>90</h></coordinates><panel_attributes>ViewProfesional
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1350</x><y>210</y><w>42</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;50;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1398</x><y>126</y><w>60</w><h>54</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;70;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1434</x><y>210</y><w>78</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;110;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1416</x><y>300</y><w>60</w><h>90</h></coordinates><panel_attributes>ViewTurnos
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1404</x><y>252</y><w>48</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;60;80</additional_attributes></element></diagram>

@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.1"><zoom_level>12</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>684</x><y>108</y><w>252</w><h>288</h></coordinates><panel_attributes>Persona
+<diagram program="umletino" version="15.1"><zoom_level>7</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>539</x><y>63</y><w>147</w><h>168</h></coordinates><panel_attributes>Persona
 --
 ATRIBUTOS PRIVADOS
 -id: String
@@ -15,7 +15,7 @@ METODOS  PUBLICOS
 +setApellido(String apellido):void
 +setId(String Id):void
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>468</x><y>504</y><w>312</w><h>396</h></coordinates><panel_attributes>Paciente
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>413</x><y>294</y><w>182</w><h>231</h></coordinates><panel_attributes>Paciente
 --
 ATRIBUTOS PRIVADOS
 -obraSocial: String
@@ -37,7 +37,7 @@ METODOS  PUBLICOS
 +setId(String Id):void
 +asistioTurno(boolean asistencia):void
 +setHistoriaClinica(String comentario): void
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>852</x><y>504</y><w>336</w><h>276</h></coordinates><panel_attributes>Profesional
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>637</x><y>294</y><w>196</w><h>161</h></coordinates><panel_attributes>Profesional
 --
 ATRIBUTOS PRIVADOS
 -matricula: int
@@ -56,7 +56,7 @@ METODOS  PUBLICOS
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>792</x><y>384</y><w>228</w><h>144</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50;170;50;170;100</additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>384</y><w>228</w><h>144</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>170;10;170;50;10;50;10;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1260</x><y>204</y><w>300</w><h>516</h></coordinates><panel_attributes>Turno
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>602</x><y>224</y><w>133</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50;170;50;170;100</additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>224</y><w>133</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>170;10;170;50;10;50;10;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>875</x><y>119</y><w>175</w><h>301</h></coordinates><panel_attributes>Turno
 --
 ATRIBUTOS PRIVADOS
 
@@ -80,7 +80,7 @@ METODOS PUBLICOS
 +setPuestoAsignado(Puesto puesto): void
 --
 +addPaciente(Paciente pp):boolean
-+isFull():boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1176</x><y>264</y><w>108</w><h>420</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>70;10;30;10;30;330;10;330</additional_attributes></element><element><id>Relation</id><coordinates><x>768</x><y>240</y><w>516</w><h>360</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>410;10;270;10;270;200;40;200;40;280;10;280</additional_attributes></element><element><id>UMLClass</id><coordinates><x>852</x><y>840</y><w>336</w><h>276</h></coordinates><panel_attributes>Especialista
++isFull():boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>826</x><y>154</y><w>63</w><h>245</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>70;10;30;10;30;330;10;330</additional_attributes></element><element><id>Relation</id><coordinates><x>588</x><y>140</y><w>301</w><h>210</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>410;10;270;10;270;200;40;200;40;280;10;280</additional_attributes></element><element><id>UMLClass</id><coordinates><x>637</x><y>490</y><w>196</w><h>161</h></coordinates><panel_attributes>Especialista
 --
 ATRIBUTOS PRIVADOS
 -especialidad: Enum String
@@ -94,7 +94,7 @@ METODOS  PUBLICOS
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1356</x><y>852</y><w>120</w><h>36</h></coordinates><panel_attributes>RPG</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1356</x><y>900</y><w>120</w><h>36</h></coordinates><panel_attributes>ATM</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1356</x><y>948</y><w>120</w><h>36</h></coordinates><panel_attributes>Drenaje Linfatico</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1176</x><y>864</y><w>204</w><h>36</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1176</x><y>912</y><w>204</w><h>36</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1176</x><y>948</y><w>204</w><h>36</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>996</x><y>768</y><w>36</w><h>96</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>204</y><w>252</w><h>432</h></coordinates><panel_attributes>Institucion
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>931</x><y>497</y><w>70</w><h>21</h></coordinates><panel_attributes>RPG</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>931</x><y>525</y><w>70</w><h>21</h></coordinates><panel_attributes>ATM</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>931</x><y>553</y><w>70</w><h>21</h></coordinates><panel_attributes>Drenaje Linfatico</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>826</x><y>504</y><w>119</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>826</x><y>532</y><w>119</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>826</x><y>553</y><w>119</w><h>21</h></coordinates><panel_attributes>lt=&lt;..</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>721</x><y>448</y><w>21</w><h>56</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>119</y><w>147</w><h>252</h></coordinates><panel_attributes>Institucion
 --
 -nombre:String
 -profesionales:Profesional [ ]
@@ -123,7 +123,7 @@ los sueldos de los profesionales*/
 +setCostoFijo(double): void
 +setCalendario(Calendario):void
  
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>276</y><w>636</w><h>696</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;40;10;40;560;470;560;470;320;510;320</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>252</y><w>252</w><h>348</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;60;10;60;270;190;270</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>0</y><w>1164</w><h>240</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;180;60;180;60;10;950;10;950;170</additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>108</y><w>252</w><h>228</h></coordinates><panel_attributes>Puesto
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>161</y><w>371</w><h>406</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;40;10;40;560;470;560;470;320;510;320</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>147</y><w>147</w><h>203</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;60;10;60;270;190;270</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>0</y><w>679</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;180;60;180;60;10;950;10;950;170</additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>63</y><w>147</w><h>133</h></coordinates><panel_attributes>Puesto
 --
 +static nroPuesto: int
 -ocupado: boolean
@@ -132,4 +132,4 @@ los sueldos de los profesionales*/
 +isOcupado(): boolean
 
 +setOcupado(boolean): void
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>60</y><w>684</w><h>192</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>550;140;480;140;480;10;40;10;40;100;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>228</y><w>144</w><h>36</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;100;10</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>35</y><w>399</w><h>112</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>550;140;480;140;480;10;40;10;40;100;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>133</y><w>84</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;100;10</additional_attributes></element></diagram>
